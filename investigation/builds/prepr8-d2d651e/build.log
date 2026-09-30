@@ -1,0 +1,130 @@
+[  1%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_cryp_aes.c.obj
+[  3%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_adc.c.obj
+[  5%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/misc.c.obj
+[  8%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_dbgmcu.c.obj
+[  8%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_cec.c.obj
+[ 11%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_dcmi.c.obj
+[ 10%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_crc.c.obj
+[ 18%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_cryp_tdes.c.obj
+[ 18%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_cryp_des.c.obj
+[ 18%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_dac.c.obj
+[ 13%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_cryp.c.obj
+[ 20%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_flash.c.obj
+[ 21%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_fmpi2c.c.obj
+[ 23%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_dma2d.c.obj
+[ 25%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_dsi.c.obj
+[ 28%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_can.c.obj
+[ 28%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_flash_ramfunc.c.obj
+[ 30%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_hash_md5.c.obj
+[ 31%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_hash.c.obj
+[ 35%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_gpio.c.obj
+[ 35%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_exti.c.obj
+[ 36%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_dma.c.obj
+[ 38%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_hash_sha1.c.obj
+[ 40%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_i2c.c.obj
+[ 41%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_iwdg.c.obj
+[ 43%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_lptim.c.obj
+[ 45%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_ltdc.c.obj
+[ 46%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_qspi.c.obj
+[ 48%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_pwr.c.obj
+[ 50%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_rcc.c.obj
+[ 53%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_rtc.c.obj
+[ 53%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_rng.c.obj
+[ 55%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_sai.c.obj
+[ 56%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_spdifrx.c.obj
+[ 58%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_syscfg.c.obj
+[ 60%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_spi.c.obj
+[ 61%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_sdio.c.obj
+[ 63%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_tim.c.obj
+[ 66%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_wwdg.c.obj
+[ 66%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_usart.c.obj
+[ 68%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/pure_virtual.c.obj
+[ 70%] Building C object libs/STM32F4xx_StdPeriph_Driver/CMakeFiles/stm32f4xx.dir/src/stm32f4xx_fmc.c.obj
+[ 71%] Linking C static library libstm32f4xx.a
+[ 71%] Built target stm32f4xx
+[ 73%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_bemf.c.obj
+[ 76%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_spi.c.obj
+[ 75%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_motor.c.obj
+[ 78%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_adc.c.obj
+[ 81%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_servo.c.obj
+[ 81%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_i2c.c.obj
+[ 83%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/system_stm32f4xx.c.obj
+[ 86%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_dig.c.obj
+[ 86%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/main.c.obj
+[ 88%] Building ASM object Firmware/CMakeFiles/wombat.elf.dir/startup_stm32f427_437xx.s.obj
+[ 91%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_init.c.obj
+[ 91%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_uart.c.obj
+[ 95%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_pid.c.obj
+[ 93%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby.c.obj
+[ 96%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_dma.c.obj
+[ 98%] Building C object Firmware/CMakeFiles/wombat.elf.dir/src/wallaby_imu.c.obj
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_imu.c: In function 'setupIMU':
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_imu.c:158:13: warning: unused variable 'buff' [-Wunused-variable]
+  158 |     uint8_t buff[3];
+      |             ^~~~
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby.c: In function 'debug_printf':
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby.c:17:47: warning: control reaches end of non-void function [-Wreturn-type]
+   17 |     int debug_printf(const char *format, ...){}
+      |                                               ^
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_imu.c: In function 'readMag':
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_imu.c:396:14: warning: unused variable 'int2' [-Wunused-variable]
+  396 |     uint32_t int2 = ACCEL_INT2_PORT->IDR & ACCEL_INT2;
+      |              ^~~~
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_imu.c:395:14: warning: unused variable 'int1' [-Wunused-variable]
+  395 |     uint32_t int1 = ACCEL_INT1_PORT->IDR & ACCEL_INT1;
+      |              ^~~~
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_imu.c: In function 'readGyro':
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_imu.c:508:14: warning: unused variable 'gyro_data_ready' [-Wunused-variable]
+  508 |     uint32_t gyro_data_ready = GYRO_DATA_READY_PORT->IDR & GYRO_DATA_READY;
+      |              ^~~~~~~~~~~~~~~
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/system_stm32f4xx.c: In function 'SetSysClock':
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/system_stm32f4xx.c:760:5: warning: this 'while' clause does not guard... [-Wmisleading-indentation]
+  760 |     while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS ) != RCC_CFGR_SWS_PLL);
+      |     ^~~~~
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/system_stm32f4xx.c:761:5: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'while'
+  761 |     {
+      |     ^
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_i2c.c: In function 'i2c1_test':
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_i2c.c:139:46: warning: unsigned conversion from 'int' to 'uint8_t' {aka 'unsigned char'} changes value from '320' to '64' [-Woverflow]
+  139 |                 I2C_start(I2C1, SLAVE_ADDRESS<<1, I2C_Direction_Transmitter); // start a transmission in Master transmitter mode
+      |                                 ~~~~~~~~~~~~~^~~
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_i2c.c:144:46: warning: unsigned conversion from 'int' to 'uint8_t' {aka 'unsigned char'} changes value from '320' to '64' [-Woverflow]
+  144 |                 I2C_start(I2C1, SLAVE_ADDRESS<<1, I2C_Direction_Receiver); // start a transmission in Master receiver mode
+      |                                 ~~~~~~~~~~~~~^~~
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_uart.c: In function 'uart3_demo':
+/var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/builds/prepr8-d2d651e/src/Firmware/src/wallaby_uart.c:39:19: warning: unused variable 'rd' [-Wunused-variable]
+   39 |     unsigned char rd = USART_ReceiveData(USART3);
+      |                   ^~
+[100%] Linking C executable wombat.elf
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-closer.o): in function `_close_r':
+/build/reproducible-path/newlib-4.5.0.20241231/build_nano/arm-none-eabi/thumb/v7e-m+fp/hard/newlib/../../../../../../newlib/libc/reent/closer.c:47:(.text+0xc): warning: _close is not implemented and will always fail
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-closer.o): note: the message above does not take linker garbage collection into account
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-fstatr.o): in function `_fstat_r':
+/build/reproducible-path/newlib-4.5.0.20241231/build_nano/arm-none-eabi/thumb/v7e-m+fp/hard/newlib/../../../../../../newlib/libc/reent/fstatr.c:55:(.text+0x12): warning: _fstat is not implemented and will always fail
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-fstatr.o): note: the message above does not take linker garbage collection into account
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-signalr.o): in function `_getpid_r':
+/build/reproducible-path/newlib-4.5.0.20241231/build_nano/arm-none-eabi/thumb/v7e-m+fp/hard/newlib/../../../../../../newlib/libc/reent/signalr.c:83:(.text+0x2c): warning: _getpid is not implemented and will always fail
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-signalr.o): note: the message above does not take linker garbage collection into account
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-isattyr.o): in function `_isatty_r':
+/build/reproducible-path/newlib-4.5.0.20241231/build_nano/arm-none-eabi/thumb/v7e-m+fp/hard/newlib/../../../../../../newlib/libc/reent/isattyr.c:52:(.text+0xc): warning: _isatty is not implemented and will always fail
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-isattyr.o): note: the message above does not take linker garbage collection into account
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-signalr.o): in function `_kill_r':
+/build/reproducible-path/newlib-4.5.0.20241231/build_nano/arm-none-eabi/thumb/v7e-m+fp/hard/newlib/../../../../../../newlib/libc/reent/signalr.c:53:(.text+0x12): warning: _kill is not implemented and will always fail
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-signalr.o): note: the message above does not take linker garbage collection into account
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lseekr.o): in function `_lseek_r':
+/build/reproducible-path/newlib-4.5.0.20241231/build_nano/arm-none-eabi/thumb/v7e-m+fp/hard/newlib/../../../../../../newlib/libc/reent/lseekr.c:49:(.text+0x14): warning: _lseek is not implemented and will always fail
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lseekr.o): note: the message above does not take linker garbage collection into account
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-readr.o): in function `_read_r':
+/build/reproducible-path/newlib-4.5.0.20241231/build_nano/arm-none-eabi/thumb/v7e-m+fp/hard/newlib/../../../../../../newlib/libc/reent/readr.c:49:(.text+0x14): warning: _read is not implemented and will always fail
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-readr.o): note: the message above does not take linker garbage collection into account
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-writer.o): in function `_write_r':
+/build/reproducible-path/newlib-4.5.0.20241231/build_nano/arm-none-eabi/thumb/v7e-m+fp/hard/newlib/../../../../../../newlib/libc/reent/writer.c:49:(.text+0x14): warning: _write is not implemented and will always fail
+/usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/bin/ld: /usr/lib/gcc/arm-none-eabi/14.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-writer.o): note: the message above does not take linker garbage collection into account
+[100%] Built target wombat.elf
+   text	   data	    bss	    dec	    hex	filename
+  31008	    468	    700	  32176	   7db0	wombat.elf
+[100%] Built target wombat.elf-size
+[100%] Built target wombat.bin
+[100%] Built target wombat.hex
+[100%] Built target wombat.lss
+[100%] Built target wombat

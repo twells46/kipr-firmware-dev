@@ -1,0 +1,9 @@
+axis           mean        std     min     max    sat
+gyro_x         2.17       1.18       0       5   0.0%
+gyro_y         6.31       1.25       3       9   0.0%
+gyro_z         8.94       1.25       6      12   0.0%
+accel_x        0.57       1.91      -3       6   0.0%
+accel_y       61.35       1.77      57      65   0.0%
+accel_z    -1032.04       3.50   -1041   -1024   0.0%
+Cleaning up 1
+~Wombat()
