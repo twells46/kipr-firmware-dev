@@ -1,0 +1,49 @@
+{
+  "name": "Wombat Firmware and libwallaby Dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".",
+    // Mirror the host user so absolute paths in ~/.claude resolve unchanged.
+    // Host UID/GID are 1000:1000; change these if yours differ (`id -u`, `id -g`).
+    "args": {
+      "USERNAME": "${localEnv:USER}",
+      "USER_HOME": "${localEnv:HOME}",
+      "USER_UID": "1000",
+      "USER_GID": "1000"
+    }
+  },
+  "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
+  "workspaceFolder": "${localWorkspaceFolder}",
+  "containerUser": "${localEnv:USER}",
+  "remoteUser": "${localEnv:USER}",
+  "updateRemoteUserUID": false,
+  "runArgs": ["--cap-add=SYS_PTRACE", "--security-opt=seccomp=unconfined"],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "anthropic.claude-code",
+        "ms-vscode.cpptools-extension-pack",
+        "github.vscode-pull-request-github"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "fish",
+        "terminal.integrated.profiles.linux": {
+          "fish": {
+            "path": "/usr/bin/fish"
+          }
+        }
+      }
+    }
+  },
+  "initializeCommand": "mkdir -p \"$HOME/.config/codex\" \"$HOME/.claude\" && touch \"$HOME/.claude.json\"",
+  "postStartCommand": "sudo chown \"$(id -u):$(id -g)\" \"$HOME/.codex/packages\" \"$HOME/.codex/app-server-control\" \"$HOME/.codex/app-server-daemon\" && codex app-server daemon start",
+  "mounts": [
+    "source=${localWorkspaceFolder}/../libwallaby,target=${localWorkspaceFolder}/../libwallaby,type=bind",
+    "source=${localEnv:HOME}/.claude,target=${localEnv:HOME}/.claude,type=bind",
+    "source=${localEnv:HOME}/.claude.json,target=${localEnv:HOME}/.claude.json,type=bind",
+    "source=${localEnv:HOME}/.config/codex,target=${localEnv:HOME}/.codex,type=bind,consistency=cached",
+    "source=wombat-dev-codex-packages,target=${localEnv:HOME}/.codex/packages,type=volume,volume-nocopy",
+    "source=wombat-dev-codex-daemon,target=${localEnv:HOME}/.codex/app-server-control,type=volume,volume-nocopy",
+    "source=wombat-dev-codex-daemon-state,target=${localEnv:HOME}/.codex/app-server-daemon,type=volume,volume-nocopy"
+  ]
+}

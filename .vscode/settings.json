@@ -1,0 +1,4 @@
+{
+    "cmake.sourceDirectory": "/var/home/tom/Documents/kipr/wombat/firmware-dev/Wombat-Firmware",
+    "C_Cpp.default.compilerPath": "/usr/bin/arm-none-eabi-gcc"
+}
