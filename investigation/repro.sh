@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 # Measure at-rest gyro/accel on the Wombat and pull the results back.
 #
-#   investigation/repro.sh <label> [samples] [interval_ms]
+#   [LIBKIPR=<local libkipr.so>] investigation/repro.sh <label> [samples] [interval_ms]
 #
 # Results land in investigation/runs/<UTC timestamp>-<label>/: the sample CSV,
 # its summary, and provenance.txt describing exactly what was deployed.
 # Does not flash, reboot, or change anything on the Wombat besides /tmp.
+# LIBKIPR tests a locally built library: it is copied to /tmp on the Wombat and
+# loaded instead of /usr/lib/libkipr.so, which stays untouched.
 set -euo pipefail
 
 label=${1:?usage: repro.sh <label> [samples] [interval_ms]}
@@ -16,6 +18,8 @@ here=$(cd "$(dirname "$0")" && pwd)
 root=$(dirname "$here")
 run="$here/runs/$(date -u +%Y%m%dT%H%M%SZ)-$label"
 remote=/tmp/imu-run
+library=/usr/lib/libkipr.so
+[ -n "${LIBKIPR:-}" ] && library=$remote/libkipr.so
 mkdir -p "$run"
 
 git_state() {
@@ -39,13 +43,19 @@ git_state() {
         md5sum wombat.bin* | sed "s/^/  /"
         echo "botui running: $(pgrep -x botui >/dev/null && echo yes || echo no)"
         echo "uptime: $(uptime -p)"'
+    if [ -n "${LIBKIPR:-}" ]; then
+        echo "library under test: $LIBKIPR sha256 $(sha256sum < "$LIBKIPR" | cut -c1-16) (loaded from $library)"
+    else
+        echo "library under test: $library (installed)"
+    fi
 } > "$run/provenance.txt"
 cat "$run/provenance.txt"
 echo
 
 ssh wombat "mkdir -p $remote"
 scp -q "$here/wombat_sample.py" "wombat:$remote/"
-ssh wombat "python3 $remote/wombat_sample.py --samples $samples --interval-ms $interval --out $remote/imu" \
+[ -n "${LIBKIPR:-}" ] && scp -q "$LIBKIPR" "wombat:$library"
+ssh wombat "python3 $remote/wombat_sample.py --samples $samples --interval-ms $interval --library $library --out $remote/imu" \
     | tee "$run/summary.txt"
 scp -q "wombat:$remote/imu.*" "$run/"
 ssh wombat "rm -rf $remote"

@@ -1,0 +1,8 @@
+label: fix-cs-gap+gyro-config
+ref: 4baf206 = 4baf206215ae1fd560e082e353bfeebb08717dad
+patch: fix-cs-gap.patch md5 189496b6316a01217797bf1e6bf03d8b
+patch: fix-gyro-config.patch md5 af0aef866f006eca3970a3c03fb9080c
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-09-30T20:02:52Z
+wombat.bin: 30876 bytes, md5 d674e4e48d82e83e43f8f600850592e8
+warnings: 13

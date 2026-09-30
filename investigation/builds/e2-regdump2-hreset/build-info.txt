@@ -1,0 +1,9 @@
+label: e2-regdump2-hreset
+ref: 4baf206 = 4baf206215ae1fd560e082e353bfeebb08717dad
+patch: fix-cs-gap.patch md5 189496b6316a01217797bf1e6bf03d8b
+patch: e1-regdump.patch md5 346cd3d4f00f03e97f5bd7a642a01643
+patch: h9-hreset-only.patch md5 714202b699eb2bc33125c7dd874d227e
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-09-30T20:25:33Z
+wombat.bin: 30460 bytes, md5 466b5b5b14dcd2a2d6caeb5f5fef469b
+warnings: 13

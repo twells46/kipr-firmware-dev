@@ -1,0 +1,6 @@
+label: e1-a-regdump-reread
+utc: 2026-09-30T19:56:27Z
+tool: regdump.py md5 646807a1b45503955a86d6ca78038103
+flashFiles/wombat.bin md5 (last flashed): 68e5860f35f72d6d7a8f61542a42f9d2
+botui running: no
+uptime: up 36 minutes

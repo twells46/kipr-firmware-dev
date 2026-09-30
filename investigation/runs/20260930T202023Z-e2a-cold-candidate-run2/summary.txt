@@ -1,0 +1,20 @@
+[raw]
+axis           mean        std     min     max    sat
+gyro_x         2.26       0.50       1       4   0.0%
+gyro_y         6.04       0.59       4       8   0.0%
+gyro_z         8.93       0.52       7      10   0.0%
+accel_x       10.51       2.15       3      18   0.0%
+accel_y       30.41       2.21      18      45   0.0%
+accel_z    -1021.84       3.49   -1033   -1010   0.0%
+[cal]
+axis           mean        std     min     max    sat
+gyro_x         0.27       0.49      -1       2   0.0%
+gyro_y         0.05       0.61      -2       3   0.0%
+gyro_z         0.93       0.52      -1       2   0.0%
+accel_x     1032.48       2.13    1025    1039   0.0%
+accel_y       -0.08       1.83     -14       6   0.0%
+accel_z    -1545.03       3.50   -1558   -1532   0.0%
+[Gyro Calibrate]: Bias Z: 8 | Bias Y: 6 | Bias X: 2 
+[Accel Calibration]: Bias Z: 523.000000 | Bias Y: 30.840000 | Bias X: -1022.220000 
+Cleaning up 1
+~Wombat()

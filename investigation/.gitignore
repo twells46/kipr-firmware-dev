@@ -1,2 +1,10 @@
+# Build scratch: regenerate with build.sh / libbuild.sh from build-info.txt.
 builds/*/src/
 builds/*/build/
+builds/*/patches/
+libbuilds/*/src/
+libbuilds/*/build/
+libbuilds/*/patches/
+libbuilds/*/build.log
+# libkipr.so is 15 MB; build-info.txt records its sha256.
+libbuilds/*/libkipr.so*

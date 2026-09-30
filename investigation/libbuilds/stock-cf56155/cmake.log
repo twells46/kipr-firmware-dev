@@ -1,0 +1,82 @@
+-- The C compiler identification is GNU 14.2.0
+-- The CXX compiler identification is GNU 14.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/aarch64-linux-gnu-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/aarch64-linux-gnu-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+CMake Warning (dev) at /usr/share/cmake-3.31/Modules/ExternalProject/shared_internal_commands.cmake:1276 (message):
+  The DOWNLOAD_EXTRACT_TIMESTAMP option was not given and policy CMP0135 is
+  not set.  The policy's OLD behavior will be used.  When using a URL
+  download, the timestamps of extracted files should preferably be that of
+  the time of extraction, otherwise code that depends on the extracted
+  contents might not be rebuilt if the URL changes.  The OLD behavior
+  preserves the timestamps from the archive instead, but this is usually not
+  what you want.  Update your project to the NEW behavior or specify the
+  DOWNLOAD_EXTRACT_TIMESTAMP option with a value of true to avoid this
+  robustness issue.
+Call Stack (most recent call first):
+  /usr/share/cmake-3.31/Modules/ExternalProject.cmake:3041 (_ep_add_download_command)
+  module/camera/dependencies/jpeg/CMakeLists.txt:16 (ExternalProject_Add)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /usr/share/cmake-3.31/Modules/ExternalProject/shared_internal_commands.cmake:1276 (message):
+  The DOWNLOAD_EXTRACT_TIMESTAMP option was not given and policy CMP0135 is
+  not set.  The policy's OLD behavior will be used.  When using a URL
+  download, the timestamps of extracted files should preferably be that of
+  the time of extraction, otherwise code that depends on the extracted
+  contents might not be rebuilt if the URL changes.  The OLD behavior
+  preserves the timestamps from the archive instead, but this is usually not
+  what you want.  Update your project to the NEW behavior or specify the
+  DOWNLOAD_EXTRACT_TIMESTAMP option with a value of true to avoid this
+  robustness issue.
+Call Stack (most recent call first):
+  /usr/share/cmake-3.31/Modules/ExternalProject.cmake:3041 (_ep_add_download_command)
+  module/camera/dependencies/opencv/CMakeLists.txt:7 (ExternalProject_Add)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /usr/share/cmake-3.31/Modules/ExternalProject/shared_internal_commands.cmake:1276 (message):
+  The DOWNLOAD_EXTRACT_TIMESTAMP option was not given and policy CMP0135 is
+  not set.  The policy's OLD behavior will be used.  When using a URL
+  download, the timestamps of extracted files should preferably be that of
+  the time of extraction, otherwise code that depends on the extracted
+  contents might not be rebuilt if the URL changes.  The OLD behavior
+  preserves the timestamps from the archive instead, but this is usually not
+  what you want.  Update your project to the NEW behavior or specify the
+  DOWNLOAD_EXTRACT_TIMESTAMP option with a value of true to avoid this
+  robustness issue.
+Call Stack (most recent call first):
+  /usr/share/cmake-3.31/Modules/ExternalProject.cmake:3041 (_ep_add_download_command)
+  module/camera/dependencies/libav/CMakeLists.txt:29 (ExternalProject_Add)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /usr/share/cmake-3.31/Modules/ExternalProject/shared_internal_commands.cmake:1276 (message):
+  The DOWNLOAD_EXTRACT_TIMESTAMP option was not given and policy CMP0135 is
+  not set.  The policy's OLD behavior will be used.  When using a URL
+  download, the timestamps of extracted files should preferably be that of
+  the time of extraction, otherwise code that depends on the extracted
+  contents might not be rebuilt if the URL changes.  The OLD behavior
+  preserves the timestamps from the archive instead, but this is usually not
+  what you want.  Update your project to the NEW behavior or specify the
+  DOWNLOAD_EXTRACT_TIMESTAMP option with a value of true to avoid this
+  robustness issue.
+Call Stack (most recent call first):
+  /usr/share/cmake-3.31/Modules/ExternalProject.cmake:3041 (_ep_add_download_command)
+  module/camera/dependencies/zlib/CMakeLists.txt:13 (ExternalProject_Add)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Gathering module objects... accel;analog;audio;battery;botball;button;camera;color;compat;compass;config;console;core;digital;export;geometry;graphics;gyro;log;magneto;motor;network;sensor;servo;thread;time;wait_for
+-- No objects for color
+-- No objects for export
+-- KIPR module objects are: accel;analog;audio;battery;botball;button;camera;color;compat;compass;config;console;core;digital;export;geometry;graphics;gyro;log;magneto;motor;network;sensor;servo;thread;time;wait_for $<TARGET_OBJECTS:accel_objects>;$<TARGET_OBJECTS:analog_objects>;$<TARGET_OBJECTS:audio_objects>;$<TARGET_OBJECTS:battery_objects>;$<TARGET_OBJECTS:botball_objects>;$<TARGET_OBJECTS:button_objects>;$<TARGET_OBJECTS:camera_objects>;$<TARGET_OBJECTS:compat_objects>;$<TARGET_OBJECTS:compass_objects>;$<TARGET_OBJECTS:config_objects>;$<TARGET_OBJECTS:console_objects>;$<TARGET_OBJECTS:core_objects>;$<TARGET_OBJECTS:digital_objects>;$<TARGET_OBJECTS:geometry_objects>;$<TARGET_OBJECTS:graphics_objects>;$<TARGET_OBJECTS:gyro_objects>;$<TARGET_OBJECTS:log_objects>;$<TARGET_OBJECTS:magneto_objects>;$<TARGET_OBJECTS:motor_objects>;$<TARGET_OBJECTS:network_objects>;$<TARGET_OBJECTS:sensor_objects>;$<TARGET_OBJECTS:servo_objects>;$<TARGET_OBJECTS:thread_objects>;$<TARGET_OBJECTS:time_objects>;$<TARGET_OBJECTS:wait_for_objects>
+-- Found SWIG: /usr/bin/swig (found version "4.3.0")
+-- Found Python3: /usr/include/python3.13 (found version "3.13.5") found components: Development Development.Module Development.Embed
+-- Found Doxygen: /usr/bin/doxygen (found version "1.9.8") found components: doxygen missing components: dot
+-- Configuring done (0.7s)
+-- Generating done (0.1s)
+-- Build files have been written to: /var/home/tom/Documents/kipr/wombat/firmware-dev/investigation/libbuilds/stock-cf56155/build

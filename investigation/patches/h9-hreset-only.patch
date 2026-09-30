@@ -1,0 +1,11 @@
+--- a/Firmware/src/wallaby_imu.c
++++ b/Firmware/src/wallaby_imu.c
+@@ -269,6 +269,8 @@
+ void setupIMU()
+ {
+     delay_us(200);
++    IMU_write(PWR_MGMT_1, 0x80); // E2 H9 test: H_RESET only, nothing else written
++    delay_us(100000);
+     for (uint8_t i = 0; i < REGDUMP_N; ++i)
+     {
+         regdump_entry[i] = IMU_read(regdump_regs[i]);

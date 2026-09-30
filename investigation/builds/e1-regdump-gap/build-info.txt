@@ -1,0 +1,8 @@
+label: e1-regdump-gap
+ref: 4baf206 = 4baf206215ae1fd560e082e353bfeebb08717dad
+patch: e1-regdump.patch md5 346cd3d4f00f03e97f5bd7a642a01643
+patch: e1-gap.patch md5 f07fa93770e5e6767602355c5bbade82
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-09-30T19:59:35Z
+wombat.bin: 30396 bytes, md5 94d5bb8f82a1b086187cc6f8a1ba285d
+warnings: 13

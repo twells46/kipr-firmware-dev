@@ -1,0 +1,76 @@
+--- a/Firmware/src/wallaby_imu.c	2026-09-29 11:08:38.000000000 -0500
++++ b/Firmware/src/wallaby_imu.c	2026-09-30 14:53:43.610917336 -0500
+@@ -247,19 +247,30 @@
+     delay_us(10);
+ }
+ 
++/*
++ * E1 regdump (investigation only): write nothing to the MPU9250. Snapshot the
++ * registers exactly as the previous firmware left them (they survive an STM32
++ * reset), then publish entry and live values in the magnetometer slots.
++ */
++static const uint8_t regdump_regs[] = {
++    MPU9250_WHO_AMI_I_REG, PWR_MGMT_1, PWR_MGMT_2, SMPLRT_DIV, MPU_CONFIG, GYRO_CONFIG,
++    ACCEL_CONFIG, ACCEL_CONFIG2, LP_ACCEL_ODR, USER_CTRL, FIFO_EN,
++    I2C_MST_CTRL, I2C_SLV0_ADDR, I2C_SLV0_REG, I2C_SLV0_CTRL, INT_PIN_CFG,
++    INT_ENABLE, XG_OFFSET_H, XG_OFFSET_L, YG_OFFSET_H, YG_OFFSET_L,
++    ZG_OFFSET_H, ZG_OFFSET_L, SELF_TEST_X_GYRO, SELF_TEST_Y_GYRO,
++    SELF_TEST_Z_GYRO, 0x77, 0x78, 0x7A, 0x7B, 0x7D, 0x7E};
++#define REGDUMP_N (sizeof(regdump_regs))
++static uint8_t regdump_entry[REGDUMP_N];
++static uint8_t regdump_step;
++static uint8_t regdump_seq;
++
+ void setupIMU()
+ {
+     delay_us(200);
+-
+-    // setup mpu9250
+-    setup_mpu9250();
+-    setup_gyro();
+-    setup_accel();
+-
+-    delay_us(200); // necessary wait before setting up the AK8963 (magnetometer)
+-    setup_magnetometer();
+-
+-    delay_us(200);
++    for (uint8_t i = 0; i < REGDUMP_N; ++i)
++    {
++        regdump_entry[i] = IMU_read(regdump_regs[i]);
++    }
+ }
+ 
+ void readIMU(uint32_t count)
+@@ -283,17 +294,19 @@
+     }
+     if (count % magneto_update_mod == 0)
+     {
+-        // ---------- magnetometer ----------
+-        uint8_t buff[7];
+-        // ignore reading from data status 1 since, during testing, it didn't respond
+-        magnetometer_read_bytes(AK8963_XOUT_L, 7, buff); // read magneto data and data status 2
+-
+-        // data is in little endian
+-        aTxBuffer[REG_RW_MAG_X_H] = buff[1];
+-        aTxBuffer[REG_RW_MAG_X_L] = buff[0];
+-        aTxBuffer[REG_RW_MAG_Y_H] = buff[3];
+-        aTxBuffer[REG_RW_MAG_Y_L] = buff[2];
+-        aTxBuffer[REG_RW_MAG_Z_H] = buff[5];
+-        aTxBuffer[REG_RW_MAG_Z_L] = buff[4];
++        // ---------- E1 regdump publication (replaces magnetometer) ----------
++        // kind 0: value at firmware entry, kind 1: live value now
++        uint8_t kind = regdump_step >= REGDUMP_N;
++        uint8_t i = kind ? regdump_step - REGDUMP_N : regdump_step;
++        uint8_t addr = regdump_regs[i];
++        uint8_t val = kind ? IMU_read(addr) : regdump_entry[i];
++        regdump_step = (regdump_step + 1) % (2 * REGDUMP_N);
++        regdump_seq++;
++        aTxBuffer[REG_RW_MAG_X_H] = 0xA5;
++        aTxBuffer[REG_RW_MAG_X_L] = regdump_seq;
++        aTxBuffer[REG_RW_MAG_Y_H] = kind;
++        aTxBuffer[REG_RW_MAG_Y_L] = addr;
++        aTxBuffer[REG_RW_MAG_Z_H] = val;
++        aTxBuffer[REG_RW_MAG_Z_L] = (uint8_t)(0x5A + 7 * regdump_seq + 13 * kind + 31 * addr + 3 * val);
+     }
+-}
++}

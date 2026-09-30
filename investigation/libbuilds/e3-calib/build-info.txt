@@ -1,0 +1,8 @@
+label: e3-calib
+ref: cf56155 = cf56155f5738f142dd380ce7d19872f797731084
+patch: lib-accel-calibrate.patch md5 455482441a78cae2183e52ffd90ea65f
+patch: lib-gyro-calibrate.patch md5 7b26dadcec0b5883af7f0cce3cd507ca
+toolchain: aarch64-linux-gnu-g++ (Debian 14.2.0-19) 14.2.0
+built: 2026-09-30T20:47:05Z
+libkipr.so: 15041936 bytes, sha256 6414133584db000f330b88d316f62be133e236736c2ce5c8e84bb7fe911c20b5
+warnings: 125

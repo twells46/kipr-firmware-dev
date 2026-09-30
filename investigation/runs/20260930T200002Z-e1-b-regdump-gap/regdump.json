@@ -1,0 +1,327 @@
+{
+ "bad_checksum": 2,
+ "bad_marker": 0,
+ "frames": 22191,
+ "registers": {
+  "ACCEL_CONFIG": {
+   "entry": 206,
+   "entry_obs": {
+    "206": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "ACCEL_CONFIG2": {
+   "entry": 207,
+   "entry_obs": {
+    "207": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "CONFIG": {
+   "entry": 32,
+   "entry_obs": {
+    "32": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "FIFO_EN": {
+   "entry": 11,
+   "entry_obs": {
+    "11": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "GYRO_CONFIG": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "I2C_MST_CTRL": {
+   "entry": 3,
+   "entry_obs": {
+    "3": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "I2C_SLV0_ADDR": {
+   "entry": 95,
+   "entry_obs": {
+    "95": 5
+   },
+   "live": 140,
+   "live_obs": {
+    "140": 5
+   }
+  },
+  "I2C_SLV0_CTRL": {
+   "entry": 187,
+   "entry_obs": {
+    "187": 5
+   },
+   "live": 3,
+   "live_obs": {
+    "3": 5
+   }
+  },
+  "I2C_SLV0_REG": {
+   "entry": 121,
+   "entry_obs": {
+    "121": 5
+   },
+   "live": 38,
+   "live_obs": {
+    "38": 5
+   }
+  },
+  "INT_ENABLE": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "INT_PIN_CFG": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "LP_ACCEL_ODR": {
+   "entry": 29,
+   "entry_obs": {
+    "29": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "PWR_MGMT_1": {
+   "entry": 237,
+   "entry_obs": {
+    "237": 5
+   },
+   "live": 1,
+   "live_obs": {
+    "1": 5
+   }
+  },
+  "PWR_MGMT_2": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "SELF_TEST_X_GYRO": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 197,
+   "live_obs": {
+    "197": 5
+   }
+  },
+  "SELF_TEST_Y_GYRO": {
+   "entry": 140,
+   "entry_obs": {
+    "140": 5
+   },
+   "live": 206,
+   "live_obs": {
+    "206": 5
+   }
+  },
+  "SELF_TEST_Z_GYRO": {
+   "entry": 3,
+   "entry_obs": {
+    "3": 5
+   },
+   "live": 226,
+   "live_obs": {
+    "226": 5
+   }
+  },
+  "SMPLRT_DIV": {
+   "entry": 252,
+   "entry_obs": {
+    "252": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "USER_CTRL": {
+   "entry": 47,
+   "entry_obs": {
+    "47": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "WHO_AM_I": {
+   "entry": 113,
+   "entry_obs": {
+    "113": 5
+   },
+   "live": 113,
+   "live_obs": {
+    "113": 5
+   }
+  },
+  "XA_OFFSET_H": {
+   "entry": 135,
+   "entry_obs": {
+    "135": 5
+   },
+   "live": 237,
+   "live_obs": {
+    "237": 5
+   }
+  },
+  "XA_OFFSET_L": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 46,
+   "live_obs": {
+    "46": 5
+   }
+  },
+  "XG_OFFSET_H": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "XG_OFFSET_L": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "YA_OFFSET_H": {
+   "entry": 235,
+   "entry_obs": {
+    "235": 5
+   },
+   "live": 235,
+   "live_obs": {
+    "235": 5
+   }
+  },
+  "YA_OFFSET_L": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 252,
+   "live_obs": {
+    "252": 5
+   }
+  },
+  "YG_OFFSET_H": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "YG_OFFSET_L": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "ZA_OFFSET_H": {
+   "entry": 32,
+   "entry_obs": {
+    "32": 5
+   },
+   "live": 32,
+   "live_obs": {
+    "32": 5
+   }
+  },
+  "ZA_OFFSET_L": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 110,
+   "live_obs": {
+    "110": 5
+   }
+  },
+  "ZG_OFFSET_H": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  },
+  "ZG_OFFSET_L": {
+   "entry": 0,
+   "entry_obs": {
+    "0": 5
+   },
+   "live": 0,
+   "live_obs": {
+    "0": 5
+   }
+  }
+ }
+}

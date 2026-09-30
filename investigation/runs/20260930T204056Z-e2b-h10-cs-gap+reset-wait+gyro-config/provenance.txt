@@ -1,0 +1,14 @@
+label: e2b-h10-cs-gap+reset-wait+gyro-config
+utc: 2026-09-30T20:40:56Z
+samples: 2000  interval_ms: 10
+Wombat-Firmware: 4baf206215ae1fd560e082e353bfeebb08717dad (oscar/mpu9250-imu-driver, 0 modified files)
+libwallaby: cf56155f5738f142dd380ce7d19872f797731084 (master, 0 modified files)
+local build/Firmware/wombat.bin md5: 
+wombat kernel: 6.18.50+rpt-rpi-v8  debian: 13.7
+wombat libkipr: 1.2.4 sha256 8eafd26fdc6d0dc2
+flashFiles md5 (last flashed, not verified on STM32):
+  37f7818e43ba209e9b18be82ff8aa3b9  wombat.bin
+  a07b5eb4b490cebdc385c7aec9a8b610  wombat.bin.pr8
+  43444cc7010d822116ddf957c305bc6f  wombat.bin.pre_pr8
+botui running: no
+uptime: up 8 minutes

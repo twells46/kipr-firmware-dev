@@ -1,0 +1,3 @@
+{'other': 183, 'shifted': 2517, 'aligned': 300}
+aligned  x/y/z raw mean,std: [(47.1, 28.9), (110.1, 57.2), (138.4, 49.2)]
+shifted  x/y  raw mean,std (from bytes 1-4): [(46.7, 28.9), (108.1, 53.8)]

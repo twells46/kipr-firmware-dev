@@ -1,0 +1,11 @@
+--- b/Firmware/src/wallaby_imu.c	2026-09-30 14:53:43.610917336 -0500
++++ c/Firmware/src/wallaby_imu.c	2026-09-30 14:59:33.703749032 -0500
+@@ -289,6 +289,8 @@
+         // ---------- accelerometer ----------
+         read_bytes(ACCEL_XOUT_H, 6, ((uint8_t *)aTxBuffer) + REG_RW_ACCEL_X_H);
+ 
++        delay_us(2); // E1 H7 test: CS high gap so the MPU ends the accel burst
++
+         // ---------- gyrometer ----------
+         read_bytes(GYRO_XOUT_H, 6, ((uint8_t *)aTxBuffer) + REG_RW_GYRO_X_H);
+     }

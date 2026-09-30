@@ -1,0 +1,6 @@
+label: stock-cf56155
+ref: cf56155 = cf56155f5738f142dd380ce7d19872f797731084
+toolchain: aarch64-linux-gnu-g++ (Debian 14.2.0-19) 14.2.0
+built: 2026-09-30T20:44:32Z
+libkipr.so: 15042368 bytes, sha256 40f7609c4211d517cc7f54a78a011220bfa497acb4d313dbfec3113ca4fe9f34
+warnings: 125

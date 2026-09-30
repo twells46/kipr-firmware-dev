@@ -1,0 +1,8 @@
+label: cs-gap+reset-wait
+ref: 4baf206 = 4baf206215ae1fd560e082e353bfeebb08717dad
+patch: fix-cs-gap.patch md5 189496b6316a01217797bf1e6bf03d8b
+patch: fix-reset-wait.patch md5 1fcb360c3565a1928007b13eb6b59f90
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-09-30T20:09:31Z
+wombat.bin: 30876 bytes, md5 ccad4e8339757cc8191007e51d946ae8
+warnings: 13

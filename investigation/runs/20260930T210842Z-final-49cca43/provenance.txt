@@ -1,0 +1,15 @@
+label: final-49cca43
+utc: 2026-09-30T21:08:42Z
+samples: 2000  interval_ms: 10
+Wombat-Firmware: 49cca43690d23ed3be251a44f7d45bb37161727b (oscar/mpu9250-imu-driver, 0 modified files)
+libwallaby: cf56155f5738f142dd380ce7d19872f797731084 (master, 0 modified files)
+local build/Firmware/wombat.bin md5: 
+wombat kernel: 6.18.50+rpt-rpi-v8  debian: 13.7
+wombat libkipr: 1.2.4 sha256 8eafd26fdc6d0dc2
+flashFiles md5 (last flashed, not verified on STM32):
+  2d941ad8f3a512466d1605fe0da7c11e  wombat.bin
+  a07b5eb4b490cebdc385c7aec9a8b610  wombat.bin.pr8
+  43444cc7010d822116ddf957c305bc6f  wombat.bin.pre_pr8
+botui running: no
+uptime: up 36 minutes
+library under test: /usr/lib/libkipr.so (installed)

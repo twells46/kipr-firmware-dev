@@ -1,0 +1,16 @@
+== /usr/lib/libkipr.so
+               gx       gy       gz       ax       ay       az
+after 1st cal     0.31     0.05     0.89  1033.13     0.17 -1545.73
+after 2nd cal     2.30     6.01     8.96  1557.22    25.54 -2566.59
+[Gyro Calibrate]: Bias Z: 8 | Bias Y: 6 | Bias X: 2 
+[Accel Calibration]: Bias Z: 524.220000 | Bias Y: 25.320000 | Bias X: -1021.200000 
+[Gyro Calibrate]: Bias Z: 0 | Bias Y: 0 | Bias X: 0 
+[Accel Calibration]: Bias Z: 1545.420000 | Bias Y: -0.200000 | Bias X: -1545.440000 
+== /tmp/libkipr.so
+               gx       gy       gz       ax       ay       az
+after 1st cal     0.29     0.04    -0.08     0.09     0.25 -1023.99
+after 2nd cal     0.23    -0.01    -0.04     0.08     0.41 -1024.12
+[Gyro Calibrate]: Bias Z: 8.960000 | Bias Y: 5.980000 | Bias X: 2.220000 
+[Accel Calibration]: Bias Z: 2.100000 | Bias Y: 25.100000 | Bias X: 12.040000 
+[Gyro Calibrate]: Bias Z: 8.960000 | Bias Y: 6.220000 | Bias X: 2.380000 
+[Accel Calibration]: Bias Z: 2.900000 | Bias Y: 25.340000 | Bias X: 11.920000 

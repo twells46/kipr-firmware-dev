@@ -1,0 +1,21 @@
+[core/wombat] [E]: DMA de-synchronized
+[raw]
+axis           mean        std     min     max    sat
+gyro_x         2.20       0.49       0       4   0.0%
+gyro_y         6.05       0.64       4       9   0.0%
+gyro_z         9.09       0.53       8      11   0.0%
+accel_x       14.28       2.14       8      22   0.0%
+accel_y       25.93       2.21      19      33   0.0%
+accel_z    -1033.71       3.49   -1045   -1022   0.0%
+[cal]
+axis           mean        std     min     max    sat
+gyro_x         0.24       0.49      -1       1   0.0%
+gyro_y         0.07       0.63      -2       2   0.0%
+gyro_z         0.14       0.51      -2       2   0.0%
+accel_x     1047.16       2.21    1040    1061   0.0%
+accel_y       -0.51       1.82      -8       6   0.0%
+accel_z    -1559.65       3.39   -1571   -1547   0.0%
+[Gyro Calibrate]: Bias Z: 9 | Bias Y: 6 | Bias X: 2 
+[Accel Calibration]: Bias Z: 526.180000 | Bias Y: 26.160000 | Bias X: -1033.940000 
+Cleaning up 1
+~Wombat()

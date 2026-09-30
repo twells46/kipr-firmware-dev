@@ -1,0 +1,10 @@
+label: candidate+h8-nomag
+ref: 4baf206 = 4baf206215ae1fd560e082e353bfeebb08717dad
+patch: fix-cs-gap.patch md5 189496b6316a01217797bf1e6bf03d8b
+patch: fix-reset-wait.patch md5 1fcb360c3565a1928007b13eb6b59f90
+patch: fix-gyro-config.patch md5 af0aef866f006eca3970a3c03fb9080c
+patch: h8-nomag.patch md5 81cd7aa51a816f03a7967c27b58ec437
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-09-30T20:23:28Z
+wombat.bin: 30492 bytes, md5 da42690966a3c51570f9e6918a989c92
+warnings: 13

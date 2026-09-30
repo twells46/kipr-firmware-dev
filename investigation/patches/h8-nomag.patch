@@ -1,0 +1,11 @@
+--- a/Firmware/src/wallaby_imu.c
++++ b/Firmware/src/wallaby_imu.c
+@@ -257,7 +257,7 @@
+     setup_accel();
+ 
+     delay_us(200); // necessary wait before setting up the AK8963 (magnetometer)
+-    setup_magnetometer();
++    // setup_magnetometer(); // E2-H8 test: leave the MPU I2C master off
+ 
+     delay_us(200);
+ }

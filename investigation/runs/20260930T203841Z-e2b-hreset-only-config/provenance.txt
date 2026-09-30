@@ -1,0 +1,6 @@
+label: e2b-hreset-only-config
+utc: 2026-09-30T20:38:41Z
+tool: regdump.py md5 646807a1b45503955a86d6ca78038103
+flashFiles/wombat.bin md5 (last flashed): 466b5b5b14dcd2a2d6caeb5f5fef469b
+botui running: no
+uptime: up 6 minutes

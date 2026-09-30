@@ -1,0 +1,49 @@
+{
+  "samples": 2000,
+  "duration_s": 23.087432,
+  "interval_ms": 10.0,
+  "axes": {
+    "gyro_x": {
+      "mean": 0.389,
+      "std": 1.554,
+      "min": -10,
+      "max": 15,
+      "saturated_fraction": 0.0
+    },
+    "gyro_y": {
+      "mean": 0.258,
+      "std": 1.416,
+      "min": -8,
+      "max": 7,
+      "saturated_fraction": 0.0
+    },
+    "gyro_z": {
+      "mean": 0.707,
+      "std": 1.186,
+      "min": -3,
+      "max": 5,
+      "saturated_fraction": 0.0
+    },
+    "accel_x": {
+      "mean": 1018.322,
+      "std": 2.474,
+      "min": 1003,
+      "max": 1035,
+      "saturated_fraction": 0.0
+    },
+    "accel_y": {
+      "mean": -0.352,
+      "std": 2.234,
+      "min": -16,
+      "max": 12,
+      "saturated_fraction": 0.0
+    },
+    "accel_z": {
+      "mean": -1530.145,
+      "std": 4.489,
+      "min": -1564,
+      "max": -1482,
+      "saturated_fraction": 0.0
+    }
+  }
+}
