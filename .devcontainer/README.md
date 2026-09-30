@@ -8,7 +8,8 @@ UID/GID are not 1000, edit `USER_UID`/`USER_GID` in `devcontainer.json`. CMake 3
 CMake minimum version.
 
 The setup includes the AArch64 Linux and bare-metal ARM toolchains, native GDB,
-GDB multiarch, OpenOCD, Clang, both projects' build dependencies, and R.
+GDB multiarch, OpenOCD, Clang, the GitHub CLI (`gh`), both projects' build
+dependencies, and R.
 The C++, GitHub pull request, and Claude Code extensions are installed.
 
 ## Claude Code
@@ -43,6 +44,14 @@ The container's `postStartCommand` makes the volume roots writable by the
 container user, then installs the matching daemon if missing and starts it.
 Configuration and login remain shared with the host. Rebuild the devcontainer
 after changing these mounts, the build args, or the Dockerfile.
+
+## GitHub CLI
+
+`gh` comes from Debian's package (2.46 on Debian 13), not GitHub's apt
+repository. Host `~/.config/gh` is mounted at the same path, so a login made
+on the host or in the container persists across rebuilds. `initializeCommand`
+creates the directory on the host first. To log in, run `gh auth login` once
+in the container, or on the host if `gh` is installed there.
 
 ## Wombat SSH access
 

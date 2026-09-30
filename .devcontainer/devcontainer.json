@@ -35,13 +35,14 @@
       }
     }
   },
-  "initializeCommand": "mkdir -p \"$HOME/.config/codex\" \"$HOME/.claude\" && touch \"$HOME/.claude.json\"",
+  "initializeCommand": "mkdir -p \"$HOME/.config/codex\" \"$HOME/.config/gh\" \"$HOME/.claude\" && touch \"$HOME/.claude.json\"",
   "postStartCommand": "sudo chown \"$(id -u):$(id -g)\" \"$HOME/.codex/packages\" \"$HOME/.codex/app-server-control\" \"$HOME/.codex/app-server-daemon\" && codex app-server daemon start",
   "mounts": [
     "source=${localWorkspaceFolder}/../libwallaby,target=${localWorkspaceFolder}/../libwallaby,type=bind",
     "source=${localEnv:HOME}/.claude,target=${localEnv:HOME}/.claude,type=bind",
     "source=${localEnv:HOME}/.claude.json,target=${localEnv:HOME}/.claude.json,type=bind",
     "source=${localEnv:HOME}/.config/codex,target=${localEnv:HOME}/.codex,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.config/gh,target=${localEnv:HOME}/.config/gh,type=bind",
     "source=wombat-dev-codex-packages,target=${localEnv:HOME}/.codex/packages,type=volume,volume-nocopy",
     "source=wombat-dev-codex-daemon,target=${localEnv:HOME}/.codex/app-server-control,type=volume,volume-nocopy",
     "source=wombat-dev-codex-daemon-state,target=${localEnv:HOME}/.codex/app-server-daemon,type=volume,volume-nocopy"

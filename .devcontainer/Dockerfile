@@ -23,6 +23,7 @@ RUN dpkg --add-architecture arm64 \
         gcc-arm-none-eabi \
         gdb \
         gdb-multiarch \
+        gh \
         git \
         gnupg \
         jq \
