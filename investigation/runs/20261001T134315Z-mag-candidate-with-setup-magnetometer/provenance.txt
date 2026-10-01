@@ -1,0 +1,7 @@
+label: mag-candidate-with-setup-magnetometer
+utc: 2026-10-01T13:43:15Z
+tool: magsample.py md5 4f6a958c07a6ceaa7d74481db5ca3a3f
+flashFiles/wombat.bin md5: 37f7818e43ba209e9b18be82ff8aa3b9
+libkipr sha256: 8eafd26fdc6d0dc2
+botui running: no
+uptime: up 6 hours, 49 minutes

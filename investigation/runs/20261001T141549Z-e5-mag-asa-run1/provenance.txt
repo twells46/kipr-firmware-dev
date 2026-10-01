@@ -1,0 +1,15 @@
+label: e5-mag-asa-run1
+utc: 2026-10-01T14:15:49Z
+samples: 2000  interval_ms: 10
+Wombat-Firmware: a33ee4d42d893f9f40f3ad2b8306ec7f353f04f0 (oscar/mpu9250-imu-driver, 0 modified files)
+libwallaby: 23830078973655697dcdb32e02b08dc59b65fa8b (fix-imu-calibration, 0 modified files)
+local build/Firmware/wombat.bin md5: 
+wombat kernel: 6.18.50+rpt-rpi-v8  debian: 13.7
+wombat libkipr: 1.2.4 sha256 8eafd26fdc6d0dc2
+flashFiles md5 (last flashed, not verified on STM32):
+  c18e9f1f57cb2f13ec1d195e867e7a13  wombat.bin
+  a07b5eb4b490cebdc385c7aec9a8b610  wombat.bin.pr8
+  43444cc7010d822116ddf957c305bc6f  wombat.bin.pre_pr8
+botui running: no
+uptime: up 24 minutes
+library under test: libbuilds/e3-calib/libkipr.so sha256 6414133584db000f (loaded from /tmp/imu-run/libkipr.so)

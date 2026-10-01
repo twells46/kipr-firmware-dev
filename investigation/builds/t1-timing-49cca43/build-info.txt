@@ -1,0 +1,7 @@
+label: t1-timing-49cca43
+ref: 49cca43 = 49cca43690d23ed3be251a44f7d45bb37161727b
+patch: t1-loop-timing.patch md5 8ffa85d237967a4ebca20799b2a9cec4
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-10-01T13:37:03Z
+wombat.bin: 32092 bytes, md5 97e740c2c80f80f8a336daa5e258b12a
+warnings: 13

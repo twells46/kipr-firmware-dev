@@ -1,0 +1,6 @@
+label: t1-timing-mag-own-pass
+utc: 2026-10-01T13:57:32Z
+tool: tdump.py md5 09295759406274f64d8d19c8ed877961
+flashFiles/wombat.bin md5 (last flashed): 0b259410ffbac957b0bb31b9891700f4
+botui running: no
+uptime: up 5 minutes

@@ -1,0 +1,6 @@
+label: t1-timing-49cca43-nomagread
+utc: 2026-10-01T13:39:27Z
+tool: tdump.py md5 09295759406274f64d8d19c8ed877961
+flashFiles/wombat.bin md5 (last flashed): 427bb84f267c4a08f8e7b45b10abb672
+botui running: no
+uptime: up 6 hours, 46 minutes

@@ -1,0 +1,5 @@
+label: e5-rawmag-mag-asa
+utc: 2026-10-01T14:14:08Z
+tool: rawmag.py md5 57c73f4cb7bf5209a44ae2a8cfd8db7e
+flashFiles/wombat.bin md5: c18e9f1f57cb2f13ec1d195e867e7a13
+uptime: up 22 minutes

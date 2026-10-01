@@ -1,0 +1,5 @@
+label: e5-rawmag-commit-a33ee4d
+utc: 2026-10-01T14:13:23Z
+tool: rawmag.py md5 57c73f4cb7bf5209a44ae2a8cfd8db7e
+flashFiles/wombat.bin md5: 11a6574c8c05b558b16c36792e2b11af
+uptime: up 21 minutes

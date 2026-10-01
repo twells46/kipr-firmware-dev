@@ -1,0 +1,8 @@
+label: t1-timing-49cca43-nomagread
+ref: 49cca43 = 49cca43690d23ed3be251a44f7d45bb37161727b
+patch: t1-loop-timing.patch md5 8ffa85d237967a4ebca20799b2a9cec4
+patch: t1-no-mag-read.patch md5 3a249718eda20684aeac678a3fc00af4
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-10-01T13:37:27Z
+wombat.bin: 31964 bytes, md5 427bb84f267c4a08f8e7b45b10abb672
+warnings: 13

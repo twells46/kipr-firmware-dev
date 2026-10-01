@@ -1,0 +1,8 @@
+label: t1-timing-mag-own-pass
+ref: 49cca43 = 49cca43690d23ed3be251a44f7d45bb37161727b
+patch: t1-loop-timing.patch md5 8ffa85d237967a4ebca20799b2a9cec4
+patch: mag-own-pass.patch md5 b85106e73b7c62cab514bdd02fa06dea
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-10-01T13:55:39Z
+wombat.bin: 32412 bytes, md5 0b259410ffbac957b0bb31b9891700f4
+warnings: 13

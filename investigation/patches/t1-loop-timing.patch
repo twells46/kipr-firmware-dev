@@ -1,0 +1,144 @@
+--- a/Firmware/src/main.c	2026-10-01 08:36:55.379308680 -0500
++++ b/Firmware/src/main.c	2026-10-01 08:36:55.391766363 -0500
+@@ -18,6 +18,76 @@
+ 
+ #include "wallaby.h"
+ 
++/*
++ * T1 loop-timing instrumentation (investigation only). Times each main-loop
++ * pass with the DWT cycle counter, classifies it, and every T_WIN passes
++ * latches per-class stats that are published, one item per pass, in the
++ * magnetometer slots (which 49cca43 fills with zeros):
++ *   22 marker 0xC3, 23 window, 24 item, 25 value_h, 26 value_l,
++ *   27 checksum = 0x3C + 7*window + 13*item + 31*value_h + 3*value_l
++ * Classes: 0 readIMU reads accel+gyro+mag (count%20==0), 1 accel+gyro only,
++ * 2 no IMU read and no bemf, 3 bemf pass (count%4==1).
++ * Items per class c (base 11*c): 0 n, 1 imu mean, 2 imu max, 3 adc mean,
++ * 4 adc max, 5 sensor-section mean, 6 sensor-section max (all cycle-timed, in
++ * 0.1 us), 7 max usCount sensor_update_time (us), 8 passes with
++ * sensor_update_time >= 700, 9 period mean, 10 period max (0.1 us; period =
++ * this pass start to next pass start). Item 44: CYCCNT cycles per usCount us
++ * x100. Item 45: window number.
++ */
++#define T_WIN 4000
++#define T_NCLASS 4
++#define T_NITEM (11 * T_NCLASS + 2)
++#define T_CYC_PER_0US1 18 /* 180 MHz */
++typedef struct { uint32_t n, imu_sum, imu_max, adc_sum, adc_max, sens_sum, sens_max, us_max, over, per_sum, per_max, per_n; } t_stat;
++static t_stat t_acc[T_NCLASS];
++static uint16_t t_pub[T_NITEM];
++static uint8_t t_win, t_item;
++static uint32_t t_passes, t_win_c0, t_win_us;
++
++static inline uint32_t t_max(uint32_t a, uint32_t b) { return a > b ? a : b; }
++static inline uint16_t t_u16(uint32_t v) { return v > 0xFFFF ? 0xFFFF : (uint16_t)v; }
++
++static void t_latch(uint32_t c_now, uint32_t us_now)
++{
++    for (uint8_t c = 0; c < T_NCLASS; ++c)
++    {
++        t_stat *a = &t_acc[c];
++        uint16_t *o = &t_pub[11 * c];
++        uint32_t n = a->n ? a->n : 1, pn = a->per_n ? a->per_n : 1;
++        o[0] = t_u16(a->n);
++        o[1] = t_u16(a->imu_sum / n / T_CYC_PER_0US1);
++        o[2] = t_u16(a->imu_max / T_CYC_PER_0US1);
++        o[3] = t_u16(a->adc_sum / n / T_CYC_PER_0US1);
++        o[4] = t_u16(a->adc_max / T_CYC_PER_0US1);
++        o[5] = t_u16(a->sens_sum / n / T_CYC_PER_0US1);
++        o[6] = t_u16(a->sens_max / T_CYC_PER_0US1);
++        o[7] = t_u16(a->us_max);
++        o[8] = t_u16(a->over);
++        o[9] = t_u16(a->per_sum / pn / T_CYC_PER_0US1);
++        o[10] = t_u16(a->per_max / T_CYC_PER_0US1);
++        *a = (t_stat){0};
++    }
++    uint32_t dus = us_now - t_win_us;
++    t_pub[44] = t_u16(dus ? (uint32_t)(((uint64_t)(c_now - t_win_c0) * 100) / dus) : 0);
++    t_win++;
++    t_pub[45] = t_win;
++    t_win_c0 = c_now;
++    t_win_us = us_now;
++}
++
++static void t_publish(void)
++{
++    uint8_t i = t_item;
++    uint8_t h = t_pub[i] >> 8, l = t_pub[i] & 0xFF;
++    t_item = (t_item + 1) % T_NITEM;
++    aTxBuffer[REG_RW_MAG_X_H] = 0xC3;
++    aTxBuffer[REG_RW_MAG_X_L] = t_win;
++    aTxBuffer[REG_RW_MAG_Y_H] = i;
++    aTxBuffer[REG_RW_MAG_Y_L] = h;
++    aTxBuffer[REG_RW_MAG_Z_H] = l;
++    aTxBuffer[REG_RW_MAG_Z_L] = (uint8_t)(0x3C + 7 * t_win + 13 * i + 31 * h + 3 * l);
++}
++
+  
+ 
+ int main()
+@@ -44,6 +114,15 @@
+     //debug_printf("starting\n");
+     int low_volt_alarmed = 0;
+ 
++    // T1: start the cycle counter
++    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
++    DWT->CYCCNT = 0;
++    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
++    uint32_t t_prev_c0 = 0;
++    uint8_t t_prev_class = 0, t_have_prev = 0;
++    t_win_c0 = DWT->CYCCNT;
++    t_win_us = usCount;
++
+     // Loop until button is pressed
+     uint32_t count = 0;
+     while (1)
+@@ -68,10 +147,25 @@
+             // delay_us(700);
+             // now I squeeze in most sensor updates instead of just sleeping
+             uint32_t before = usCount;
++            uint32_t t_c0 = DWT->CYCCNT;
++            uint8_t t_class = bemf_update_time ? 3 : (count % 20 == 0 ? 0 : (count % 10 == 0 ? 1 : 2));
++            if (t_have_prev)
++            {
++                uint32_t per = t_c0 - t_prev_c0;
++                t_acc[t_prev_class].per_sum += per;
++                t_acc[t_prev_class].per_max = t_max(t_acc[t_prev_class].per_max, per);
++                t_acc[t_prev_class].per_n++;
++            }
++            t_prev_c0 = t_c0;
++            t_prev_class = t_class;
++            t_have_prev = 1;
+             update_dig_pins();
++            uint32_t t_c1 = DWT->CYCCNT;
+             int16_t batt = adc_update();
++            uint32_t t_c2 = DWT->CYCCNT;
+             // readIMU decides internally which sensors are due this pass
+             readIMU(count);
++            uint32_t t_c3 = DWT->CYCCNT;
+ 
+             if (batt < 636) // about 5.75 volts
+             {
+@@ -107,6 +201,22 @@
+             }
+ 
+             uint32_t sensor_update_time = usCount - before;
++            {
++                uint32_t t_c4 = DWT->CYCCNT;
++                t_stat *a = &t_acc[t_class];
++                a->n++;
++                a->imu_sum += t_c3 - t_c2;
++                a->imu_max = t_max(a->imu_max, t_c3 - t_c2);
++                a->adc_sum += t_c2 - t_c1;
++                a->adc_max = t_max(a->adc_max, t_c2 - t_c1);
++                a->sens_sum += t_c4 - t_c0;
++                a->sens_max = t_max(a->sens_max, t_c4 - t_c0);
++                a->us_max = t_max(a->us_max, sensor_update_time);
++                a->over += sensor_update_time >= 700;
++                if (++t_passes % T_WIN == 0)
++                    t_latch(t_c4, usCount);
++                t_publish();
++            }
+             const uint16_t us_delay_needed = 700;
+             const uint8_t got_time_to_burn = sensor_update_time < us_delay_needed;
+ 

@@ -1,0 +1,7 @@
+label: mag-final-49cca43
+utc: 2026-10-01T13:35:12Z
+tool: magsample.py md5 4f6a958c07a6ceaa7d74481db5ca3a3f
+flashFiles/wombat.bin md5: 2d941ad8f3a512466d1605fe0da7c11e
+libkipr sha256: 8eafd26fdc6d0dc2
+botui running: no
+boot: 2026-10-01 01:53:17 local

@@ -1,0 +1,15 @@
+label: e4b-mag-own-pass-run3
+utc: 2026-10-01T14:00:34Z
+samples: 2000  interval_ms: 10
+Wombat-Firmware: 49cca43690d23ed3be251a44f7d45bb37161727b (oscar/mpu9250-imu-driver, 0 modified files)
+libwallaby: 23830078973655697dcdb32e02b08dc59b65fa8b (fix-imu-calibration, 0 modified files)
+local build/Firmware/wombat.bin md5: 
+wombat kernel: 6.18.50+rpt-rpi-v8  debian: 13.7
+wombat libkipr: 1.2.4 sha256 8eafd26fdc6d0dc2
+flashFiles md5 (last flashed, not verified on STM32):
+  11a6574c8c05b558b16c36792e2b11af  wombat.bin
+  a07b5eb4b490cebdc385c7aec9a8b610  wombat.bin.pr8
+  43444cc7010d822116ddf957c305bc6f  wombat.bin.pre_pr8
+botui running: no
+uptime: up 8 minutes
+library under test: libbuilds/e3-calib/libkipr.so sha256 6414133584db000f (loaded from /tmp/imu-run/libkipr.so)

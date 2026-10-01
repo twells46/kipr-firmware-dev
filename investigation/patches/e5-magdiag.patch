@@ -1,0 +1,105 @@
+--- a/Firmware/src/wallaby_imu.c	2026-10-01 09:10:49.958702390 -0500
++++ b/Firmware/src/wallaby_imu.c	2026-10-01 09:10:49.968463689 -0500
+@@ -216,6 +216,61 @@
+     IMU_write(ACCEL_CONFIG, regval);
+ }
+ 
++/*
++ * E5 magdiag (investigation only). Published in the magnetometer slots:
++ *   22 marker 0xD7, 23 item, 24 value, 25 seq, 26 ~value, 27 checksum
++ *   checksum = 0x2B + 7*item + 13*value + 31*seq (mod 256)
++ * Items: 0-2 ASA bytes as setup_magnetometer() read them; 3 AK8963 WIA,
++ * 4 CNTL1 as setup_magnetometer() left it, 5-7 ASA read properly (Fuse ROM
++ * mode, waiting for each I2C transaction), 8 CNTL1 after the proper
++ * sequence, 9 latest ST2 from readIMU(), 10 number of readIMU() reads with
++ * ST2.HOFL (overflow) set, mod 256.
++ */
++enum { MD_ASA_OLD = 0, MD_WIA = 3, MD_CNTL_OLD = 4, MD_ASA_NEW = 5, MD_CNTL_NEW = 8, MD_ST2 = 9, MD_HOFL = 10, MD_N = 11 };
++static uint8_t magdiag[MD_N];
++static uint8_t magdiag_item, magdiag_seq;
++
++// One AK8963 register write through SLV0, waiting for the MPU's I2C master
++// (which runs once per sample, 5 ms at 200 Hz) to perform it.
++static void ak_write_wait(uint8_t reg, uint8_t val)
++{
++    IMU_write(I2C_SLV0_ADDR, AK8963_PHYSICAL_LOCAT);
++    IMU_write(I2C_SLV0_REG, reg);
++    IMU_write(I2C_SLV0_DO, val);
++    IMU_write(I2C_SLV0_CTRL, READ_FLAG | 1);
++    delay_us(20000);
++    IMU_write(I2C_SLV0_CTRL, 0);
++    delay_us(10000);
++}
++
++static void ak_read_wait(uint8_t reg, uint8_t n, uint8_t *out)
++{
++    IMU_write(I2C_SLV0_ADDR, AK8963_PHYSICAL_LOCAT | READ_FLAG);
++    IMU_write(I2C_SLV0_REG, reg);
++    IMU_write(I2C_SLV0_CTRL, READ_FLAG | n);
++    delay_us(20000);
++    read_bytes(EXT_SENS_DATA_00, n, out);
++    IMU_write(I2C_SLV0_CTRL, 0);
++    delay_us(10000);
++}
++
++static void magdiag_setup(void)
++{
++    uint8_t b[3];
++    ak_read_wait(AK8963_WHO_AM_I, 1, b);
++    magdiag[MD_WIA] = b[0];
++    ak_read_wait(AK8963_CNTL, 1, b);
++    magdiag[MD_CNTL_OLD] = b[0];
++    ak_write_wait(AK8963_CNTL, 0x00);
++    ak_write_wait(AK8963_CNTL, 0x0F);
++    ak_read_wait(AK8963_ASAX, 3, b);
++    for (uint8_t i = 0; i < 3; ++i) magdiag[MD_ASA_NEW + i] = b[i];
++    ak_write_wait(AK8963_CNTL, 0x00);
++    ak_write_wait(AK8963_CNTL, MAGNETOMETER_CONFIG_BYTE);
++    ak_read_wait(AK8963_CNTL, 1, b);
++    magdiag[MD_CNTL_NEW] = b[0];
++}
++
+ void setup_magnetometer()
+ {
+     // setup using the mpu9250 as master i2c reader
+@@ -234,6 +289,7 @@
+     // extract factory calibration
+     uint8_t raw_data[3];
+     magnetometer_read_bytes(AK8963_ASAX, 3, (uint8_t *)raw_data);
++    for (uint8_t i = 0; i < 3; ++i) magdiag[MD_ASA_OLD + i] = raw_data[i];
+     for (uint8_t i = 0; i < 3; ++i)
+     {
+         magn_scale_factors[i] = (float)(raw_data[0] - 128) / 256. + 1.;
+@@ -260,6 +316,7 @@
+ 
+     delay_us(200); // necessary wait before setting up the AK8963 (magnetometer)
+     setup_magnetometer();
++    magdiag_setup();
+ 
+     delay_us(200);
+ }
+@@ -297,12 +354,17 @@
+         // ignore reading from data status 1 since, during testing, it didn't respond
+         magnetometer_read_bytes(AK8963_XOUT_L, 7, buff); // read magneto data and data status 2
+ 
+-        // data is in little endian
+-        aTxBuffer[REG_RW_MAG_X_H] = buff[1];
+-        aTxBuffer[REG_RW_MAG_X_L] = buff[0];
+-        aTxBuffer[REG_RW_MAG_Y_H] = buff[3];
+-        aTxBuffer[REG_RW_MAG_Y_L] = buff[2];
+-        aTxBuffer[REG_RW_MAG_Z_H] = buff[5];
+-        aTxBuffer[REG_RW_MAG_Z_L] = buff[4];
++        // E5 magdiag: publish diagnostics instead of the data
++        magdiag[MD_ST2] = buff[6];
++        if (buff[6] & 0x08) magdiag[MD_HOFL]++;
++        uint8_t i = magdiag_item, v = magdiag[i];
++        magdiag_item = (magdiag_item + 1) % MD_N;
++        magdiag_seq++;
++        aTxBuffer[REG_RW_MAG_X_H] = 0xD7;
++        aTxBuffer[REG_RW_MAG_X_L] = i;
++        aTxBuffer[REG_RW_MAG_Y_H] = v;
++        aTxBuffer[REG_RW_MAG_Y_L] = magdiag_seq;
++        aTxBuffer[REG_RW_MAG_Z_H] = (uint8_t)~v;
++        aTxBuffer[REG_RW_MAG_Z_L] = (uint8_t)(0x2B + 7 * i + 13 * v + 31 * magdiag_seq);
+     }
+ }

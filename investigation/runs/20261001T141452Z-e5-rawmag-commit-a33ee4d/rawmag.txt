@@ -1,0 +1,4 @@
+frames 8317 in 20.0s; published value changed 1093 times (54.6/s)
+mag x raw mean    89.64 std   4.20 min     74 max    102 distinct   27  (~13.4 uT at 0.15 uT/LSB)
+mag y raw mean  -141.56 std   4.32 min   -154 max   -129 distinct   26  (~-21.2 uT at 0.15 uT/LSB)
+mag z raw mean  -979.84 std   4.27 min   -993 max   -964 distinct   27  (~-147.0 uT at 0.15 uT/LSB)

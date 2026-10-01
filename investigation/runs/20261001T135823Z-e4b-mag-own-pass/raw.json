@@ -1,0 +1,29 @@
+{
+ "frames": 4215,
+ "seconds": 10.0,
+ "changes": 546,
+ "change_rate_hz": 54.6,
+ "axes": {
+  "x": {
+   "mean": 36.65,
+   "std": 4.27,
+   "min": 23,
+   "max": 51,
+   "distinct": 27
+  },
+  "y": {
+   "mean": -144.07,
+   "std": 4.24,
+   "min": -158,
+   "max": -132,
+   "distinct": 25
+  },
+  "z": {
+   "mean": -1097.65,
+   "std": 4.36,
+   "min": -1112,
+   "max": -1084,
+   "distinct": 27
+  }
+ }
+}

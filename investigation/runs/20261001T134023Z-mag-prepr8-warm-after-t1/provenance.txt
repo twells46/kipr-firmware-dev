@@ -1,0 +1,7 @@
+label: mag-prepr8-warm-after-t1
+utc: 2026-10-01T13:40:23Z
+tool: magsample.py md5 4f6a958c07a6ceaa7d74481db5ca3a3f
+flashFiles/wombat.bin md5: 43444cc7010d822116ddf957c305bc6f
+libkipr sha256: 8eafd26fdc6d0dc2
+botui running: no
+uptime: up 6 hours, 47 minutes

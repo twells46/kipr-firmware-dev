@@ -1,0 +1,8 @@
+frames 12365 in 16.4s, rejected 29, complete windows 5
+cyc/us x100 per window: [18043, 18011, 18014, 18014, 18014]
+times in us; mean = mean of window means, max = max over windows
+class                    n/win       readIMU    adc_update  sensor sect.  usC max    >=700        period
+imu+mag (count%20==0)      200  691.6/696.7   163.1/168.2   862.3/869.3       866 1000/1000 1085.6/1098.2
+imu only (count%10==0)     200  336.7/340.0   163.7/168.1   508.0/512.6       511    0/1000  924.0/931.8 
+no imu, no bemf           2600    0.4/3.9     163.5/168.5   171.6/177.2       175    0/13000  924.2/933.7 
+bemf pass (count%4==1)    1000    0.4/3.4     163.4/168.1   171.2/175.8       175    0/5000  900.0/910.3 

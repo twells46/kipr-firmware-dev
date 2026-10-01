@@ -1,0 +1,24 @@
+--- a/Firmware/src/wallaby_imu.c	2026-10-01 08:37:12.728142532 -0500
++++ b/Firmware/src/wallaby_imu.c	2026-10-01 08:37:25.890289899 -0500
+@@ -285,19 +285,6 @@
+         // ---------- gyrometer ----------
+         read_bytes(GYRO_XOUT_H, 6, ((uint8_t *)aTxBuffer) + REG_RW_GYRO_X_H);
+     }
+-    if (count % magneto_update_mod == 0)
+-    {
+-        // ---------- magnetometer ----------
+-        uint8_t buff[7];
+-        // ignore reading from data status 1 since, during testing, it didn't respond
+-        magnetometer_read_bytes(AK8963_XOUT_L, 7, buff); // read magneto data and data status 2
+-
+-        // data is in little endian
+-        aTxBuffer[REG_RW_MAG_X_H] = buff[1];
+-        aTxBuffer[REG_RW_MAG_X_L] = buff[0];
+-        aTxBuffer[REG_RW_MAG_Y_H] = buff[3];
+-        aTxBuffer[REG_RW_MAG_Y_L] = buff[2];
+-        aTxBuffer[REG_RW_MAG_Z_H] = buff[5];
+-        aTxBuffer[REG_RW_MAG_Z_L] = buff[4];
+-    }
++    // T1 control: magnetometer read removed
++    (void)magneto_update_mod;
+ }

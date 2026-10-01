@@ -1,0 +1,7 @@
+label: e5-magdiag
+ref: a33ee4d = a33ee4d42d893f9f40f3ad2b8306ec7f353f04f0
+patch: e5-magdiag.patch md5 51513ce8bd9af4e9c3b667b8a7148c65
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-10-01T14:11:02Z
+wombat.bin: 31196 bytes, md5 021b32fd3a37e73346494b55103c8352
+warnings: 13

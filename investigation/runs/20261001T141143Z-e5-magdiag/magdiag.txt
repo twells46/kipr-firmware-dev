@@ -1,0 +1,12 @@
+frames 3779 in 1.0s, rejected 2
+ASAX (setup_magnetometer)              0x00 (  0)  5/5  factor 0.5000
+ASAY (setup_magnetometer)              0x00 (  0)  5/5  factor 0.5000
+ASAZ (setup_magnetometer)              0x00 (  0)  5/5  factor 0.5000
+WIA (expect 0x48)                      0x48 ( 72)  5/5  
+CNTL1 as setup_magnetometer left it    0x16 ( 22)  5/5  BIT=1 MODE=0110
+ASAX (proper)                          0xAF (175)  5/5  factor 1.1836
+ASAY (proper)                          0xAF (175)  5/5  factor 1.1836
+ASAZ (proper)                          0xA5 (165)  5/5  factor 1.1445
+CNTL1 after proper sequence            0x16 ( 22)  5/5  BIT=1 MODE=0110
+ST2 (latest)                           0x10 ( 16)  5/5  BITM(16-bit)=1 HOFL=0
+reads with HOFL set, mod 256           0x00 (  0)  5/5  

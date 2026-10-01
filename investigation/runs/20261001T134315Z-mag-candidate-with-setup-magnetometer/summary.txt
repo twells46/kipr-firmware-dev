@@ -1,0 +1,5 @@
+[core/wombat] [E]: DMA de-synchronized
+magneto_x  mean     4.00 std    0.25 min      3 max      5 distinct     3 zeros 0.000
+magneto_y  mean   -10.25 std    0.44 min    -11 max     -9 distinct     3 zeros 0.000
+magneto_z  mean   -67.89 std    0.34 min    -69 max    -67 distinct     3 zeros 0.000
+gyro_x     mean     2.49 std    0.55 min      1 max      4 distinct     4 zeros 0.000

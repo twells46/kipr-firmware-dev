@@ -1,0 +1,68 @@
+{
+ "ASAX (setup_magnetometer)": {
+  "value": 0,
+  "obs": {
+   "0": 5
+  }
+ },
+ "ASAY (setup_magnetometer)": {
+  "value": 0,
+  "obs": {
+   "0": 5
+  }
+ },
+ "ASAZ (setup_magnetometer)": {
+  "value": 0,
+  "obs": {
+   "0": 5
+  }
+ },
+ "WIA (expect 0x48)": {
+  "value": 72,
+  "obs": {
+   "72": 5
+  }
+ },
+ "CNTL1 as setup_magnetometer left it": {
+  "value": 22,
+  "obs": {
+   "22": 5
+  }
+ },
+ "ASAX (proper)": {
+  "value": 175,
+  "obs": {
+   "175": 5
+  }
+ },
+ "ASAY (proper)": {
+  "value": 175,
+  "obs": {
+   "175": 5
+  }
+ },
+ "ASAZ (proper)": {
+  "value": 165,
+  "obs": {
+   "165": 5
+  }
+ },
+ "CNTL1 after proper sequence": {
+  "value": 22,
+  "obs": {
+   "22": 5
+  }
+ },
+ "ST2 (latest)": {
+  "value": 16,
+  "obs": {
+   "16": 5
+  }
+ },
+ "reads with HOFL set, mod 256": {
+  "value": 0,
+  "obs": {
+   "0": 5
+  }
+ }
+}

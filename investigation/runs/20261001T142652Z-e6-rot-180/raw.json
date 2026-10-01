@@ -1,0 +1,34 @@
+{
+ "frames": 8236,
+ "seconds": 20.0,
+ "changes": 1091,
+ "change_rate_hz": 54.5,
+ "axes": {
+  "x": {
+   "mean": 535.04,
+   "std": 5.03,
+   "min": 521,
+   "max": 552,
+   "distinct": 27
+  },
+  "y": {
+   "mean": 313.23,
+   "std": 4.97,
+   "min": 295,
+   "max": 329,
+   "distinct": 29
+  },
+  "z": {
+   "mean": -764.35,
+   "std": 5.04,
+   "min": -782,
+   "max": -746,
+   "distinct": 29
+  }
+ },
+ "accel": {
+  "x": -36.73,
+  "y": -0.92,
+  "z": -1023.01
+ }
+}

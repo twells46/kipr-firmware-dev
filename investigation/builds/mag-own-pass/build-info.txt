@@ -1,0 +1,7 @@
+label: mag-own-pass
+ref: 49cca43 = 49cca43690d23ed3be251a44f7d45bb37161727b
+patch: mag-own-pass.patch md5 b85106e73b7c62cab514bdd02fa06dea
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-10-01T13:55:38Z
+wombat.bin: 30876 bytes, md5 11a6574c8c05b558b16c36792e2b11af
+warnings: 13

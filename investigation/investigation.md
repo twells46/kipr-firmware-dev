@@ -3,10 +3,13 @@
 Source of truth for this investigation. Update after every experiment, not at
 the end. After a context compaction or a new session, re-read this file first.
 
-**Status: concluded 2026-09-30.** The root cause and fixes are in
+**Status: concluded 2026-09-30; magnetometer follow-up (E4–E6) on
+2026-10-01.** The root cause and fixes are in
 [Conclusion](#conclusion-2026-09-30-2100z). The fixes are in pull requests:
 [kipr/Wombat-Firmware#8](https://github.com/kipr/Wombat-Firmware/pull/8)
-(branch `oscar/mpu9250-imu-driver`, commits `35ef0a2`..`49cca43`), and
+(branch `oscar/mpu9250-imu-driver`, commits `35ef0a2`..`d9b8ade`, pushed
+2026-10-01; `a33ee4d` and `d9b8ade` bring the magnetometer back, see E4b
+and E5), and
 [twells46/libwallaby#2](https://github.com/twells46/libwallaby/pull/2) (branch
 `fix-imu-calibration`, commits `de1c6f6` and `2383007`). The rest of this file is the experiment record. The
 tools below still work for future IMU or firmware work.
@@ -134,6 +137,12 @@ the pre-PR8 baseline. The user hopes the result is better than pre-PR8.
   "flash X, then flash regdump2, then regdump.sh" shows X's real config.
   Don't use `builds/e1-regdump` (without the gap): its entry reads are
   garbage (H7).
+- `investigation/tdump.sh <label>`: with a `builds/t1-timing-*` image
+  flashed, reads per-pass-class main-loop timing (DWT cycle counter) into
+  `runs/` (E4).
+- `investigation/magsample.py`: libkipr `magneto_*()` stats on the Wombat
+  (E4). `rawmag.py`: raw 16-bit mag slots and their update rate (E4b).
+  `magdiag.py`: reads `builds/e5-magdiag` AK8963 diagnostics (E5).
 - `investigation/gyrobytes.py [n]` (run on the Wombat next to
   `regdump.py`): classifies published gyro byte frames as aligned, shifted
   by one byte (H7), or other.
@@ -144,9 +153,9 @@ the pre-PR8 baseline. The user hopes the result is better than pre-PR8.
 |---|---|
 | Wombat kernel | 6.18.50+rpt-rpi-v8, Debian 13.7 |
 | libkipr on Wombat | deb `kipr` 1.2.4, `/usr/lib/libkipr.so` sha256 `8eafd26fdc6d0dc2…` |
-| Flashed firmware | `builds/final-49cca43/wombat.bin` (Wombat-Firmware `49cca43`, md5 `2d941ad8…`), flashed 2026-09-30 21:10Z |
-| IMU state | Final firmware (history-independent). The AK8963 is still in continuous mode from earlier candidate flashes until the next power cycle (H10). |
-| Location | **Floor since about 20:15Z.** Compare accel x/y only with E2-B or later runs. |
+| Flashed firmware | `builds/mag-asa/wombat.bin` = Wombat-Firmware `d9b8ade` (md5 `c18e9f1f…`), flashed 2026-10-01 ~14:19Z (E5) |
+| IMU state | Power-cycled 2026-10-01 13:51:44Z. Magnetometer firmware (history-independent) has kept the AK8963 running since 13:57Z; it runs until the next power cycle (H10). |
+| Location | Floor, on a spot the user marked on 2026-10-01 (E6; turned through 4 headings, now back at 0°). Compare accel x/y only within a session. |
 | botui / IDE server | Stopped by the user (running processes; unknown whether they come back after a power cycle; check `pgrep -a botui`) |
 | `wombat.bin.pre_pr8` | md5 `43444cc7…`, 32152 bytes. The user believes it came from `d2d651e`, but it's unverified: my `d2d651e` build is 31476 bytes, md5 `b7005938…` (probably a different toolchain). No Firmware changes between `d2d651e` and master. |
 | `wombat.bin.pr8` | md5 `a07b5eb4…`, 30876 bytes. Verified identical to my build of `4baf206` (`builds/pr8-unfixed`). |
@@ -669,6 +678,274 @@ The user chose to drop `setup_magnetometer()` (H10).
 - libwallaby, new branch `fix-imu-calibration` from `master` `cf56155` (not
   pushed): `de1c6f6` accel, `2383007` gyro. The committed files are
   byte-identical to `libbuilds/e3-calib/src`.
+- 2026-10-01, after a review question (E4): `a33ee4d` restores
+  `setup_magnetometer()` (undoing 49cca43) and reads the magnetometer on its
+  own pass (E4b); `d9b8ade` applies the AK8963 factory sensitivity adjustment
+  (E5). Both pushed to PR #8 (head `d9b8ade`). The PR description still
+  describes the pre-investigation state (e.g. "not yet flashed", the
+  `raw_data[0]` known issue) and hasn't been updated.
+
+### E4: review question on 49cca43, the leftover magnetometer read (2026-10-01, 13:35–13:44Z)
+
+A reviewer pointed out that 49cca43 stops calling `setup_magnetometer()` but
+`readIMU()` still reads the magnetometer every 20 passes. Their claims were:
+(a) `magneto_*()` now return 0, where on master they return AK8963 readings;
+(b) that read costs about 360 µs over SPI3 (APB1 45 MHz / 128 = 352 kHz), so
+every 20th pass spends about 340 + 360 + 150 = 850 µs against the 700 µs
+window. They estimated (b) from the clock and didn't measure it.
+
+Resume state: the Wombat booted at 06:53Z (unknown whether that was a
+reboot or a power cycle), with `final-49cca43` flashed. `~/.ssh/config` had
+to be re-created again. Neither check below depends on IMU history,
+except the AK8963 note at the end.
+
+New tools: `magsample.py` (libkipr `magneto_x/y/z` + `gyro_x` stats);
+`patches/t1-loop-timing.patch` (main.c only: DWT cycle-timed per-pass stats
+per pass class, published in the mag slots with a checksum) read by
+`tdump.sh`/`tdump.py`; `patches/t1-no-mag-read.patch` (control: deletes the
+mag branch of `readIMU()`). Builds `t1-timing-49cca43` (`97e740c2…`) and
+`t1-timing-49cca43-nomagread` (`427bb84f…`).
+
+**Timing** (`…133829Z-t1-timing-49cca43`, `…133927Z-…-nomagread`; 5
+windows of 4000 passes each; µs mean/max; CYCCNT/usCount = 180.1, so
+`usCount` is accurate):
+
+| Pass class | readIMU | adc_update | sensor section | passes ≥ 700 µs | pass period |
+|---|---|---|---|---|---|
+| 49cca43, count%20==0 (accel+gyro+mag) | 691.6 / 696.7 | 163.1 / 168.2 | **862.3 / 869.3** | **1000/1000** | **1085.6** / 1098.2 |
+| 49cca43, count%10==0 (accel+gyro) | 336.7 / 340.0 | 163.7 / 168.1 | 508.0 / 512.6 | 0/1000 | 924.0 / 931.8 |
+| 49cca43, no IMU, no bemf | 0.4 / 3.9 | 163.5 / 168.5 | 171.6 / 177.2 | 0/13000 | 924.2 / 933.7 |
+| 49cca43, bemf pass (count%4==1) | 0.4 / 3.4 | 163.4 / 168.1 | 171.2 / 175.8 | 0/5000 | 900.0 / 910.3 |
+| no mag read, count%20==0 | 336.6 / 339.7 | 163.4 / 168.5 | 507.6 / 513.1 | 0/1000 | 924.3 / 936.2 |
+
+- **(b) confirmed, and the estimate was close.** The mag read costs 355 µs
+  (691.6 − 336.7), and every 20th pass takes 862 µs against the 700 µs
+  budget, on every such pass.
+- **Nuance: the overrun never shortens a back-EMF coasting window.** IMU
+  reads happen only when count%10==0, which means count%4 ∈ {0,2}, and
+  back-EMF is sampled only when count%4==1. So the motors aren't coasting
+  during the overrun. Instead, every 20th pass runs 162 µs long (1086 vs
+  924 µs). With PID updates every 4 passes, one PID interval in 5 is
+  3834 µs instead of 3672 µs (+4.4%). The PID uses no dt (`wallaby_pid.c`),
+  so it assumes a fixed period.
+- The overrun is not new in 49cca43. `4baf206` had the same read, minus
+  the 40 µs of CS gaps that `35ef0a2` added (4 transactions × 10 µs).
+  49cca43 only made the read useless.
+- Without the read, every pass stays within 700 µs and the period is a
+  uniform 924 µs.
+
+**Magnetometer readings** (`magsample.py`, 1000 samples at 10 ms; regdump2
+readback after each pre-PR8 image):
+
+| Image | magneto x/y/z mean (std) | USER_CTRL / I2C_MST_CTRL |
+|---|---|---|
+| `final-49cca43` | 0 / 0 / 0 (all 1000 exactly 0) | 0x00 / 0x00 (as in `…final-49cca43-config`) |
+| `wombat.bin.pre_pr8` (shipped), warm | 0 / 0 / 0 (all exactly 0) | 0x00 / 0x00 |
+| `prepr8-d2d651e` (source build), warm | 0 / 0 / 0 (all exactly 0) | 0x00 / 0x00 (CONFIG and GYRO_CONFIG also 0x00: no setup write landed) |
+| `cs-gap+reset-wait+gyro-config` (with `setup_magnetometer()`) | 4.0 (0.25) / −10.3 (0.44) / −67.9 (0.34) | — (0x20 / 0x0D in E2-5) |
+
+- **(a) half confirmed.** 49cca43 returns 0, as predicted. **But master
+  doesn't return AK8963 readings on this unit either.** Both pre-PR8 images
+  return exactly 0 and leave the MPU's I2C master off. E1-a showed the same
+  for the shipped image after a cold boot (USER_CTRL 0x00, I2C_MST_CTRL
+  0x00), so the shipped firmware's magnetometer is dead cold and warm. This
+  fits "broken for years". (No direct cold `magneto_*()` read yet; that
+  needs a power cycle.)
+- PR8 with the magnetometer setup does give live readings. libwallaby
+  divides by 16, so that's about 64/−164/−1086 raw, or roughly
+  10/−25/−163 µT at 0.15 µT/LSB, with no ASA or hard-iron correction, and a
+  resolution of 2.4 µT per count. So 49cca43 drops a magnetometer that PR8
+  would have made work, not one that schools have today.
+- State: the candidate flash started the AK8963 at 13:42Z. It keeps running
+  until the next power cycle (H10), so raw accel z reads about −1022 instead
+  of −1034 until then. `final-49cca43` was reflashed at 13:44Z.
+
+Options for the user: (1) also delete the mag branch of `readIMU()` (saves
+355 µs per 20th pass; no loss compared with shipped firmware or 49cca43);
+(2) restore `setup_magnetometer()` (working magnetometer, at the cost of
+H10's +12 counts on accel z; the overrun stays); (3) keep the
+magnetometer, but move its read to its own pass, one that reads neither
+accel/gyro nor back-EMF, so no pass exceeds 700 µs. (I first suggested
+count%20==5, but that is a back-EMF pass, since 5 % 4 = 1. E4b uses 15.)
+
+### E4b: magnetometer back, read on its own pass (2026-10-01, 13:56–14:05Z)
+
+The user chose option 3. The user power-cycled; the Wombat booted at
+13:51:44Z with `final-49cca43`, so the AK8963 was off. The 06:53Z boot was
+probably an office power blip, so a full power cycle.
+
+`patches/mag-own-pass.patch` on `49cca43` restores `delay_us(200);
+setup_magnetometer();` (undoing 49cca43) and reads the magnetometer when
+`count % 20 == 15`: never an accel/gyro pass (count%10 ≠ 0), never a
+back-EMF pass (count%4 ≠ 1). Builds `mag-own-pass` (`11a6574c…`) and
+`t1-timing-mag-own-pass` (`0b259410…`, + T1 instrumentation; in that build
+the T1 class-0 label "imu+mag" is stale: it's accel+gyro only, and the
+magnetometer pass falls in class 2).
+
+Falsifiers (set before running): timing, any pass ≥ 700 µs, or a
+magnetometer-pass period above the other non-bemf passes (~934 µs);
+magnetometer, `magneto_*()` = 0 or raw values never change; accel/gyro,
+gyro std or means outside run-to-run noise of the same-session reference,
+or accel z not at about reference + 12 (H10).
+
+New tool: `rawmag.py` (runs on the Wombat next to `regdump.py`): raw
+16-bit mag slots from SPI2 frames, and how often they change.
+
+| Run | Image | Raw gyro x/y/z mean (std) | Raw accel x/y/z mean (std) | Calibrated gyro x/y/z | Calibrated accel x/y/z |
+|---|---|---|---|---|---|
+| `…135609Z-e4b-cold-final-49cca43-magoff-ref` | `final-49cca43`, AK8963 off | 1.66 (0.50) / 5.80 (0.60) / 9.17 (0.52) | 23.8 (2.2) / 11.4 (2.2) / **−1036.5** (3.6) | 0.65 / −0.13 / 0.18 | −0.2 / −0.4 / −1023.4 |
+| `…e4b-mag-own-pass-run1` | `mag-own-pass` | 1.65 (0.52) / 5.70 (0.65) / 9.00 (0.53) | 22.7 (2.2) / 11.4 (2.2) / **−1024.5** (3.6) | −0.33 / −0.31 / −0.02 | −0.3 / −0.6 / −1023.3 |
+| `…run2` | `mag-own-pass` | 1.65 (0.52) / 5.63 (0.62) / 8.98 (0.51) | 22.5 (2.2) / 11.5 (2.3) / −1024.4 (3.6) | −0.38 / −0.29 / −0.01 | −0.6 / 0.2 / −1023.5 |
+| `…run3` | `mag-own-pass` | 1.64 (0.51) / 5.64 (0.63) / 8.98 (0.50) | 22.5 (2.2) / 11.1 (2.1) / −1024.5 (3.5) | −0.32 / −0.32 / −0.06 | 0.5 / 0.1 / −1024.6 |
+
+All with `LIBKIPR=libbuilds/e3-calib`. The Wombat shifted during the power
+cycle (accel x/y 23.8/11.4 vs 12.6/25.5 yesterday), so compare only
+within this session.
+
+- **Timing: pass** (`…135732Z-t1-timing-mag-own-pass`). 0 of 20000 passes
+  ≥ 700 µs. Magnetometer pass: readIMU at most 359.6 µs, sensor section at
+  most 532.3 µs. Max period per class 939/931/934/910 µs, against the
+  uniform 924 µs mean. The accel+gyro passes are back to 508 µs.
+- **Magnetometer: pass** (`…135823Z-e4b-mag-own-pass`). `magneto_*()`
+  1.9 / −8.6 / −68.1. Raw (`rawmag.py`) 36.7 / −144.1 / −1097.7, std 4.3
+  counts (0.65 µT), published value changing 54.6 times/s = once per
+  read (loop ≈ 1092 Hz / 20). At rest that's about 5.5 / −21.6 / −164.6
+  µT. The z offset is far above Earth's field (about 50 µT), so there's a
+  large hard-iron offset (board or battery). Heading use would need
+  calibration.
+- **Accel/gyro: pass.** Gyro std and means equal the reference. Accel z
+  +12.0 (H10, expected). The x drift of −1.3 matches E3's post-power-up
+  drift. y is equal, and accel std is equal. Calibrated accel is
+  0/0/−1024; calibrated gyro |mean| ≤ 0.38 (E3 falsifier < 0.5).
+- Follow-ups noticed, not changed: `magn_scale_factors` (ASA) is computed
+  but never used, and uses `raw_data[0]` for all three axes; libwallaby's
+  `magneto_*()` divide by 16, which throws away the AK8963's resolution
+  (2.4 µT steps); the `readIMU()` rate comments ("about 200 hz", "about
+  100 hz") are stale (about 109 Hz and 55 Hz).
+- State: `mag-own-pass` flashed at 13:57Z; the AK8963 runs until the next
+  power cycle.
+
+### E5: AK8963 factory sensitivity adjustment (2026-10-01, 14:08–14:20Z)
+
+E4b committed as Wombat-Firmware `a33ee4d` (local, not pushed), with the
+`readIMU()` rate comments corrected (main loop about 1090 passes/s, so
+accel/gyro about 110 Hz and magnetometer about 55 Hz). Its build
+(`builds/commit-a33ee4d`) is byte-identical to `mag-own-pass` (`11a6574c…`).
+The user asked to try the factory sensitivity adjustment (ASA).
+
+**H11 (code reading): `setup_magnetometer()` never reads the ASA.** After
+H_RESET, I2C_SLV0_CTRL = 0 (slave disabled), so the power-down and Fuse
+ROM `magnetometer_write()`s only set SLV0_REG/DO, and no I2C write
+happens. `magnetometer_read_bytes()` then enables SLV0 and reads
+EXT_SENS_DATA a few µs later, but the MPU's I2C master runs once per sample
+(5 ms). Continuous mode only works by accident: the last write stays
+enabled, and the master re-sends 0x16 every sample until the first
+runtime read. `magn_scale_factors` is also never used, and uses
+`raw_data[0]` for all axes. Falsified if the ASA bytes setup reads equal
+those from a proper sequence.
+
+`patches/e5-magdiag.patch` (`builds/e5-magdiag`, `021b32fd…`; read with
+`magdiag.py`): after the normal setup, it reruns the sequence with SLV0
+enabled and a 20 ms wait per transaction, then publishes the results in the
+mag slots (run `…e5-magdiag`):
+
+| Item | Value |
+|---|---|
+| ASA as `setup_magnetometer()` read it | 0x00 / 0x00 / 0x00 (factor 0.5) |
+| AK8963 WIA | 0x48 (correct) |
+| CNTL1 as `setup_magnetometer()` left it | 0x16 (16-bit, 100 Hz continuous) |
+| ASA read properly | 0xAF / 0xAF / 0xA5 = **1.1836 / 1.1836 / 1.1445** |
+| CNTL1 after the proper sequence | 0x16 |
+| ST2 | 0x10 (BITM = 16-bit, no overflow) |
+
+**H11 confirmed.** The mode was right all along; only the ASA read was wrong
+(and unused).
+
+`patches/mag-asa.patch` on `a33ee4d` (`builds/mag-asa`, `c18e9f1f…`):
+- `magnetometer_write()` enables SLV0 for one byte, waits 10 ms, and
+  disables it;
+- the ASA read waits 10 ms before reading EXT_SENS_DATA;
+- `raw_data[i]` per axis; the factors default to 1.0 and stay at 1.0 if the
+  AK8963 returns all 0x00 or all 0xFF;
+- `readIMU()` publishes raw × factor, rounded and clamped to int16.
+
+Prediction: published values = raw × 1.184/1.184/1.145. Falsified if the
+ratio is 0.5 or 1.0, or z ≠ 1.145 beyond noise. Bracketed with
+`commit-a33ee4d` (`rawmag.py`, 20 s, about 1090 fresh samples each):
+
+| Run | x | y | z (raw counts, std ≈ 4.3; 5.1 with ASA) |
+|---|---|---|---|
+| `…e5-rawmag-commit-a33ee4d` (before) | 89.61 | −141.49 | −980.01 |
+| `…e5-rawmag-mag-asa` | 106.28 | −167.34 | −1121.73 |
+| `…e5-rawmag-commit-a33ee4d` (after) | 89.64 | −141.56 | −979.84 |
+| ratio (measured / predicted) | 1.186 / 1.184 | 1.182 / 1.184 | 1.1447 / 1.1445 |
+
+- **The ASA is applied correctly**, and a 10 ms wait is enough.
+- **It does not make the readings look more like Earth's field (about
+  50 µT): they get about 15–18% larger** (z about −168 µT). ASA corrects
+  the gain of each axis. The large constant is a hard-iron offset (a field
+  from the Wombat itself), and removing it needs a rotation calibration.
+- The magnetometer readings moved between E4b (13:58Z: 36.7/−144.1/−1097.7)
+  and E5 (89.6/−141.5/−980.0) with the same firmware. Accel x/y also moved
+  (E4b 22.5/11.3 vs `…e5-mag-asa-run1` 15.8/6.2), so the Wombat was moved
+  or nudged in between. **Ask the user.**
+- Accel/gyro under `mag-asa` (`…e5-mag-asa-run1`): gyro 1.64 (0.52) /
+  5.69 (0.65) / 9.31 (0.53), accel std 2.3/2.2/3.5, z −1023.7 (H10 on);
+  calibrated accel 0/0/−1024.7. Unchanged.
+- Not measured: timing of `mag-asa` (it adds a few float operations to the
+  magnetometer pass, and about 50 ms to setup).
+
+Proposed test for "more sensible": rotate the Wombat flat to 4 headings
+(90° apart). Each x/y pair lies on a circle: its centre is the hard-iron
+offset, and its radius is the horizontal Earth field (about 23 µT expected
+for Norman, OK). Compare the radius with and without ASA. z needs a flip to
+separate offset from field.
+
+### E6: magnetometer rotation test on the floor (2026-10-01, ~14:35–14:50Z)
+
+`mag-asa` committed as Wombat-Firmware `d9b8ade` (local, not pushed; build
+`commit-d9b8ade` byte-identical to `mag-asa`, `c18e9f1f…`, already
+flashed). The user turned the Wombat flat on its marked floor spot,
+about its centre, 90° clockwise each step: 0°, 90°, 180°, 270°, and back
+to 0°. Each heading is 20 s of `rawmag.py` (now also averages accel), via
+`rotstep.sh`; analysed with `rotfit.py` (`runs/e6-rotfit.json`).
+Unadjusted values = published / ASA factor (E5).
+
+Prediction (set before running): with a uniform Earth field plus a
+constant offset from the Wombat, x/y lie on a circle of radius = horizontal
+field (about 23 µT for Norman, OK), and z stays constant. Falsifier for
+"the offset is from the robot": the points circle around (0, 0) instead.
+
+| Heading | x | y | z | \|B\| | distance from x/y centre | accel x/y |
+|---|---|---|---|---|---|---|
+| 0° | 5.1 | −20.8 | −168.4 | 169.8 | 49.0 | 10/10 |
+| 90° | 56.9 | −12.9 | −149.6 | 160.6 | 38.9 | −3/−18 |
+| 180° | 80.3 | 47.0 | −114.7 | 147.6 | 54.0 | −37/−1 |
+| 270° | −5.5 | 61.5 | −129.1 | 143.1 | 58.4 | −14/36 |
+| 0° again | 5.2 | −21.9 | −163.2 | 164.7 | 49.9 | 22/9 |
+
+(µT, ASA-adjusted. Unadjusted: radius 42.3 instead of 50.1, z spread
+47.0 instead of 53.8.)
+
+- **The prediction fails, and so does its falsifier: the field at this spot
+  isn't uniform.** z changes by 54 µT in a flat rotation (accel z is
+  constant at −1023…−1024), and the distance from the centre ranges from
+  39 to 58 µT. A uniform field plus any constant offset would keep both
+  fixed. The tilt (accel x/y, ≤ 2°) can only move about 5 µT of the
+  ~150 µT z field into x/y. The return to 0° repeats x/y within 1 µT, but
+  z only within 5 µT, after a small position change (accel x 10 → 22). So
+  the field varies over centimetres. Likely cause: steel in or under the
+  floor (rebar) or nearby. The IMU sits off the Wombat's centre, so each
+  turn moves it to a different point.
+- **Consequences:** at this spot you can't separate a robot-fixed offset
+  from the environment, and you can't judge the ASA (the horizontal
+  "radius" of 42–50 µT is nowhere near 23 µT). The earlier at-rest −165 µT
+  z reading may be mostly the floor, not the Wombat.
+- Next: repeat the rotation about 1 m off the floor, on non-metallic
+  support (cardboard box, wooden stool), away from steel furniture,
+  computers and power cables. First check that z stays within a few µT
+  across headings. A phone magnetometer app at the same spot can give a
+  reference total field (about 50 µT expected).
 
 ### Baseline reference (pre-PR8, cold boot; E0-A/B/F)
 
@@ -703,9 +980,16 @@ switch. If a candidate firmware provably resets the IMU (E1 readback shows
 identical registers after a power cycle vs after a flash following PR8), it
 may run without power cycles.
 
-The investigation is complete (see Conclusion). Possible follow-ups, if the user wants them:
+The investigation is complete (see Conclusion). Open magnetometer item
+(E6): repeat the rotation test about 1 m off the floor on non-metallic
+support, check that z is constant across headings, then compare the x/y
+radius with and without ASA against about 23 µT (and against a phone
+magnetometer at the same spot). Also not yet done: libwallaby `magneto_*()`
+divide by 16 (2.4 µT steps); no hard-iron calibration exists.
 
-- Decide on H10 (keep or drop `setup_magnetometer()`).
+Possible follow-ups, if the user wants them:
+
+- ~~Decide on H10~~: decided 2026-10-01, magnetometer kept (E4b; accel z +12 counts while it runs).
 - The single 14-byte burst read (0x3B–0x48): accel and gyro from one
   sample instant, with fewer transactions. That would be a robustness
   improvement, not needed for the criterion.
@@ -729,6 +1013,11 @@ The investigation is complete (see Conclusion). Possible follow-ups, if the user
 | 2026-09-30 ~20:31 | Power cycle by the user (booted 20:32:18Z) | E2-B |
 | 2026-09-30 20:36–20:40 | Flashed `e1-regdump2`, `e2-regdump2-hreset`, `candidate+h8-nomag`, `cs-gap+reset-wait+gyro-config` | E2-B, H9, H10 |
 | 2026-09-30 21:08–21:10 | Flashed `final-49cca43`, `e1-regdump2`, `final-49cca43` | Verify the committed firmware |
+| 2026-10-01 06:53 | Wombat booted (reboot or power cycle; not by me) | — |
+| 2026-10-01 13:38–13:44 | Flashed `t1-timing-49cca43`, `t1-timing-49cca43-nomagread`, `wombat.bin.pre_pr8`, `e1-regdump2`, `prepr8-d2d651e`, `e1-regdump2`, `cs-gap+reset-wait+gyro-config`, `final-49cca43` | E4 |
+| 2026-10-01 ~13:50 | Power cycle by the user (booted 13:51:44Z) | E4b |
+| 2026-10-01 13:57 | Flashed `t1-timing-mag-own-pass`, then `mag-own-pass` | E4b |
+| 2026-10-01 14:11–14:19 | Flashed `e5-magdiag`, `commit-a33ee4d`, `mag-asa`, `commit-a33ee4d`, `mag-asa` | E5 |
 
 State as of 2026-09-30 20:14Z: the candidate `cs-gap+reset-wait+gyro-config` is flashed and the IMU is warm. `kipr` 1.2.4
 and `/etc` are unmodified. The only package change is gdbserver.

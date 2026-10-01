@@ -1,0 +1,7 @@
+[core/wombat] [E]: DMA de-synchronized
+magneto_x  mean     0.00 std    0.00 min      0 max      0 distinct     1 zeros 1.000
+magneto_y  mean     0.00 std    0.00 min      0 max      0 distinct     1 zeros 1.000
+magneto_z  mean     0.00 std    0.00 min      0 max      0 distinct     1 zeros 1.000
+gyro_x     mean     2.48 std    0.54 min      1 max      5 distinct     5 zeros 0.000
+Cleaning up 1
+~Wombat()
