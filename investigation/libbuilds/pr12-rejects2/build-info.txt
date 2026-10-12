@@ -1,0 +1,7 @@
+label: pr12-rejects2
+ref: master = cf56155f5738f142dd380ce7d19872f797731084
+patch: libwallaby-spi-rejects.patch md5 cb94961c42fcf6f3f0ef265c78f90e53
+toolchain: aarch64-linux-gnu-g++ (Debian 14.2.0-19) 14.2.0
+built: 2026-10-01T16:44:32Z
+libkipr.so: 15075864 bytes, sha256 af820a99e1450e4dc645c611f7217fd32d60035f25d4bbf3b96e9336e82c44e8
+warnings: 125

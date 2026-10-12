@@ -8,3 +8,4 @@ libbuilds/*/patches/
 libbuilds/*/build.log
 # libkipr.so is 15 MB; build-info.txt records its sha256.
 libbuilds/*/libkipr.so*
+__pycache__/

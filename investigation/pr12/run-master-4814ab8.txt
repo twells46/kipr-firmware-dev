@@ -1,0 +1,7 @@
+pr12_hw 2026-10-01T16:34:50Z
+H1 count>pairs desync: FAIL  199/200 frames without 'J'
+H2 servo round-trip: PASS  mismatches=[] allstop=0xf0
+H3 count bit flips: FAIL  cnt=3:2000,desync=5 cnt=0:1500,desync=0 cnt=6:2000,desync=5 cnt=10:2000,desync=5 cnt=18:2000,desync=5 cnt=34:2000,desync=5 cnt=66:2000,desync=5 cnt=130:2000,desync=0
+H4 writes to 0..2 ignored: FAIL  before=[74, 0, 8] after=[5, 220, 0] desync=50/50 (master expected FAIL)
+H5 soak: PASS  0/20000 desync, 4796 frames/s
+H6 version regs: PASS  start=74 version=0x0008

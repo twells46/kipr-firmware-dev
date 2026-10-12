@@ -1,0 +1,7 @@
+label: pr12-fix-a9-a10
+ref: 80ad31a = 80ad31a7e446df385aad1f706c1d42ef2ec3bced
+patch: firmware-a9-a10.patch md5 2f532c4f161f5dd0ff5009e1cbecf407
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-10-01T16:40:13Z
+wombat.bin: 31604 bytes, md5 3118054f07271eafec6fea38af18b3cb
+warnings: 17

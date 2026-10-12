@@ -1,0 +1,30 @@
+##### /usr/lib/libkipr.so
+pr12_h10 passive [] 2026-10-12T19:18:04Z lib=/usr/lib/libkipr.so
+link: PASS  0/200 raw frames without 'J'
+battery: PASS  power_level min=0.042 max=0.042 charging=0
+analog 0-5: PASS  a0=668..704 a1=1018..1064 a2=1076..1093 a3=1091..1101 a4=901..918 a5=1008..1015
+digital 0-9: PASS  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+buttons: PASS  {'side': 0, 'left': 0, 'right': 0} (0 unless held)
+servos idle: PASS  enabled=[0, 0, 0, 0] positions=[1024, 1024, 1024, 1024]
+motors idle: PASS  gmpc [0, 0, 0, 0] -> [0, 0, 0, 0] over 1 s, done=[0, 0, 0, 0]
+5 s read loop: PASS  8260 rounds of analog/digital/gmpc
+passive reject counter: PASS  moved 0, injected 0
+H10 passive: PASS
+Cleaning up 1
+~Wombat()
+exit=0
+##### /tmp/libkipr-pr12-rejects2.so
+pr12_h10 passive [] 2026-10-12T19:18:12Z lib=/tmp/libkipr-pr12-rejects2.so
+link: PASS  0/200 raw frames without 'J'
+battery: PASS  power_level min=0.042 max=0.042 charging=0
+analog 0-5: PASS  a0=670..704 a1=1016..1061 a2=1066..1082 a3=1091..1103 a4=913..925 a5=1005..1026
+digital 0-9: PASS  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+buttons: PASS  {'side': 0, 'left': 0, 'right': 0} (0 unless held)
+servos idle: PASS  enabled=[0, 0, 0, 0] positions=[1024, 1024, 1024, 1024]
+motors idle: PASS  gmpc [0, 0, 0, 0] -> [0, 0, 0, 0] over 1 s, done=[0, 0, 0, 0]
+5 s read loop: PASS  8232 rounds of analog/digital/gmpc
+passive reject counter: PASS  moved 0, injected 0
+H10 passive: PASS
+Cleaning up 1
+~Wombat()
+exit=0

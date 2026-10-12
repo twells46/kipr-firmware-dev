@@ -1,0 +1,67 @@
+##### digout, /tmp/libkipr-pr12-rejects2.so
+pr12_h10 digout ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] 2026-10-12T19:20:37Z lib=/tmp/libkipr-pr12-rejects2.so
+d0 output loopback: FAIL  wrote [1,0,1,0] read [0, 0, 0, 0], output flag 1 then 0
+d0 pullup flag: FAIL  0 -> 0 -> 0
+d1 output loopback: FAIL  wrote [1,0,1,0] read [0, 0, 0, 0], output flag 1 then 0
+d1 pullup flag: FAIL  0 -> 0 -> 0
+d2 output loopback: FAIL  wrote [1,0,1,0] read [0, 0, 0, 0], output flag 1 then 0
+d2 pullup flag: FAIL  0 -> 0 -> 0
+d3 output loopback: FAIL  wrote [1,0,1,0] read [0, 0, 0, 0], output flag 1 then 0
+d3 pullup flag: FAIL  0 -> 0 -> 0
+d4 output loopback: FAIL  wrote [1,0,1,0] read [0, 0, 0, 0], output flag 1 then 0
+d4 pullup flag: FAIL  0 -> 0 -> 0
+d5 output loopback: FAIL  wrote [1,0,1,0] read [0, 0, 0, 0], output flag 1 then 0
+d5 pullup flag: FAIL  0 -> 0 -> 0
+d6 output loopback: FAIL  wrote [1,0,1,0] read [0, 0, 0, 0], output flag 1 then 0
+d6 pullup flag: FAIL  0 -> 0 -> 0
+d7 output loopback: FAIL  wrote [1,0,1,0] read [0, 0, 0, 0], output flag 1 then 0
+d7 pullup flag: FAIL  0 -> 0 -> 0
+d8 output loopback: FAIL  wrote [1,0,1,0] read [0, 0, 0, 0], output flag 1 then 0
+d8 pullup flag: FAIL  0 -> 0 -> 0
+d9 output loopback: FAIL  wrote [1,0,1,0] read [0, 0, 0, 0], output flag 1 then 0
+d9 pullup flag: FAIL  0 -> 0 -> 0
+digout reject counter: PASS  moved 0, injected 0
+H10 digout: FAIL
+Cleaning up 1
+~Wombat()
+exit=1
+##### servo 0 3, /tmp/libkipr-pr12-rejects2.so
+pr12_h10 servo ['0', '3'] 2026-10-12T19:20:43Z lib=/tmp/libkipr-pr12-rejects2.so
+servos enabled: PASS  [1, 1, 1, 1]
+servo -> 600: PASS  ports [0, 3] read back [600, 600] (watch them move)
+servo -> 1500: PASS  ports [0, 3] read back [1500, 1500] (watch them move)
+servo -> 1024: PASS  ports [0, 3] read back [1024, 1024] (watch them move)
+servos disabled: PASS  [0, 0, 0, 0]
+servo reject counter: PASS  moved 0, injected 0
+H10 servo: PASS
+Cleaning up 1
+~Wombat()
+exit=0
+##### motor 0 3, /tmp/libkipr-pr12-rejects2.so
+pr12_h10 motor ['0', '3'] 2026-10-12T19:20:48Z lib=/tmp/libkipr-pr12-rejects2.so
+m0 cmpc: PASS  gmpc=0
+m0 motor(50): PASS  1211 ticks in 1.5 s
+m0 off: PASS  drift 0 ticks in 0.5 s after off
+m0 motor(-50): PASS  -1210 ticks in 1.5 s
+m0 mav(500): PASS  1073 ticks in 2 s (expect about 1000)
+m0 mrp(500,1000): PASS  done at start=0, done after 1.85 s, moved 1030
+[core/wombat] [W]: co-processor rejected 3 corrupt SPI packet(s); some writes may have been lost
+m0 done bit survives rejects: PASS  get_motor_done=1 reg60=0x71 counter moved 3 (fix: 3, older firmware: 0)
+m0 mtp back: PASS  done at start=0, done after 1.92 s, ended -28 from start
+m0 freeze: PASS  drift 0 ticks in 0.5 s
+m0 reject counter: PASS  moved 3, injected 3
+m3 cmpc: PASS  gmpc=0
+m3 motor(50): PASS  1210 ticks in 1.5 s
+m3 off: PASS  drift 0 ticks in 0.5 s after off
+m3 motor(-50): PASS  -1204 ticks in 1.5 s
+m3 mav(500): PASS  1073 ticks in 2 s (expect about 1000)
+m3 mrp(500,1000): PASS  done at start=0, done after 1.86 s, moved 1026
+[core/wombat] [W]: co-processor rejected 3 corrupt SPI packet(s); some writes may have been lost
+m3 done bit survives rejects: PASS  get_motor_done=1 reg60=0xa4 counter moved 3 (fix: 3, older firmware: 0)
+m3 mtp back: PASS  done at start=0, done after 1.91 s, ended -23 from start
+m3 freeze: PASS  drift 0 ticks in 0.5 s
+m3 reject counter: PASS  moved 3, injected 3
+H10 motor: PASS
+Cleaning up 1
+~Wombat()
+exit=0

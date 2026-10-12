@@ -1,0 +1,93 @@
+diff --git a/AGENTS.md b/AGENTS.md
+index 298e1bb..66ec789 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -97,8 +97,11 @@ This is the core abstraction, and the place to start reading.
+   (first byte `'J'`, last readable byte `'S'`, protocol byte equal to
+   `WALLABY_SPI_VERSION`) and applies the host's `(address, value)` writes to
+   `aTxBuffer`. It ignores writes to the start and version registers or past
+-  `REG_ALL_COUNT`, and applies at most 42 writes per packet, the most that fit
+-  before the end byte. Some writes set `adc_dirty` or `dig_dirty`, which the
++  `REG_ALL_COUNT`. A count above 42 (the most pairs that fit before the end
++  byte) is corrupt: the real count is recovered from where the host's zero
++  padding starts, and a packet with no padding is dropped. Packets with a
++  corrupt count or a skipped write are counted, mod 16, in the high nibble of
++  `REG_RW_MOT_DONE`. Some writes set `adc_dirty` or `dig_dirty`, which the
+   main loop picks up to reconfigure peripherals.
+ - Multi-byte values are split into `_H`/`_L` (or `_B3`…`_B0`) registers, most
+   significant byte first. Drivers read goals and PWM values from `aTxBuffer` and
+diff --git a/Firmware/include/wallaby_spi_r4.h b/Firmware/include/wallaby_spi_r4.h
+index 19b3906..3e0265a 100644
+--- a/Firmware/include/wallaby_spi_r4.h
++++ b/Firmware/include/wallaby_spi_r4.h
+@@ -88,6 +88,7 @@
+ #define REG_RW_MOT_MODES   58  //   Normal PWM, MTP, MAV, MRP, 2 bits per motor
+ #define REG_RW_MOT_DIRS    59  //   IDLE, FORWARD, REVERSE, BREAK, 2 bits per motor
+ #define REG_RW_MOT_DONE    60  //   4 lowest bit used:   0000 (chan0) (chan1) (chan2) (chan3)
++                               //   high 4 bits: count of rejected SPI packets, mod 16 (read-only)
+ #define REG_RW_MOT_SRV_ALLSTOP 61 //  2nd lowest bit is motor all stop, lowest bit is servo allstop
+ 
+ // 16 bit signed speed goals
+diff --git a/Firmware/src/wallaby_dma.c b/Firmware/src/wallaby_dma.c
+index 09bb2cf..d84c1de 100644
+--- a/Firmware/src/wallaby_dma.c
++++ b/Firmware/src/wallaby_dma.c
+@@ -199,6 +199,7 @@ void init_tx_buffer()
+ void handle_dma()
+ {
+     static uint8_t expected = 0;
++    static uint8_t rejected_packets = 0;
+ 
+     if ( (DMA_GetFlagStatus(DMA1_Stream4,DMA_FLAG_TCIF4)!=RESET) &&  (DMA_GetFlagStatus(DMA1_Stream3,DMA_FLAG_TCIF3)!=RESET))
+     {
+@@ -210,11 +211,20 @@ void handle_dma()
+ 
+             // handle recently compled DMA transfer
+             uint8_t num_regs = aRxBuffer[3];
++            uint8_t rejected = 0;
+             // (address, value) pairs run from byte 4 up to the trailing 'S', so a
+-            // larger count is corrupt. Clamp rather than drop the packet: libwallaby
+-            // zero-pads, and the address check below skips those (0, 0) pairs.
++            // larger count is corrupt. libwallaby zero-pads after its writes, so
++            // recover the real count from where the padding starts. A packet with
++            // no padding is as suspect as its count, so none of it is applied.
+             const uint8_t max_regs = (REG_READABLE_COUNT - 1 - 4) / 2;
+-            if (num_regs > max_regs) num_regs = max_regs;
++            if (num_regs > max_regs)
++            {
++                rejected = 1;
++                uint8_t end = REG_READABLE_COUNT - 1; // one past the last non-zero byte
++                while (end > 4 && aRxBuffer[end - 1] == 0) --end;
++                num_regs = (end - 4 + 1) / 2;
++                if (num_regs == max_regs) num_regs = 0;
++            }
+             uint8_t j;
+             if (num_regs != 0)
+             {
+@@ -230,7 +240,11 @@ void handle_dma()
+ 
+                 // Registers below REG_RW_DIG_IN_H are the read-only start byte and
+                 // firmware version. libwallaby checks the start byte on every transfer.
+-                if (address < REG_RW_DIG_IN_H || address >= REG_ALL_COUNT) continue;
++                if (address < REG_RW_DIG_IN_H || address >= REG_ALL_COUNT)
++                {
++                    rejected = 1;
++                    continue;
++                }
+ 
+                 // handle motors modes clearing done bits
+                 // TODO: cleanup
+@@ -250,6 +264,13 @@ void handle_dma()
+ 
+                 // TODO: handle PID coefficients
+             }
++
++            // Count packets with a corrupt count or a skipped write in the unused
++            // high nibble of REG_RW_MOT_DONE, so the host can notice them. It is
++            // rewritten on every packet because the main loop read-modify-writes
++            // the done bits and can briefly put back an old value.
++            if (rejected) rejected_packets = (rejected_packets + 1) & 0x0F;
++            aTxBuffer[REG_RW_MOT_DONE] = (aTxBuffer[REG_RW_MOT_DONE] & 0x0F) | (rejected_packets << 4);
+         }
+         else
+         {

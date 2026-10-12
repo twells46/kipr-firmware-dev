@@ -1,0 +1,11 @@
+pr12_hw 2026-10-01T16:35:24Z
+H1 count>pairs desync: PASS  0/200 frames without 'J'
+H2 servo round-trip: PASS  mismatches=[] allstop=0xf0
+H3 count bit flips: PASS  cnt=3:2000,desync=0 cnt=0:1500,desync=0 cnt=6:2000,desync=0 cnt=10:2000,desync=0 cnt=18:2000,desync=0 cnt=34:2000,desync=0 cnt=66:2000,desync=0 cnt=130:2000,desync=0
+H4 writes to 0..2 ignored: PASS  before=[74, 0, 8] after=[74, 0, 8] desync=0/50 (master expected FAIL)
+H5 soak: PASS  0/20000 desync, 4798 frames/s
+H6 version regs: PASS  start=74 version=0x0008
+b5eaa1e6a1ab9186ff545a5e7f4d8466  /home/kipr/wombat-os/flashFiles/wombat.bin
+pr12_hw 2026-10-01T16:40:37Z
+H7 unpadded corrupt packet dropped: FAIL  servo0=2000 desync=0 (master 1500 by wraparound, PR 12 unfixed 2000)
+H8 reject counter: FAIL  clean drift=0 steps=[0, 0, 0] done-bits=0x0

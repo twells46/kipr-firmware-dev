@@ -1,0 +1,14 @@
+== /tmp/libkipr.so 0
+      1 ~Wombat()
+      1 SUMMARY inject=0 injected=0 calls=1164 seconds=12.0
+      1 Cleaning up 1
+== /tmp/libkipr.so 1
+      2 [core/wombat] [W]: co-processor rejected 48 corrupt SPI packet(s); some writes may have been lost
+      1 ~Wombat()
+      1 [core/wombat] [W]: co-processor rejected 1 corrupt SPI packet(s); some writes may have been lost
+      1 SUMMARY inject=1 injected=116 calls=1161 seconds=12.0
+      1 Cleaning up 1
+== /usr/lib/libkipr.so 1
+      1 ~Wombat()
+      1 SUMMARY inject=1 injected=116 calls=1161 seconds=12.0
+      1 Cleaning up 1

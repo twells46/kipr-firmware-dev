@@ -1,0 +1,34 @@
+##### digout, /tmp/libkipr-pr12-rejects2.so
+pr12_h10 digout ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] 2026-10-12T19:21:56Z lib=/tmp/libkipr-pr12-rejects2.so
+d0 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d1 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d2 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d3 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d4 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d5 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d6 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d7 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d8 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d9 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+digout reject counter: PASS  moved 0, injected 0
+H10 digout: PASS
+Cleaning up 1
+~Wombat()
+exit=0
+##### digout, /usr/lib/libkipr.so
+pr12_h10 digout ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] 2026-10-12T19:22:00Z lib=/usr/lib/libkipr.so
+d0 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d1 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d2 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d3 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d4 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d5 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d6 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d7 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d8 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+d9 output registers: PASS  OE bit 1, get_digital_output 1, OUT bit followed [1, 0, 1, 0], OE after 0x0000, digital() back as input = 0
+digout reject counter: PASS  moved 0, injected 0
+H10 digout: PASS
+Cleaning up 1
+~Wombat()
+exit=0

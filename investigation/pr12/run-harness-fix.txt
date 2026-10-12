@@ -1,0 +1,15 @@
+base: master = 4814ab8  pr: worktree (80ad31a+dirty)
+MOT_DONE bits 7:4 masked on both sides
+T1 w8 all addr/value: 65536 frames, 27030 differ, 0 differ with addr in 3..152
+T2 w16: 16384 frames, 6848 differ, 0 differ with all addrs in 3..152
+T2 w32: 16384 frames, 6975 differ, 0 differ with all addrs in 3..152
+T3 read frame identical: yes
+T4 random valid n<=42: 200000 frames, 0 differ
+T5 count bit flips: 48000 frames; J cleared master=36000 pr12=0; exactly-intended-writes master=6009 pr12=42009
+T6 count 5..255 over a w32 frame: pr12 not-exactly-intended=0
+T7 garbage packets count>42: mean tx bytes changed master=35.9 pr12=0.0
+T8 random packets writing past aTxBuffer: master=196052 pr12=0 of 200000
+T9 count=128 body=0x30: master changed 0 tx bytes, pr12 changed 0 (reg48=0xa4)
+T9 counts 128..169 body 0x30: pr12 changes more bytes in 0, fewer in 41
+T9b counts 128..169 random body: mean tx bytes changed master=11.7 pr12=0.0; pr12 more in 0/42000, fewer in 40292
+T10 reject counter: clean frames that advanced=0, rejected frames not advancing by 1=0
