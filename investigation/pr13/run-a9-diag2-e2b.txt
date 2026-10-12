@@ -1,0 +1,6 @@
+pr13_hw 2026-10-12T21:04:39Z tests: e2
+start=74 version=0x0008 diag=v2
+E2a healthy handler entries: PASS  16 MHz, >=4000 frames: both 1959 tx_only 4056 rx_only 0 none 4064; 4 MHz, >=2000 frames: both 1182 tx_only 6969 rx_only 0 none 2044; 1 MHz, >=1000 frames: both 391 tx_only 15620 rx_only 0 none 1088; 0.5 MHz, >=600 frames: both 467 tx_only 26632 rx_only 0 none 714
+E2b stuck and idle: PASS  healthy 1085 passes/s; idle 0 s: 273 passes, 297 ms in transfers (322 passes' worth), excess -49, lone-TX/65536 +1; idle 0 s: 315 passes, 291 ms in transfers (315 passes' worth), excess -0, lone-TX/65536 +2; idle 1 s: 315 passes, 299 ms in transfers (324 passes' worth), excess -9, lone-TX/65536 +16; idle 0 s: 273 passes, 297 ms in transfers (322 passes' worth), excess -49, lone-TX/65536 +1; idle 3 s: 357 passes, 297 ms in transfers (322 passes' worth), excess +35, lone-TX/65536 +46; idle 0 s: 231 passes, 291 ms in transfers (315 passes' worth), excess -84, lone-TX/65536 +1; over all reads: rx_only +0 frame +697 attempt +1848 cslow +1848 tries +0 reset +0 count +0; distinct replies 7/40
+first bytes: [74, 0, 8, 32] modes/dirs/done/allstop: [0, 0, 0, 240] pwm: [0, 0, 0, 0]
+position change in 0.5 s: [0, 0, 0, 0] battery raw: 672

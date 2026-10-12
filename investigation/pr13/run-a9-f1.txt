@@ -1,0 +1,18 @@
+pr13_hw 2026-10-12T21:24:27Z tests: p12 p15 p1 p2 p3 p4 p5 p6 p7 p8 p8 p9 p10 p11 p13 p14
+start=74 version=0x0008 diag=no
+P12 one byte short: PASS  healthy: distinct replies 40/40; n=88: distinct replies 40/40, then lost 0; n=88: distinct replies 40/40, then lost 0; n=88: distinct replies 40/40, then lost 0; n=177: distinct replies 40/40, then lost 0; n=177: distinct replies 40/40, then lost 0; n=177: distinct replies 40/40, then lost 0
+P15 one byte short, host idle: PASS  no diag; n=88 at 16 MHz: first frame good, lost 0; n=177 at 16 MHz: first frame good, lost 0; n=266 at 16 MHz: first frame good, lost 0; n=88 at 4 MHz: first frame good, lost 0; n=88 at 1 MHz: first frame good, lost 0; n=88 at 0.5 MHz: first frame good, lost 0
+P1 healthy soak: PASS  0/20000 desync, 3886 frames/s, resync deltas: no diag
+P2 light and slow traffic: PASS  0/2889 desync at 100 Hz, 0/600 at 0.5/1/4 MHz, resync deltas: no diag
+P3 slip, continuous traffic: PASS  n=1: lost mean 2.2 max 5; n=10: lost mean 2.2 max 5; n=50: lost mean 2.5 max 5; n=87: lost mean 3.3 max 9; n=90: lost mean 1.9 max 5; n=200: lost mean 2.5 max 8; n=4096: lost mean 0.8 max 4; stray register changes: []
+P4 slip, then 10 ms pause: PASS  bad frames after the pause, per length: n=1: 0; n=10: 0; n=50: 0; n=87: 0; n=90: 0; n=200: 0
+P5 writes around a resync: PASS  failures=[] (0 of 30)
+P6 rejected full-length frames: PASS  no 'J': lost mean 0.0 max 0, applied=False, no diag; no 'S': lost mean 0.5 max 5, applied=False, no diag; version 3: lost mean 0.0 max 0, applied=False, no diag; all zero: lost mean 0.0 max 0, applied=False, no diag
+P7 resync storm: PASS  1235 slips, recovered after 0; no diag, timing not checked
+P8 STM32 reset under polling: PASS  time to 200 good frames / desync in next 500: 0.41s/0 0.42s/0 0.41s/0 0.41s/0 0.40s/0
+P8 STM32 reset under polling: PASS  time to 200 good frames / desync in next 500: 0.40s/0 0.40s/0 0.40s/0 0.40s/0 0.40s/0
+P9 random-length fuzz: PASS  3028 random transfers; after 50 ms: 0 bad, recovered after 0; stray register changes: []
+P10 frame split across chip select: FAIL  1/200 rounds with a bad frame, resync deltas: no diag
+P11 read-modify-write across resyncs: FAIL  669 slips, 516 reads without 'J', 0 replies with 'J' but other wrong contents; register corrupted 184 times (values [0, 2, 3, 4, 8, 10, 29, 32, 35, 47, 50, 73, 74, 75, 88, 96]); stray changes: []
+P13 unframed frames, per-event health: PASS  3000 events: stuck dead 0, stuck silent 0; otherwise lost mean 0.10 max 11; stuck (event, kind, distinct replies of 40, diag): []
+P14 wrong-length transfers, per-event health: PASS  3000 events: stuck dead 0, stuck silent 0; otherwise lost mean 2.30 max 11; stuck (event, kind, distinct replies of 40, diag): []

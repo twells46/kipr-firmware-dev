@@ -1,0 +1,8 @@
+pr13_hw 2026-10-12T21:28:38Z tests: p13 p14 p13 p14 e2
+start=74 version=0x0008 diag=v2
+P13 unframed frames, per-event health: PASS  3000 events: stuck dead 0, stuck silent 0; otherwise lost mean 0.09 max 10; stuck (event, kind, distinct replies of 40, diag): []
+P14 wrong-length transfers, per-event health: PASS  3000 events: stuck dead 0, stuck silent 0; otherwise lost mean 2.27 max 11; stuck (event, kind, distinct replies of 40, diag): []
+P13 unframed frames, per-event health: PASS  3000 events: stuck dead 0, stuck silent 0; otherwise lost mean 0.10 max 11; stuck (event, kind, distinct replies of 40, diag): []
+P14 wrong-length transfers, per-event health: PASS  3000 events: stuck dead 0, stuck silent 0; otherwise lost mean 2.25 max 11; stuck (event, kind, distinct replies of 40, diag): []
+E2a healthy handler entries: PASS  16 MHz, >=4000 frames: both 4062 tx_only 0 rx_only 0 none 0; 4 MHz, >=2000 frames: both 2058 tx_only 0 rx_only 0 none 0; 1 MHz, >=1000 frames: both 1055 tx_only 0 rx_only 0 none 0; 0.5 MHz, >=600 frames: both 732 tx_only 0 rx_only 0 none 0
+E2b stuck and idle: FAIL  couldn't read the counters in the stuck state: [True, False, True, False]

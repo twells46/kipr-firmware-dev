@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """PR 13 hardware tests (run ON the Wombat, with botui stopped).
 
-    sudo python3 pr13_hw.py [--reset] <test> [...]    tests: p1..p14, all
+    sudo python3 pr13_hw.py [--reset] <test> [...]    tests: p1..p15, all
+                                                      A9 (a9.md): e1, e2, mot
+
+mot MOVES the motors on ports 0 and 3. Nothing else does.
 
 Talks to the STM32 with raw spidev frames shaped like libwallaby's (89 bytes,
 zero padded, 16 MHz, 50 us between transfers). It only writes servo position
@@ -16,7 +19,7 @@ on any other image those checks print "no diag" and are skipped.
 back on firmware that can't recover by itself, and enables p8.
 Expected results per firmware are in investigation/pr13/pr13.md.
 """
-import random, subprocess, sys, time, spidev
+import ctypes, random, subprocess, sys, time, spidev
 
 N = 89
 SERVO0, ALLSTOP, MOT_DONE = 78, 61, 60
@@ -27,6 +30,12 @@ LOST_MAX = 25          # PR 13 claims at most 20 transfers lost after a slip
 ITEMS = ("count", "inflight", "ovr", "frame", "attempt", "cslow", "tries", "reset", "retry",
          "irqoff_max", "check_max", "ndtr_last", "sens_max", "over700", "passes")
 RESYNC_ITEMS = ("count", "ovr", "frame", "attempt", "reset")
+# Diag v2 (a9-diag2.patch): handle_dma() entries by which transfer-complete
+# flags were set. tx and rx are 32-bit, published as two items.
+ITEMS2 = ("tx_lo", "tx_hi", "rx_lo", "rx_hi", "both", "none")
+ALL_ITEMS = ITEMS + ITEMS2
+XFER_T = 0.0           # seconds the last diag() spent inside transfers
+NITEMS = 0             # 15 (diag), 21 (diag v2) or 99 (no diag); set at startup
 
 s = spidev.SpiDev(); s.open(0, 0); s.max_speed_hz = 16000000
 ctr = 0
@@ -80,18 +89,47 @@ def ensure_synced(name):
     print(f"{name}: SKIP  link is desynchronized before the test (rerun with --reset)")
     return False
 
-def diag(settle=0.02):
-    """Latest value of every diagnostic item, or None if this isn't the diag image."""
+def ditem(f, rot=False):
+    """(item, value) from a reply. rot=True looks at every rotation, for a link
+    whose replies are offset (the one-byte-short state)."""
+    for j in (range(N) if rot else (24,)):
+        m, i, h, l, ni, c = (f[(j + k) % N] for k in range(6))
+        if m == 0xD3 and i < len(ALL_ITEMS) and ni == (~i & 0xFF) and c == (0x5A + 13 * i + 31 * h + 3 * l) & 0xFF:
+            return i, h << 8 | l
+    return None
+
+def diag(settle=0.02, rot=False, frames=400, fixed=False):
+    """Latest value of every diagnostic item, or None if this isn't the diag
+    image. fixed=True always sends `frames` frames, so two reads cost the main
+    loop the same."""
+    global XFER_T
     time.sleep(settle)
-    vals = {}
-    for _ in range(400):
-        f = xfer()
-        m, i, h, l, ni, c = f[24:30]
-        if good(f) and m == 0xD3 and i < len(ITEMS) and ni == (~i & 0xFF) and c == (0x5A + 13 * i + 31 * h + 3 * l) & 0xFF:
-            vals[ITEMS[i]] = h << 8 | l
-        time.sleep(0.0003)
-        if len(vals) == len(ITEMS) and _ > 60: break
-    return vals if len(vals) == len(ITEMS) else None
+    vals = {}; XFER_T = 0.0
+    for k in range(frames):
+        t0 = time.perf_counter(); f = s.xfer2(frame()); XFER_T += time.perf_counter() - t0   # about the time chip select is low
+        time.sleep(50e-6)
+        it = ditem(f, rot) if rot or good(f) else None
+        if it: vals[ALL_ITEMS[it[0]]] = it[1]
+        if not rot: time.sleep(0.0003)
+        if not fixed and len(vals) >= (NITEMS or len(ALL_ITEMS)) and k > 60: break
+    if NITEMS == 0: return vals
+    return vals if len(vals) >= NITEMS else None
+
+def slow_diag(frames=120):
+    """Counters from a link in the one-byte-short state. At 0.5 MHz chip select
+    is low for 1.4 ms per frame, so the starved main loop still publishes."""
+    s.max_speed_hz = 500000
+    try: return diag(0, rot=True, frames=frames, fixed=True)
+    finally: s.max_speed_hz = 16000000
+
+def unrot(f):
+    """The reply rotated so 'J' and the version are at 0..2, or None."""
+    for j in range(N):
+        if f[j] == ord('J') and [f[(j + 1) % N], f[(j + 2) % N]] == VER: return f[j:] + f[:j]
+    return None
+
+def u32(d, k):
+    return d[k + "_hi"] << 16 | d[k + "_lo"]
 
 def ddelta(a, b, keys=RESYNC_ITEMS):
     if a is None or b is None: return None
@@ -439,13 +477,180 @@ def p14(reps=3000):
     return per_event("P14 wrong-length transfers, per-event health", lambda: s.xfer2([0] * random.randint(1, 87)), reps)
 
 
-TESTS = dict(p1=p1, p2=p2, p3=p3, p4=p4, p5=p5, p6=p6, p7=p7, p8=p8, p9=p9, p10=p10, p11=p11, p12=p12, p13=p13, p14=p14)
+def e1():
+    """A9 dose-response, any image. In the one-byte-short state the main loop
+    should run only while chip select is low: distinct replies rise as the
+    clock slows (longer frames) and don't depend on the gap between frames."""
+    if not allow_reset:
+        print("E1: SKIP  needs --reset"); return True
+    rows, ok, byhz, bygap = [], True, {}, {}
+    def one(hz, gap):
+        stm_reset()
+        if desyncs(30): return None
+        s.max_speed_hz = hz; h = liveness(gap=gap)
+        s.max_speed_hz = 16000000; s.xfer2([0] * 88); time.sleep(50e-6)
+        s.max_speed_hz = hz; st = liveness(gap=gap); s.max_speed_hz = 16000000
+        return h, st
+    for hz in (16000000, 4000000, 1000000, 500000):
+        byhz[hz] = one(hz, 0.02); rows.append(f"{hz / 1e6:g} MHz: healthy {byhz[hz][0]}, stuck {byhz[hz][1]}")
+    for gap in (0.002, 0.02, 0.2):
+        bygap[gap] = one(16000000, gap); rows.append(f"gap {gap * 1e3:g} ms: healthy {bygap[gap][0]}, stuck {bygap[gap][1]}")
+    stm_reset()
+    st = [byhz[h][1] for h in byhz]
+    ok = st[0] <= 15 and st[2] >= 0.8 * byhz[1000000][0] and st[3] >= 0.8 * byhz[500000][0] \
+        and max(v[1] for v in bygap.values()) <= 15
+    return report("E1 stuck-state liveness vs clock and gap (of 40)", ok, "; ".join(rows))
+
+
+def e2():
+    """A9 mechanism, diag v2 image. Healthy: handle_dma() entries per frame by
+    flag state at four clocks. Then the one-byte-short state with the host idle
+    for 1 s: main-loop passes and lone-TX entries across the idle second."""
+    if NITEMS != 21:
+        print("E2: SKIP  needs the diag v2 image"); return True
+    if not ensure_synced("E2"): return False
+    rows, ok = [], True
+    for hz, n in ((16000000, 4000), (4000000, 2000), (1000000, 1000), (500000, 600)):
+        s.max_speed_hz = hz
+        a = diag(); [xfer() for _ in range(n)]; b = diag()
+        s.max_speed_hz = 16000000
+        fr = (b["both"] - a["both"]) & 0xFFFF
+        tx, rx, no = (u32(b, "tx") - u32(a, "tx")) & 0xFFFFFFFF, (u32(b, "rx") - u32(a, "rx")) & 0xFFFFFFFF, (b["none"] - a["none"]) & 0xFFFF
+        rows.append(f"{hz / 1e6:g} MHz, >={n} frames: both {fr} tx_only {tx} rx_only {rx} none {no}")
+        if rx: ok = False                              # tx_only > 0 is expected without the A9 fix, 0 with it
+    report("E2a healthy handler entries", ok, "; ".join(rows))
+    if not allow_reset:
+        print("E2b: SKIP  needs --reset"); return ok
+    a = diag(); t0 = time.time(); time.sleep(1.0); b = diag(); t1 = time.time()
+    quiet = ((b["passes"] - a["passes"]) & 0xFFFF) / (t1 - t0)
+    s.xfer2([0] * 88); time.sleep(50e-6)
+    # The Pi's SPI clock can change with CPU frequency, so each read is
+    # normalized by the time it spent inside transfers.
+    rd = []
+    for idle in (None, 0, 0, 1.0, 0, 3.0, 0):
+        if idle: time.sleep(idle)
+        rd.append((slow_diag(), XFER_T, idle))
+    r0, r1, r2, r3 = rd[0][0], rd[2][0], rd[3][0], rd[5][0]
+    live = liveness()
+    stm_reset()
+    if not all((r0, r1, r2, r3)):
+        return report("E2b stuck and idle", False, f"couldn't read the counters in the stuck state: {[bool(x) for x in (r0, r1, r2, r3)]}") and ok
+    dp = lambda x, y: (y["passes"] - x["passes"]) & 0xFFFF
+    dh = lambda x, y: (y["tx_hi"] - x["tx_hi"]) & 0xFFFF
+    if not all(x[0] for x in rd):
+        return report("E2b stuck and idle", False, "a counter read failed in the stuck state") and ok
+    # Passes between consecutive reads, against the passes a healthy loop would
+    # make in the transfer time of the later read plus the idle time.
+    rows, ok2 = [], True
+    for (a, _, _), (b, xt, idle) in zip(rd, rd[1:]):
+        got = dp(a, b); excess = got - quiet * xt
+        rows.append(f"idle {idle or 0:g} s: {got} passes, {xt * 1e3:.0f} ms in transfers ({quiet * xt:.0f} passes' worth), excess {excess:+.0f}, lone-TX/65536 +{dh(a, b)}")
+        if idle and (excess > 0.05 * quiet * idle or dh(a, b) == 0): ok2 = False
+    last = rd[-1][0]; d = lambda k: (last[k] - r0[k]) & 0xFFFF
+    return report("E2b stuck and idle", ok2 and d("reset") == 0,
+                  f"healthy {quiet:.0f} passes/s; " + "; ".join(rows) + f"; over all reads: rx_only +{(u32(last, 'rx') - u32(r0, 'rx')) & 0xFFFFFFFF} "
+                  f"frame +{d('frame')} attempt +{d('attempt')} cslow +{d('cslow')} tries +{d('tries')} reset +{d('reset')} count +{d('count')}; distinct replies {live}/40") and ok
+
+
+def p15():
+    """One byte short, then the host idle for 1 s. With the A9 fix on PR 13 the
+    link must be back before the host's next frame and the main loop must have
+    kept running through the pause."""
+    if not ensure_synced("P15"): return False
+    have = diag() is not None
+    quiet = None
+    if have:
+        a = diag(); t0 = time.time(); time.sleep(1.0); b = diag(); t1 = time.time()
+        quiet = ((b["passes"] - a["passes"]) & 0xFFFF) / (t1 - t0)
+    rows, ok = [], True
+    for n, hz in ((88, 16000000), (177, 16000000), (266, 16000000), (88, 4000000), (88, 1000000), (88, 500000)):
+        d0 = diag() if have else None; t0 = time.time()
+        s.max_speed_hz = hz; s.xfer2([0] * n); s.max_speed_hz = 16000000
+        time.sleep(1.0)
+        first = good(xfer()); bad, last = after_slip(limit=60)
+        d1 = diag() if have and last < 60 else None; t1 = time.time()
+        row = f"n={n} at {hz / 1e6:g} MHz: first frame {'good' if first else 'BAD'}, lost {bad}"
+        if not first or bad: ok = False
+        if d0 and d1:
+            rate = ((d1["passes"] - d0["passes"]) & 0xFFFF) / (t1 - t0); rs = (d1["reset"] - d0["reset"]) & 0xFFFF
+            row += f", {rate:.0f} passes/s, reset +{rs}"
+            if rate < 0.95 * quiet or rs != 1: ok = False
+        elif have: ok = False
+        rows.append(row)
+        if last >= 60:
+            if not allow_reset: break
+            stm_reset()
+    return report("P15 one byte short, host idle", ok, (f"healthy {quiet:.0f} passes/s; " if quiet else "no diag; ") + "; ".join(rows))
+
+
+def mot(ports=(0, 3), reps=3, power=25):
+    """MOVES the motors on `ports`. Runs them, sends a one-byte-short transfer,
+    asks libkipr to stop them (ao), leaves the host idle for 2 s, and then
+    checks whether they stopped. Always ends with the motors off; a link that
+    didn't recover is cleared with an STM32 reset, which stops them."""
+    if not allow_reset:
+        print("MOT: SKIP  needs --reset"); return True
+    lib = ctypes.CDLL("/usr/lib/libkipr.so")
+    # libwallaby swaps ports 2 and 3 (fix_port), and scales the raw counter
+    # down for gmpc; positions here are raw counts.
+    ch = [p if p < 2 else 5 - p for p in ports]
+    def pos(f): return [int.from_bytes(bytes(f[42 + 4 * c:46 + 4 * c]), "big", signed=True) for c in ch]
+    def cmd(f): return [f[58], f[59]] + [f[70 + 2 * c] << 8 | f[71 + 2 * c] for c in ch]
+    rows, ok = [], True
+    try:
+        for r in range(reps):
+            if not ensure_synced("MOT"): return False
+            for p in ports: lib.cmpc(p)
+            for p in ports: lib.motor(p, power)
+            time.sleep(1.0); a = pos(read()); time.sleep(0.5); b = read()
+            run = [(y - x) * 2 for x, y in zip(a, pos(b))]
+            lk = [lib.gmpc(p) for p in ports]
+            s.xfer2([0] * 88); time.sleep(50e-6)
+            for _ in range(3): lib.ao(); time.sleep(0.01)
+            time.sleep(2.0)
+            f = xfer()
+            if good(f) and desyncs(20) == 0:
+                c = pos(read()); time.sleep(0.5); d = read()
+                drift = [y - x for x, y in zip(c, pos(d))]
+                stopped = all(abs(x) <= 0.02 * abs(v) for x, v in zip(drift, run)) and all(run)
+                rows.append(f"rep {r}: running {run} raw counts/s (gmpc {lk}), cmd before {cmd(b)}; "
+                            f"link recovered, drift {drift} raw counts in 0.5 s, cmd after {cmd(d)} -> {'stopped' if stopped else 'STILL RUNNING'}")
+                ok &= stopped
+            else:
+                # Stuck: read at 0.5 MHz so the main loop gets time to sample back-EMF.
+                s.max_speed_hz = 500000; t0 = time.time(); ser = []
+                for _ in range(300):
+                    u = unrot(s.xfer2(frame()))
+                    if u: ser.append((time.time() - t0, pos(u), cmd(u)))
+                s.max_speed_hz = 16000000
+                if len(ser) > 20:
+                    early = [y - x for x, y in zip(ser[0][1], ser[10][1])]; dt_e = ser[10][0] - ser[0][0]
+                    late = [y - x for x, y in zip(ser[-11][1], ser[-1][1])]; dt_l = ser[-1][0] - ser[-11][0]
+                    tot = [y - x for x, y in zip(ser[0][1], ser[-1][1])]
+                    rows.append(f"rep {r}: running {run} ticks/s, cmd before {cmd(b)}; link STUCK after ao() and 2 s idle; "
+                                f"read at 0.5 MHz for {ser[-1][0]:.2f} s: moved {tot} ticks, first 10 frames {early} in {dt_e * 1e3:.0f} ms, "
+                                f"last 10 {late} in {dt_l * 1e3:.0f} ms, cmd still {ser[-1][2]} -> stop not applied")
+                else:
+                    rows.append(f"rep {r}: running {run} ticks/s; link STUCK, only {len(ser)} readable replies")
+                ok = False
+                stm_reset()
+            lib.ao(); time.sleep(0.5)
+    finally:
+        s.max_speed_hz = 16000000
+        if desyncs(10): subprocess.run(RESET_CMD, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL); time.sleep(1); desyncs(100)
+        lib.ao()
+    return report("MOT one byte short with motors running", ok, "; ".join(rows))
+
+
+TESTS = dict(e1=e1, e2=e2, p15=p15, mot=mot, mot0=lambda: mot((0,)), mot3=lambda: mot((3,)), p1=p1, p2=p2, p3=p3, p4=p4, p5=p5, p6=p6, p7=p7, p8=p8, p9=p9, p10=p10, p11=p11, p12=p12, p13=p13, p14=p14)
 names = sys.argv[1:]
 if "--reset" in names: allow_reset = True; names.remove("--reset")
-if not names or names == ["all"]: names = list(TESTS)
+if not names or names == ["all"]: names = [n for n in TESTS if n[0] == "p"]   # e1, e2 and mot only by name
 print(f"pr13_hw {time.strftime('%FT%TZ', time.gmtime())} tests: {' '.join(names)}")
 time.sleep(1); desyncs(100)   # warm-up: the first frames after an STM32 reset can slip
 r = read(); VER = r[1:3]
-print(f"start={r[0]} version=0x{r[1]:02x}{r[2]:02x} diag={'yes' if diag() else 'no'}")
+probe = diag()
+NITEMS = 21 if any(k in probe for k in ITEMS2) else 15 if len(probe) == 15 else 99
+print(f"start={r[0]} version=0x{r[1]:02x}{r[2]:02x} diag={ {21: 'v2', 15: 'yes', 99: 'no'}[NITEMS]}")
 results = [TESTS[n]() for n in names]
 sys.exit(0 if all(results) else 1)

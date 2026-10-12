@@ -1,0 +1,5 @@
+pr13_hw 2026-10-12T21:43:12Z tests: mot0
+start=74 version=0x0008 diag=no
+MOT one byte short with motors running: PASS  rep 0: running [102412] raw counts/s (gmpc [605]), cmd before [1, 1, 142]; link recovered, drift [0] raw counts in 0.5 s, cmd after [0, 0, 119] -> stopped; rep 1: running [101614] raw counts/s (gmpc [607]), cmd before [1, 1, 110]; link recovered, drift [0] raw counts in 0.5 s, cmd after [0, 0, 116] -> stopped; rep 2: running [102312] raw counts/s (gmpc [607]), cmd before [1, 1, 94]; link recovered, drift [0] raw counts in 0.5 s, cmd after [0, 0, 94] -> stopped
+throttled=0x50000
+2

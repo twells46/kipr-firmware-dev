@@ -1,0 +1,43 @@
+diff -ru a/Firmware/include/wallaby_dma.h b/Firmware/include/wallaby_dma.h
+--- a/Firmware/include/wallaby_dma.h	2026-10-12 15:59:07.724676292 -0500
++++ b/Firmware/include/wallaby_dma.h	2026-10-12 15:59:07.746086698 -0500
+@@ -10,7 +10,8 @@
+ #define D13_DIAG
+ enum { D13_COUNT, D13_INFLIGHT, D13_OVR, D13_FRAME, D13_ATTEMPT, D13_CSLOW, D13_TRIES,
+        D13_RESET, D13_RETRY, D13_IRQOFF_MAX, D13_CHECK_MAX, D13_NDTR_LAST,
+-       D13_SENS_MAX, D13_OVER700, D13_PASSES, D13_N };
++       D13_SENS_MAX, D13_OVER700, D13_PASSES,
++       D13_TX_LO, D13_TX_HI, D13_RX_LO, D13_RX_HI, D13_BOTH, D13_NONE, D13_N };
+ extern volatile uint16_t d13[D13_N];
+ void d13_publish(uint32_t sensor_update_time);
+ #endif
+diff -ru a/Firmware/src/wallaby_dma.c b/Firmware/src/wallaby_dma.c
+--- a/Firmware/src/wallaby_dma.c	2026-10-12 15:59:07.725113559 -0500
++++ b/Firmware/src/wallaby_dma.c	2026-10-12 15:59:07.746344447 -0500
+@@ -156,6 +156,7 @@
+ // frame is offset until SPI2 and both streams are reset. Called once per main
+ // loop pass.
+ volatile uint16_t d13[D13_N];
++static volatile uint32_t d13_tx, d13_rx; /* handle_dma() entries with only the TX / only the RX flag set */
+ static void d13_inc(uint8_t i) { if (d13[i] != 0xFFFF) d13[i]++; }
+ static void d13_max(uint8_t i, uint32_t cyc) { uint32_t v = cyc / 18; if (v > 0xFFFF) v = 0xFFFF; if (v > d13[i]) d13[i] = v; } /* 0.1 us at 180 MHz */
+ 
+@@ -168,6 +169,7 @@
+     if (sensor_update_time > d13[D13_SENS_MAX]) d13[D13_SENS_MAX] = sensor_update_time > 0xFFFF ? 0xFFFF : sensor_update_time;
+     if (sensor_update_time >= 700) d13_inc(D13_OVER700);
+     d13[D13_PASSES]++;
++    { uint32_t t = d13_tx, r = d13_rx; d13[D13_TX_LO] = t; d13[D13_TX_HI] = t >> 16; d13[D13_RX_LO] = r; d13[D13_RX_HI] = r >> 16; }
+     uint8_t i = item, h = d13[i] >> 8, l = d13[i] & 0xFF;
+     item = (item + 1) % D13_N;
+     aTxBuffer[REG_RW_MAG_X_H] = 0xD3;
+@@ -321,6 +323,10 @@
+ {
+     static uint8_t expected = 0;
+     static uint8_t rejected_packets = 0;
++    {
++        uint8_t d_t = DMA_GetFlagStatus(DMA1_Stream4,DMA_FLAG_TCIF4)!=RESET, d_r = DMA_GetFlagStatus(DMA1_Stream3,DMA_FLAG_TCIF3)!=RESET;
++        if (d_t && d_r) d13[D13_BOTH]++; else if (d_t) d13_tx++; else if (d_r) d13_rx++; else d13[D13_NONE]++;
++    }
+ 
+     if ( (DMA_GetFlagStatus(DMA1_Stream4,DMA_FLAG_TCIF4)!=RESET) &&  (DMA_GetFlagStatus(DMA1_Stream3,DMA_FLAG_TCIF3)!=RESET))
+     {

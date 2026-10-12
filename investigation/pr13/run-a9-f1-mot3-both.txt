@@ -1,0 +1,6 @@
+pr13_hw 2026-10-12T21:43:34Z tests: mot3 mot
+start=74 version=0x0008 diag=no
+MOT one byte short with motors running: PASS  rep 0: running [102444] raw counts/s (gmpc [606]), cmd before [16, 16, 54]; link recovered, drift [0] raw counts in 0.5 s, cmd after [0, 0, 2] -> stopped; rep 1: running [102152] raw counts/s (gmpc [607]), cmd before [16, 16, 118]; link recovered, drift [0] raw counts in 0.5 s, cmd after [0, 0, 118] -> stopped; rep 2: running [101424] raw counts/s (gmpc [607]), cmd before [16, 16, 123]; link recovered, drift [0] raw counts in 0.5 s, cmd after [0, 0, 65] -> stopped
+MOT one byte short with motors running: PASS  rep 0: running [102284, 102058] raw counts/s (gmpc [607, 607]), cmd before [17, 17, 89, 262]; link recovered, drift [0, 0] raw counts in 0.5 s, cmd after [0, 0, 82, 95] -> stopped; rep 1: running [101538, 101344] raw counts/s (gmpc [607, 608]), cmd before [17, 17, 109, 163]; link recovered, drift [0, 0] raw counts in 0.5 s, cmd after [0, 0, 141, 345] -> stopped; rep 2: running [102416, 101928] raw counts/s (gmpc [607, 608]), cmd before [17, 17, 116, 241]; link recovered, drift [0, 0] raw counts in 0.5 s, cmd after [0, 0, 116, 241] -> stopped
+throttled=0x50000
+3
