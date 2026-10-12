@@ -1,0 +1,8 @@
+# Flashed: builds/pr13-merge-master+diag (md5 fd1fa5c5). Second run: revised P11, new P13. 2026-10-12T20:25:12Z
+pr13_hw 2026-10-12T20:25:12Z tests: p13 p11 p6 p13
+start=74 version=0x0008 diag=yes
+P13 unframed frames under continuous traffic: FAIL  3000 frames: link dead 1 times (at rep, distinct replies of 40: [(494, 8)]); otherwise lost mean 0.04 max 10
+P11 read-modify-write across resyncs: FAIL  638 slips, 669 reads without 'J', 0 replies with 'J' but other wrong contents; register corrupted 155 times (values [0, 2, 3, 4, 7, 8, 15, 20, 26, 30, 32, 55, 56, 63, 73, 74]); stray changes: []
+P6 rejected full-length frames: PASS  no 'J': lost mean 0.0 max 0, applied=False, count=0 ovr=0 frame=30 attempt=35 reset=31; no 'S': lost mean 0.0 max 0, applied=False, count=0 ovr=0 frame=30 attempt=34 reset=30; version 3: lost mean 0.0 max 0, applied=False, count=0 ovr=0 frame=0 attempt=0 reset=0; all zero: lost mean 0.0 max 0, applied=False, count=0 ovr=0 frame=30 attempt=34 reset=30
+P13 unframed frames under continuous traffic: FAIL  3000 frames: link dead 12 times (at rep, distinct replies of 40: [(57, 11), (439, 12), (658, 8), (681, 9), (1252, 7), (1409, 8), (1834, 6), (2278, 6)]); otherwise lost mean 0.06 max 10
+exit 1

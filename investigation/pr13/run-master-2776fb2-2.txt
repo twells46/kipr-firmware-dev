@@ -1,0 +1,7 @@
+# Flashed: builds/pr13-master-2776fb2 (md5 63f00b29). Second run: P13 twice, revised P11. 2026-10-12T20:27:19Z
+pr13_hw 2026-10-12T20:27:19Z tests: p13 p13 p11
+start=74 version=0x0008 diag=no
+P13 unframed frames under continuous traffic: PASS  3000 frames: link dead 0 times (at rep, distinct replies of 40: []); otherwise lost mean 0.00 max 0
+P13 unframed frames under continuous traffic: PASS  3000 frames: link dead 0 times (at rep, distinct replies of 40: []); otherwise lost mean 0.00 max 0
+P11 read-modify-write across resyncs: FAIL  658 slips, 25981 reads without 'J', 0 replies with 'J' but other wrong contents; no recovery, so no write-back could land
+exit 1

@@ -1,0 +1,17 @@
+# Flashed: builds/pr13-merge-master+diag (md5 fd1fa5c5, a8cd96c + pr13-diag.patch). 2026-10-12T20:22:15Z
+# sudo python3 pr13_hw.py --reset p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12
+pr13_hw 2026-10-12T20:22:15Z tests: p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12
+start=74 version=0x0008 diag=yes
+P1 healthy soak: PASS  0/20000 desync, 4667 frames/s, resync deltas: count=0 ovr=0 frame=0 attempt=0 reset=0 inflight+0 check_max=3.6us sens_max=531us
+P2 light and slow traffic: PASS  0/2884 desync at 100 Hz, 0/600 at 0.5/1/4 MHz, resync deltas: count=0 ovr=0 frame=0 attempt=0 reset=0
+P3 slip, continuous traffic: PASS  n=1: lost mean 2.4 max 6; n=10: lost mean 2.0 max 6; n=50: lost mean 2.8 max 10; n=87: lost mean 2.3 max 6; n=90: lost mean 3.5 max 10; n=200: lost mean 1.9 max 5; n=4096: lost mean 0.2 max 2; stray register changes: []
+P4 slip, then 10 ms pause: PASS  bad frames after the pause, per length: n=1: 0; n=10: 0; n=50: 0; n=87: 0; n=90: 0; n=200: 0
+P5 writes around a resync: PASS  failures=[] (0 of 30)
+P6 rejected full-length frames: FAIL  no 'J': lost mean 0.0 max 0, applied=False, count=0 ovr=0 frame=30 attempt=35 reset=31; no 'S': lost mean 0.0 max 0, applied=False, count=0 ovr=0 frame=30 attempt=34 reset=30; version 3: lost mean 0.0 max 0, applied=False, count=0 ovr=0 frame=0 attempt=0 reset=0; all zero: lost mean 85.0 max 150, applied=True, no diag
+P7 resync storm: PASS  1185 slips, resets+1206 retry+27 tries+0 cslow+132; irq-off max 5.5 us, check max 254.0 us, sensor section max 588 us, passes over 700 us +0; loop rate quiet 1086.0/s, storm 1077.2/s
+P8 STM32 reset under polling: PASS  time to 200 good frames / desync in next 500: 0.42s/0 0.42s/0 0.42s/0 0.41s/0 0.41s/0
+P9 random-length fuzz: PASS  2964 random transfers; after 50 ms: 0 bad, recovered after 0; stray register changes: []
+P10 frame split across chip select: FAIL  1/200 rounds with a bad frame, resync deltas: count=1 ovr=0 frame=4 attempt=2 reset=2
+P11 read-modify-write across resyncs: FAIL  640 slips, 575 replies without 'J', 24261 replies with 'J' but wrong contents, 77 distinct values written back (sample [0, 2, 3, 4, 5, 6, 7, 8, 9, 13, 19, 21]), final high byte 0 (expected 5), stray changes: [(78, 5, 0)]
+P12 one byte short: FAIL  healthy: distinct replies 40/40; n=88: distinct replies 9/40, then lost 400 (no recovery); n=88: distinct replies 9/40, then lost 400 (no recovery); n=88: distinct replies 6/40, then lost 400 (no recovery); n=177: distinct replies 7/40, then lost 400 (no recovery); n=177: distinct replies 6/40, then lost 400 (no recovery); n=177: distinct replies 7/40, then lost 400 (no recovery)
+exit 1

@@ -1,0 +1,8 @@
+# Flashed: 6896e00 (md5 3118054f, PR 12 fix on 4814ab8; no PR 13, no PR 8). 2026-10-12, nothing flashed for this run.
+# sudo python3 pr13_hw.py --reset p12; sudo python3 pr13_hw.py p1
+pr13_hw 2026-10-12T20:16:11Z tests: p12
+start=74 version=0x0008 diag=no
+P12 one byte short: FAIL  healthy: distinct replies 40/40; n=88: distinct replies 4/40, then lost 400 (no recovery); n=88: distinct replies 4/40, then lost 400 (no recovery); n=88: distinct replies 6/40, then lost 400 (no recovery); n=177: distinct replies 5/40, then lost 400 (no recovery); n=177: distinct replies 6/40, then lost 400 (no recovery); n=177: distinct replies 4/40, then lost 400 (no recovery)
+pr13_hw 2026-10-12T20:16:27Z tests: p1
+start=74 version=0x0008 diag=no
+P1 healthy soak: PASS  0/20000 desync, 4554 frames/s, resync deltas: no diag

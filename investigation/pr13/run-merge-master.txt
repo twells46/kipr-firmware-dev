@@ -1,0 +1,28 @@
+# Flashed: builds/pr13-merge-master (md5 c949dbfe, a8cd96c = 78637f2 merged onto 2776fb2). 2026-10-12T20:28:49Z
+# sudo python3 pr13_hw.py --reset all; sudo python3 pr12_hw.py h1..h8
+pr13_hw 2026-10-12T20:28:49Z tests: p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13
+start=74 version=0x0008 diag=no
+P1 healthy soak: PASS  0/20000 desync, 4555 frames/s, resync deltas: no diag
+P2 light and slow traffic: PASS  0/2883 desync at 100 Hz, 0/600 at 0.5/1/4 MHz, resync deltas: no diag
+P3 slip, continuous traffic: PASS  n=1: lost mean 2.9 max 6; n=10: lost mean 3.5 max 10; n=50: lost mean 2.6 max 6; n=87: lost mean 2.5 max 6; n=90: lost mean 3.5 max 10; n=200: lost mean 1.9 max 5; n=4096: lost mean 0.1 max 1; stray register changes: []
+P4 slip, then 10 ms pause: PASS  bad frames after the pause, per length: n=1: 0; n=10: 0; n=50: 0; n=87: 0; n=90: 0; n=200: 0
+P5 writes around a resync: PASS  failures=[] (0 of 30)
+P6 rejected full-length frames: FAIL  no 'J': lost mean 125.0 max 150, applied=True, no diag; no 'S': lost mean 150.0 max 150, applied=True, no diag; version 3: lost mean 150.0 max 150, applied=True, no diag; all zero: lost mean 150.0 max 150, applied=True, no diag
+P7 resync storm: PASS  1196 slips, recovered after 0; no diag, timing not checked
+P8 STM32 reset under polling: FAIL  time to 200 good frames / desync in next 500: 0.42s/0 never/500 0.41s/0 0.41s/0 0.41s/0
+P9 random-length fuzz: PASS  2971 random transfers; after 50 ms: 0 bad, recovered after 0; stray register changes: []
+P10 frame split across chip select: FAIL  1/200 rounds with a bad frame, resync deltas: no diag
+P11 read-modify-write across resyncs: FAIL  637 slips, 499 reads without 'J', 0 replies with 'J' but other wrong contents; register corrupted 145 times (values [0, 2, 3, 4, 7, 24, 27, 32, 36, 56, 71, 82, 105, 112, 124, 161]); stray changes: []
+P12 one byte short: FAIL  healthy: distinct replies 40/40; n=88: distinct replies 5/40, then lost 400 (no recovery); n=88: distinct replies 6/40, then lost 400 (no recovery); n=88: distinct replies 6/40, then lost 400 (no recovery); n=177: distinct replies 7/40, then lost 400 (no recovery); n=177: distinct replies 7/40, then lost 400 (no recovery); n=177: distinct replies 6/40, then lost 400 (no recovery)
+P13 unframed frames under continuous traffic: PASS  3000 frames: link dead 0 times (at rep, distinct replies of 40: []); otherwise lost mean 0.01 max 8
+exit 1
+pr12_hw 2026-10-12T20:31:30Z
+H1 count>pairs desync: PASS  0/200 frames without 'J'
+H2 servo round-trip: FAIL  mismatches=[(78, 600, 1500), (78, 2400, 1500), (78, 257, 1500), (78, 65534, 1500), (78, 18, 5), (80, 600, 1500), (80, 2400, 1500), (80, 257, 1500), (80, 65534, 1500), (80, 18, 5), (82, 600, 1500), (82, 2400, 1500), (82, 257, 1500), (82, 65534, 1500), (82, 18, 5), (84, 600, 1500), (84, 2400, 1500), (84, 257, 1500), (84, 65534, 1500), (84, 18, 5), ('w32', [5, 220, 5, 221], [5, 220, 5, 220])] allstop=0xf0
+H3 count bit flips: FAIL  cnt=3:1500,desync=0 cnt=0:1500,desync=0 cnt=6:1500,desync=0 cnt=10:1500,desync=0 cnt=18:1500,desync=0 cnt=34:1500,desync=0 cnt=66:1500,desync=0 cnt=130:1500,desync=0
+H4 writes to 0..2 ignored: PASS  before=[74, 0, 8] after=[74, 0, 8] desync=0/50 (master expected FAIL)
+H5 soak: PASS  0/20000 desync, 4787 frames/s
+H6 version regs: PASS  start=74 version=0x0008
+H7 unpadded corrupt packet dropped: PASS  servo0=1500 desync=0 (master 1500 by wraparound, PR 12 unfixed 2000)
+H8 reject counter: FAIL  clean drift=0 steps=[0, 0, 0] done-bits=0x0
+exit 1

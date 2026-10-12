@@ -1,0 +1,14 @@
+# Flashed: builds/pr13-merge-master (md5 c949dbfe). PR 12 set from a fresh flash (the first try ran on a link left in the silent state). 2026-10-12T20:38:15Z
+desync/200: 1 liveness: 40 write test (want 1234,1500): (1234, 1500)
+mot_done byte: 0x0 frame head: [74, 0, 8, 32]
+pr12_hw 2026-10-12T20:38:18Z
+H1 count>pairs desync: PASS  0/200 frames without 'J'
+H2 servo round-trip: PASS  mismatches=[] allstop=0xf0
+H3 count bit flips: PASS  cnt=3:2000,desync=0 cnt=0:1500,desync=0 cnt=6:2000,desync=0 cnt=10:2000,desync=0 cnt=18:2000,desync=0 cnt=34:2000,desync=0 cnt=66:2000,desync=0 cnt=130:2000,desync=0
+H4 writes to 0..2 ignored: PASS  before=[74, 0, 8] after=[74, 0, 8] desync=0/50 (master expected FAIL)
+H5 soak: PASS  0/20000 desync, 4171 frames/s
+H6 version regs: PASS  start=74 version=0x0008
+H7 unpadded corrupt packet dropped: PASS  servo0=1500 desync=0 (master 1500 by wraparound, PR 12 unfixed 2000)
+H8 reject counter: PASS  clean drift=0 steps=[1, 1, 1] done-bits=0x0
+exit 0
+desync/200: 0 liveness: 40 write test (want 1234,1500): (1234, 1500)

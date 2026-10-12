@@ -1,0 +1,7 @@
+label: pr13-merge-master+diag
+ref: a8cd96c05568dad33688980c39c87ae98791c1bd = a8cd96c05568dad33688980c39c87ae98791c1bd
+patch: pr13-diag.patch md5 7b6786d856a1a990054e91466638f501
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-10-12T20:07:29Z
+wombat.bin: 31776 bytes, md5 fd1fa5c5c2b2a83c70d261205569051a
+warnings: 13

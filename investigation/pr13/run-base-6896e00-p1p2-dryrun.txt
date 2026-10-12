@@ -1,0 +1,5 @@
+# Flashed: 6896e00 (md5 3118054f). Script dry run, valid frames only. 2026-10-12.
+pr13_hw 2026-10-12T20:09:43Z tests: p1 p2
+start=74 version=0x0008 diag=no
+P1 healthy soak: PASS  0/20000 desync, 4539 frames/s, resync deltas: no diag
+P2 light and slow traffic: PASS  0/2889 desync at 100 Hz, 0/600 at 0.5/1/4 MHz, resync deltas: no diag
