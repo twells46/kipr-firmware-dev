@@ -1,0 +1,129 @@
+pr13_hw 2026-10-13T13:58:42Z tests: inj:7:1000000:0:5760:180:1 inj:7:1000000:5760:136800:1440:1
+start=74 version=0x0008 diag=injection
+INJ s=7 hz=1000000 d=0 raced=(0,0) cls=ok snap=[end=88/89:y:000 l1=88/89:y:000 l2=88/89::000] en=171 +reset=2 +retry=1 +count=0 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=180 raced=(0,0) cls=ok snap=[end=88/89:y:000 l1=88/89:y:000 l2=88/89::000] en=339 +reset=2 +retry=1 +count=0 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=360 raced=(0,0) cls=ok snap=[end=88/89:y:000 l1=88/89:y:000 l2=88/89::000] en=523 +reset=2 +retry=1 +count=0 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=540 raced=(0,0) cls=ok snap=[end=88/89:y:000 l1=88/89:y:000 l2=88/89::000] en=699 +reset=2 +retry=1 +count=0 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=720 raced=(0,0) cls=ok snap=[end=88/89:y:080 l1=88/89:y:000 l2=88/89::000] en=883 +reset=2 +retry=1 +count=0 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=900 raced=(0,1) cls=silent live=4 off=(0,0) onebyte=ok snap=[end=88/89:y:080 l1=88/1:Ty:080 l2=88/1:Ty:000] en=1059 +reset=1 +retry=1 +count=0 +frame=421 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=1080 raced=(1,1) cls=dead live=3 off=(1,0) onebyte=ok snap=[end=88/89:y:000 l1=89/1:Ty:080 l2=89/1:Ty:000] en=1243 +reset=1 +retry=1 +count=0 +frame=617 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=1260 raced=(1,2) cls=dead live=5 off=(1,0) onebyte=ok snap=[end=88/89:y:000 l1=89/1:Ty:080 l2=89/1:Ty:000] en=1419 +reset=1 +retry=1 +count=0 +frame=593 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=1440 raced=(1,2) cls=dead live=5 off=(1,0) onebyte=ok snap=[end=88/89:y:000 l1=89/1:Ty:080 l2=89/1:Ty:000] en=1603 +reset=1 +retry=1 +count=0 +frame=617 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=1620 raced=(1,3) cls=dead live=4 off=(1,0) onebyte=ok snap=[end=88/89:y:000 l1=89/1:Ty:080 l2=89/1:Ty:000] en=1779 +reset=1 +retry=1 +count=0 +frame=615 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=1800 raced=(1,4) cls=dead live=2 off=(1,0) onebyte=ok snap=[end=88/89:y:000 l1=89/1:Ty:080 l2=89/1:Ty:000] en=1963 +reset=1 +retry=1 +count=0 +frame=618 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=1980 raced=(0,5) cls=silent live=4 off=(0,0) onebyte=ok snap=[end=88/89:y:080 l1=88/1:Ty:080 l2=88/1:Ty:000] en=2139 +reset=1 +retry=1 +count=0 +frame=441 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=2160 raced=(0,6) cls=silent live=5 off=(0,0) onebyte=ok snap=[end=88/89:y:080 l1=88/1:Ty:080 l2=88/1:Ty:000] en=2323 +reset=1 +retry=1 +count=0 +frame=431 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=2340 raced=(1,6) cls=dead live=5 off=(1,0) onebyte=ok snap=[end=88/89:y:000 l1=89/1:Ty:080 l2=89/1:Ty:000] en=2499 +reset=1 +retry=1 +count=0 +frame=603 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=2520 raced=(1,7) cls=dead live=2 off=(1,0) onebyte=ok
+INJ s=7 hz=1000000 d=2700 raced=(1,0) cls=dead live=5 off=(1,0) onebyte=ok snap=[end=88/89:y:000 l1=89/1:Ty:000 l2=89/1:Ty:000] en=2859 +reset=1 +retry=1 +count=0 +frame=606 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=2880 raced=(1,0) cls=dead live=4 off=(1,0) onebyte=ok snap=[end=88/89:y:080 l1=89/1:Ty:000 l2=89/1:Ty:000] en=3043 +reset=1 +retry=1 +count=0 +frame=618 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=3060 raced=(2,0) cls=ok snap=[end=88/89:y:000 l1=1/1:y:000 l2=88/89::000] en=3219 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=3240 raced=(2,1) cls=ok snap=[end=88/89:y:000 l1=1/2:y:080 l2=88/89::000] en=3403 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=3420 raced=(2,2) cls=ok snap=[end=88/89:y:000 l1=1/2:y:080 l2=88/89::000] en=3579 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=3600 raced=(2,3) cls=ok snap=[end=88/89:y:000 l1=1/2:y:080 l2=88/89::000] en=3763 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=3780 raced=(2,3) cls=ok snap=[end=88/89:y:000 l1=1/2:y:080 l2=88/89::000] en=3939 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=3960 raced=(2,4) cls=ok snap=[end=88/89:y:000 l1=1/2:y:080 l2=88/89::000] en=4123 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=4140 raced=(1,5) cls=dead live=5 off=(1,0) onebyte=silent
+INJ s=7 hz=1000000 d=4320 raced=(2,5) cls=ok snap=[end=88/89:y:000 l1=1/2:y:080 l2=88/89::000] en=4483 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=4500 raced=(2,6) cls=ok snap=[end=88/89:y:000 l1=1/2:y:080 l2=88/89::000] en=4659 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=4680 raced=(1,7) cls=dead live=8 off=(1,0) onebyte=silent snap=[end=88/89:y:080 l1=89/2:Ty:080 l2=89/2:Ty:000] en=4843 +reset=1 +retry=1 +count=0 +frame=612 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=4860 raced=(2,7) cls=ok snap=[end=88/89:y:000 l1=1/2:y:080 l2=88/89::000] en=5019 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=5040 raced=(2,0) cls=ok snap=[end=88/89:y:000 l1=1/2:y:000 l2=88/89::000] en=5203 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=5220 raced=(2,0) cls=ok snap=[end=88/89:y:000 l1=1/2:y:000 l2=88/89::000] en=5379 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=5400 raced=(2,1) cls=ok snap=[end=88/89:y:080 l1=1/3:y:080 l2=88/89::000] en=5563 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=5580 raced=(2,2) cls=ok snap=[end=88/89:y:080 l1=1/3:y:080 l2=88/89::000] en=5739 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=5760 raced=(2,2) cls=ok snap=[end=88/89:y:080 l1=1/3:y:080 l2=88/89::000] en=5923 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ stage 7 at 1 MHz, delay 0..5760 step 180 x1: {'ok': 19, 'silent': 3, 'dead': 11}
+INJ s=7 hz=1000000 d=5760 raced=(2,3) cls=ok snap=[end=88/89:y:080 l1=1/3:y:080 l2=88/89::000] en=5923 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=7200 raced=(3,0) cls=ok snap=[end=88/89:y:000 l1=2/3:y:000 l2=88/89::000] en=7363 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=8640 raced=(3,5) cls=ok snap=[end=88/89:y:080 l1=2/4:y:080 l2=88/89::000] en=8803 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=10080 raced=(5,1) cls=ok snap=[end=88/89:y:000 l1=4/5:y:080 l2=88/89::000] en=10243 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=11520 raced=(4,7) cls=ok snap=[end=88/89:y:080 l1=3/5:y:080 l2=88/89::000] en=11683 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=12960 raced=(6,4) cls=ok snap=[end=88/89:y:000 l1=5/6:y:080 l2=88/89::000] en=13123 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=14400 raced=(5,6) cls=ok snap=[end=88/89:y:080 l1=4/6:y:080 l2=88/89::000] en=14563 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=15840 raced=(7,6) cls=ok snap=[end=88/89:y:000 l1=6/7:y:080 l2=88/89::000] en=16003 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=17280 raced=(8,3) cls=ok snap=[end=88/89:y:000 l1=7/8:y:080 l2=88/89::000] en=17443 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=18720 raced=(8,0) cls=ok snap=[end=88/89:y:080 l1=7/8:y:000 l2=88/89::000] en=18883 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=20160 raced=(9,5) cls=ok snap=[end=88/89:y:000 l1=8/9:y:080 l2=88/89::000] en=20323 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=21600 raced=(10,2) cls=ok snap=[end=88/89:y:000 l1=9/10:y:080 l2=88/89::000] en=21763 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=23040 raced=(10,0) cls=ok snap=[end=88/89:y:000 l1=9/10:y:000 l2=88/89::000] en=23203 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=24480 raced=(11,5) cls=ok snap=[end=88/89:y:000 l1=10/11:y:080 l2=88/89::000] en=24643 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=25920 raced=(11,2) cls=ok snap=[end=88/89:y:080 l1=10/12:y:080 l2=88/89::000] en=26083 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=27360 raced=(12,7) cls=ok snap=[end=88/89:y:000 l1=11/12:y:080 l2=88/89::000] en=27523 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=28800 raced=(13,3) cls=ok snap=[end=88/89:y:000 l1=12/13:y:080 l2=88/89::000] en=28963 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=30240 raced=(14,1) cls=ok snap=[end=88/89:y:000 l1=13/14:y:080 l2=88/89::000] en=30403 +reset=2 +retry=1 +count=0 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=31680 raced=(13,7) cls=ok snap=[end=88/89:y:080 l1=12/14:y:080 l2=88/89::000] en=31843 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=33120 raced=(15,3) cls=ok snap=[end=88/89:y:000 l1=14/15:y:080 l2=88/89::000] en=33283 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=34560 raced=(16,0) cls=ok snap=[end=88/89:y:000 l1=15/15:y:000 l2=88/89::000] en=34723 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=36000 raced=(15,6) cls=ok snap=[end=88/89:y:080 l1=14/16:y:080 l2=88/89::000] en=36163 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=37440 raced=(16,3) cls=ok snap=[end=88/89:y:080 l1=15/17:y:080 l2=88/89::000] en=37603 +reset=2 +retry=1 +count=0 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=38880 raced=(17,0) cls=ok snap=[end=88/89:y:080 l1=16/17:y:000 l2=88/89::000] en=39043 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=40320 raced=(18,5) cls=ok snap=[end=88/89:y:000 l1=17/18:y:080 l2=88/89::000] en=40483 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=41760 raced=(19,2) cls=ok snap=[end=88/89:y:000 l1=18/19:y:080 l2=88/89::000] en=41923 +reset=2 +retry=1 +count=0 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=43200 raced=(19,0) cls=ok snap=[end=88/89:y:000 l1=18/19:y:000 l2=88/89::000] en=43363 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=44640 raced=(20,4) cls=ok snap=[end=88/89:y:000 l1=19/20:y:080 l2=88/89::000] en=44803 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=46080 raced=(21,1) cls=ok snap=[end=88/89:y:000 l1=20/21:y:080 l2=88/89::000] en=46243 +reset=2 +retry=1 +count=0 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=47520 raced=(20,7) cls=ok snap=[end=88/89:y:080 l1=19/21:y:080 l2=88/89::000] en=47683 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=48960 raced=(21,4) cls=ok snap=[end=88/89:y:080 l1=20/22:y:080 l2=88/89::000] en=49123 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=50400 raced=(22,1) cls=ok snap=[end=88/89:y:080 l1=21/23:y:080 l2=88/89::000] en=50563 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=51840 raced=(23,6) cls=ok snap=[end=88/89:y:000 l1=22/23:y:080 l2=88/89::000] en=52003 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=53280 raced=(23,3) cls=ok snap=[end=88/89:y:080 l1=22/24:y:080 l2=88/89::000] en=53443 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=54720 raced=(24,0) cls=ok snap=[end=88/89:y:080 l1=23/24:y:000 l2=88/89::000] en=54883 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=56160 raced=(25,5) cls=ok snap=[end=88/89:y:000 l1=24/25:y:080 l2=88/89::000] en=56323 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=57600 raced=(26,2) cls=ok snap=[end=88/89:y:000 l1=25/26:y:080 l2=88/89::000] en=57763 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=59040 raced=(26,0) cls=ok snap=[end=88/89:y:000 l1=25/26:y:000 l2=88/89::000] en=59203 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=60480 raced=(26,5) cls=ok snap=[end=88/89:y:080 l1=25/27:y:080 l2=88/89::000] en=60643 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=61920 raced=(27,2) cls=ok snap=[end=88/89:y:080 l1=26/28:y:080 l2=88/89::000] en=62083 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=63360 raced=(28,7) cls=ok snap=[end=88/89:y:000 l1=27/28:y:080 l2=88/89::000] en=63523 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=64800 raced=(28,4) cls=ok snap=[end=88/89:y:080 l1=27/29:y:080 l2=88/89::000] en=64963 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=66240 raced=(30,0) cls=ok snap=[end=88/89:y:000 l1=29/29:y:000 l2=88/89::000] en=66403 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=67680 raced=(29,7) cls=ok snap=[end=88/89:y:080 l1=28/30:y:080 l2=88/89::000] en=67843 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=69120 raced=(31,3) cls=ok snap=[end=88/89:y:000 l1=30/31:y:080 l2=88/89::000] en=69283 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=70560 raced=(32,0) cls=ok snap=[end=88/89:y:000 l1=31/31:y:000 l2=88/89::000] en=70723 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=72000 raced=(32,5) cls=ok snap=[end=88/89:y:000 l1=31/32:y:080 l2=88/89::000] en=72163 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=73440 raced=(33,2) cls=ok snap=[end=88/89:y:000 l1=32/33:y:080 l2=88/89::000] en=73603 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=74880 raced=(33,0) cls=ok snap=[end=88/89:y:000 l1=32/33:y:000 l2=88/89::000] en=75043 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=76320 raced=(34,3) cls=ok snap=[end=88/89:y:000 l1=33/34:y:080 l2=88/89::000] en=76483 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=77760 raced=(36,4) cls=ok snap=[end=88/89:y:080 l1=35/37:y:080 l2=88/89::000] en=77923 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=79200 raced=(35,7) cls=ok snap=[end=88/89:y:000 l1=34/35:y:080 l2=88/89::000] en=79363 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=80640 raced=(36,1) cls=ok snap=[end=88/89:y:000 l1=35/36:y:080 l2=88/89::000] en=80803 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=82080 raced=(35,7) cls=ok snap=[end=88/89:y:080 l1=34/36:y:080 l2=88/89::000] en=82243 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=83520 raced=(36,7) cls=ok snap=[end=88/89:y:080 l1=35/37:y:080 l2=88/89::000] en=83683 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=84960 raced=(37,4) cls=ok snap=[end=88/89:y:080 l1=36/38:y:080 l2=88/89::000] en=85123 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=86400 raced=(39,0) cls=ok snap=[end=88/89:y:000 l1=38/38:y:000 l2=88/89::000] en=86563 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=87840 raced=(39,6) cls=ok snap=[end=88/89:y:000 l1=38/39:y:080 l2=88/89::000] en=88003 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=89280 raced=(39,3) cls=ok snap=[end=88/89:y:080 l1=38/40:y:080 l2=88/89::000] en=89443 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=90720 raced=(40,3) cls=ok snap=[end=88/89:y:000 l1=39/40:y:080 l2=88/89::000] en=90883 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=92160 raced=(40,0) cls=ok snap=[end=88/89:y:000 l1=39/40:y:000 l2=88/89::000] en=92323 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=93600 raced=(40,5) cls=ok snap=[end=88/89:y:000 l1=39/41:y:080 l2=88/89::000] en=93763 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=95040 raced=(42,0) cls=ok snap=[end=88/89:y:000 l1=41/41:y:000 l2=88/89::000] en=95203 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=96480 raced=(42,5) cls=ok snap=[end=88/89:y:080 l1=41/43:y:080 l2=88/89::000] en=96643 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=97920 raced=(44,1) cls=ok snap=[end=88/89:y:000 l1=43/44:y:080 l2=88/89::000] en=98083 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=99360 raced=(47,6) cls=ok snap=[end=88/89:y:000 l1=46/47:y:080 l2=88/89::000] en=99523 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=100800 raced=(43,4) cls=ok snap=[end=88/89:y:080 l1=42/44:y:080 l2=88/89::000] en=100963 +reset=2 +retry=1 +count=0 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=102240 raced=(45,1) cls=ok snap=[end=88/89:y:080 l1=44/46:y:080 l2=88/89::000] en=102403 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=103680 raced=(45,6) cls=ok snap=[end=88/89:y:000 l1=44/45:y:080 l2=88/89::000] en=103843 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=105120 raced=(47,3) cls=ok snap=[end=88/89:y:000 l1=46/47:y:080 l2=88/89::000] en=105283 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=106560 raced=(47,0) cls=ok snap=[end=88/89:y:080 l1=46/47:y:000 l2=88/89::000] en=106723 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=108000 raced=(46,4) cls=ok snap=[end=88/89:y:080 l1=45/47:y:080 l2=88/89::000] en=108163 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=109440 raced=(49,2) cls=ok snap=[end=88/89:y:000 l1=48/49:y:080 l2=88/89::000] en=109603 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=110880 raced=(49,0) cls=ok snap=[end=88/89:y:000 l1=48/49:y:000 l2=88/89::000] en=111043 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=112320 raced=(47,2) cls=ok snap=[end=88/89:y:000 l1=46/47:y:080 l2=88/89::000] en=112483 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=113760 raced=(49,0) cls=ok snap=[end=88/89:y:000 l1=48/49:y:000 l2=88/89::000] en=113923 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=115200 raced=(51,7) cls=ok snap=[end=88/89:y:000 l1=50/51:y:080 l2=88/89::000] en=115363 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=116640 raced=(51,0) cls=ok snap=[end=88/89:y:000 l1=50/50:y:000 l2=88/89::000] en=116803 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=118080 raced=(52,1) cls=ok snap=[end=88/89:y:080 l1=51/53:y:080 l2=88/89::000] en=118243 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=119520 raced=(52,2) cls=ok snap=[end=88/89:y:000 l1=51/52:y:080 l2=88/89::000] en=119683 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=120960 raced=(52,0) cls=ok snap=[end=88/89:y:000 l1=51/52:y:000 l2=88/89::000] en=121123 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=122400 raced=(52,4) cls=ok snap=[end=88/89:y:080 l1=51/53:y:080 l2=88/89::000] en=122563 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=123840 raced=(53,1) cls=ok snap=[end=88/89:y:080 l1=52/54:y:080 l2=88/89::000] en=124003 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=125280 raced=(55,3) cls=ok snap=[end=88/89:y:080 l1=54/56:y:080 l2=88/89::000] en=125443 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=126720 raced=(54,1) cls=ok snap=[end=88/89:y:080 l1=53/55:y:080 l2=88/89::000] en=126883 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=128160 raced=(60,2) cls=ok snap=[end=88/89:y:080 l1=59/61:y:080 l2=88/89::000] en=128323 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=129600 raced=(58,1) cls=ok snap=[end=88/89:y:000 l1=57/58:y:080 l2=88/89::000] en=129763 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=131040 raced=(58,7) cls=ok snap=[end=88/89:y:000 l1=57/58:y:080 l2=88/89::000] en=131203 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=132480 raced=(59,4) cls=ok snap=[end=88/89:y:000 l1=58/59:y:080 l2=88/89::000] en=132643 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=133920 raced=(57,2) cls=ok snap=[end=88/89:y:080 l1=56/58:y:080 l2=88/89::000] en=134083 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=135360 raced=(58,7) cls=ok snap=[end=88/89:y:000 l1=57/58:y:080 l2=88/89::000] en=135523 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ s=7 hz=1000000 d=136800 raced=(58,4) cls=ok snap=[end=88/89:y:080 l1=57/59:y:080 l2=88/89::000] en=136963 +reset=2 +retry=1 +count=1 +frame=1 +ovr=0 +inj_done=1 +inj_timeout=0
+INJ stage 7 at 1 MHz, delay 5760..136800 step 1440 x1: {'ok': 92}

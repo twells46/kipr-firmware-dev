@@ -1,0 +1,5 @@
+pr13_hw 2026-10-13T13:51:55Z tests: inj:7:1000000:0:0:1:1 p1 p12
+start=74 version=0x0008 diag=no
+INJ: SKIP  needs the injection image
+P1 healthy soak: PASS  0/20000 desync, 3899 frames/s, resync deltas: no diag
+P12 one byte short: PASS  healthy: distinct replies 40/40; n=88: distinct replies 40/40, then lost 0; n=88: distinct replies 40/40, then lost 0; n=88: distinct replies 40/40, then lost 0; n=177: distinct replies 40/40, then lost 0; n=177: distinct replies 40/40, then lost 0; n=177: distinct replies 40/40, then lost 0

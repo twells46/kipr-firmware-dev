@@ -3,6 +3,8 @@
 
     sudo python3 pr13_hw.py [--reset] <test> [...]    tests: p1..p15, all
                                                       A9 (a9.md): e1, e2, mot
+                                                      A10 (a10.md): b2, b7,
+                                                      inj:STAGE:HZ:START:STOP:STEP:REPS
 
 mot MOVES the motors on ports 0 and 3. Nothing else does.
 
@@ -33,9 +35,13 @@ RESYNC_ITEMS = ("count", "ovr", "frame", "attempt", "reset")
 # Diag v2 (a9-diag2.patch): handle_dma() entries by which transfer-complete
 # flags were set. tx and rx are 32-bit, published as two items.
 ITEMS2 = ("tx_lo", "tx_hi", "rx_lo", "rx_hi", "both", "none")
-ALL_ITEMS = ITEMS + ITEMS2
+# A10 injection image (a10-inj.patch): see the enum comment in wallaby_dma.h.
+ITEMS3 = ("inj_done", "inj_timeout", "en_lo", "en_hi", "inj_end_c", "inj_end_s", "inj_l1_c", "inj_l1_s", "inj_l2_c", "inj_l2_s",
+          "nat_end_c", "nat_end_s", "nat_l1_c", "nat_l1_s", "nat_l2_c", "nat_l2_s")
+ALL_ITEMS = ITEMS + ITEMS2 + ITEMS3
+GAP = lambda: 50e-6    # pause after each frame; libwallaby's usleep(50)
 XFER_T = 0.0           # seconds the last diag() spent inside transfers
-NITEMS = 0             # 15 (diag), 21 (diag v2) or 99 (no diag); set at startup
+NITEMS = 0             # 15 (diag), 21 (diag v2), 37 (injection) or 99 (no diag); set at startup
 
 s = spidev.SpiDev(); s.open(0, 0); s.max_speed_hz = 16000000
 ctr = 0
@@ -54,8 +60,8 @@ def frame(pairs=(), count=None, start=ord('J'), version=4, end=ord('S')):
     return b
 
 def xfer(pairs=(), **kw):
-    rx = s.xfer2(frame(pairs, **kw))
-    time.sleep(50e-6)          # libwallaby's usleep(50)
+    rx = s.xfer2(frame(pairs, **kw))   # a new list each time: xfer2 overwrites its argument with the reply
+    time.sleep(GAP())
     return rx
 
 def good(rx):
@@ -115,12 +121,33 @@ def diag(settle=0.02, rot=False, frames=400, fixed=False):
     if NITEMS == 0: return vals
     return vals if len(vals) >= NITEMS else None
 
-def slow_diag(frames=120):
+def slow_diag(frames=None):
     """Counters from a link in the one-byte-short state. At 0.5 MHz chip select
     is low for 1.4 ms per frame, so the starved main loop still publishes."""
-    s.max_speed_hz = 500000
-    try: return diag(0, rot=True, frames=frames, fixed=True)
-    finally: s.max_speed_hz = 16000000
+    hz = s.max_speed_hz; s.max_speed_hz = 500000
+    try: return diag(0, rot=True, frames=frames or (260 if NITEMS == 37 else 120), fixed=True)
+    finally: s.max_speed_hz = hz
+
+def snap(d, who):
+    """The reset snapshots of the injection image as 'end=TX/RX:flags:SR ...'.
+    who is 'inj' (last armed reset) or 'nat' (last reset of any kind). Flags:
+    T, R = the stream's transfer-complete flag, y = spi_resync set."""
+    if d is None or f"{who}_end_c" not in d: return "no snapshot"
+    out = []
+    for tag in ("end", "l1", "l2"):
+        c, st = d.get(f"{who}_{tag}_c"), d.get(f"{who}_{tag}_s")
+        if c is None or st is None or not st & 0x8000: out.append(f"{tag}=-"); continue
+        out.append(f"{tag}={c >> 8}/{c & 255}:{'T' if st & 0x1000 else ''}{'R' if st & 0x2000 else ''}{'y' if st & 0x4000 else ''}:{st & 0x1FF:03x}")
+    return " ".join(out)
+
+def bitrot(f):
+    """(byte, bit) offset at which 'J' and the version start in the reply's bit
+    stream, or None. (0, 0) is an aligned reply; (1, 0) is rotated one byte."""
+    want = ord('J') << 16 | VER[0] << 8 | VER[1]
+    v = int.from_bytes(bytes(f + f[:4]), "big"); nb = (N + 4) * 8
+    for o in range(N * 8):
+        if (v >> (nb - 24 - o)) & 0xFFFFFF == want: return divmod(o, 8)
+    return None
 
 def unrot(f):
     """The reply rotated so 'J' and the version are at 0..2, or None."""
@@ -447,7 +474,7 @@ def per_event(name, disturb, reps):
     if not ensure_synced(name.split()[0]): return False
     stuck, lost, done = [], [], 0
     for k in range(reps):
-        disturb(); time.sleep(50e-6); done += 1
+        disturb(); time.sleep(GAP()); done += 1
         bad, last = after_slip(limit=30)
         if last < 30: lost.append(last)
         h = health()
@@ -456,14 +483,20 @@ def per_event(name, disturb, reps):
         if h == "ok": continue
         live = liveness()
         d = diag() if h == "silent" else None
-        stuck.append((k, h, live, None if d is None else {x: d[x] for x in ("count", "frame", "attempt", "cslow", "reset", "retry", "ndtr_last", "passes")}))
+        row = (k, h, live, None if d is None else {x: d[x] for x in ("count", "frame", "attempt", "cslow", "reset", "retry", "ndtr_last", "passes")})
+        if NITEMS == 37:                              # a10.md B2: counts at the reset that left it stuck
+            off = bitrot(s.xfer2(frame())); sd = slow_diag()
+            row += (f"reply offset {off}", snap(sd, "nat"))
+            s.xfer2([0]); time.sleep(0.01); after_slip(limit=30)
+            row += (f"after a 1-byte transfer: {health()}",)
+        stuck.append(row)
         stm_reset()
         if desyncs(30): break
     kinds = {h: sum(1 for x in stuck if x[1] == h) for h in ("dead", "silent")}
     return report(name, not stuck,
                   f"{done} events: stuck dead {kinds['dead']}, stuck silent {kinds['silent']}; "
                   f"otherwise lost mean {sum(lost) / max(len(lost), 1):.2f} max {max(lost, default=0)}; "
-                  f"stuck (event, kind, distinct replies of 40, diag): {stuck[:6]}")
+                  f"stuck (event, kind, distinct replies of 40, diag): {stuck if NITEMS == 37 else stuck[:6]}")
 
 def p13(reps=3000):
     """A10: each unframed 89-byte frame costs one reset, timed by the host's
@@ -642,7 +675,79 @@ def mot(ports=(0, 3), reps=3, power=25):
     return report("MOT one byte short with motors running", ok, "; ".join(rows))
 
 
-TESTS = dict(e1=e1, e2=e2, p15=p15, mot=mot, mot0=lambda: mot((0,)), mot3=lambda: mot((3,)), p1=p1, p2=p2, p3=p3, p4=p4, p5=p5, p6=p6, p7=p7, p8=p8, p9=p9, p10=p10, p11=p11, p12=p12, p13=p13, p14=p14)
+INJ_KEYS = ("reset", "retry", "count", "frame", "ovr", "inj_done", "inj_timeout")
+
+def inj_one(stage, delay, hz, base):
+    """One injected race (a10.md). Arms the firmware, sends the frame its reset
+    races at `hz`, and classifies the link afterwards. Returns (record, diag
+    after), the latter being the next call's `base`."""
+    arm = [0] * N
+    arm[0], arm[1], arm[2], arm[3], arm[4] = 0xA1, stage, delay >> 16 & 255, delay >> 8 & 255, delay & 255
+    s.xfer2(arm); time.sleep(0.005)
+    s.max_speed_hz = hz; raced = s.xfer2(frame()); s.max_speed_hz = 16000000
+    time.sleep(0.010)
+    seq = [good(xfer()) for _ in range(31)]
+    k = max((i + 1 for i, g in enumerate(seq) if not g), default=0)
+    h = health()
+    if h != "ok": after_slip(limit=300); h = health()
+    rec = dict(s=stage, hz=hz, d=delay, raced=bitrot(raced))
+    if h == "ok":
+        d = diag(0)
+        rec["cls"] = "ok" if k == 0 else f"rec{k}"
+    else:
+        rec["cls"] = h; rec["live"] = liveness(20, 0.005); rec["off"] = bitrot(s.xfer2(frame()))
+        d = slow_diag()
+        s.xfer2([0]); time.sleep(0.01); after_slip(limit=30)
+        rec["onebyte"] = health()
+    if d:
+        rec["snap"] = snap(d, "inj"); rec["en"] = d["en_hi"] << 16 | d["en_lo"]
+        if base: rec.update({"+" + x: (d[x] - base[x]) & 0xFFFF for x in INJ_KEYS})
+    if h != "ok":
+        stm_reset(); d = diag()
+    return rec, d
+
+def inj(stage, hz, start, stop, step, reps):
+    """Sweep the delay of an injected race. One 'INJ' line per injection."""
+    if NITEMS != 37:
+        print("INJ: SKIP  needs the injection image"); return True
+    if not allow_reset:
+        print("INJ: SKIP  needs --reset"); return True
+    if not ensure_synced("INJ"): return False
+    base = diag(); tally = {}
+    for delay in range(start, stop + 1, step):
+        for _ in range(reps):
+            rec, base = inj_one(stage, delay, hz, base)
+            c = rec["cls"] if rec["cls"] in ("ok", "dead", "silent") else "recovered"
+            tally[c] = tally.get(c, 0) + 1
+            print("INJ " + " ".join(f"{a}={str(b).replace(' ', '') if a != 'snap' else '[' + b + ']'}" for a, b in rec.items()), flush=True)
+            if base is None and not ensure_synced("INJ"): return False
+            if base is None: base = diag()
+    print(f"INJ stage {stage} at {hz / 1e6:g} MHz, delay {start}..{stop} step {step} x{reps}: {tally}")
+    return True
+
+
+def b2():
+    """a10.md B2: the injection image, never armed, behaves like the diag image."""
+    return all([p1(2000), p13(), p14()])
+
+def b7():
+    """a10.md B7: soak of the plain fix at several frame gaps and two clocks."""
+    global GAP
+    res = []
+    try:
+        for hz in (16000000, 4000000):
+            for name, g in (("0", lambda: 0), ("50 us", lambda: 50e-6), ("200 us", lambda: 200e-6), ("random 0-1 ms", lambda: random.random() * 1e-3)):
+                GAP = g; s.max_speed_hz = hz
+                print(f"B7 clock {hz / 1e6:g} MHz, gap {name}:", flush=True)
+                res += [p13(3750), p14(3750)]
+    finally:
+        GAP = lambda: 50e-6; s.max_speed_hz = 16000000
+    for _ in range(10): res.append(p6())
+    res.append(p8(20))
+    return all(res)
+
+
+TESTS = dict(b2=b2, b7=b7, e1=e1, e2=e2, p15=p15, mot=mot, mot0=lambda: mot((0,)), mot3=lambda: mot((3,)), p1=p1, p2=p2, p3=p3, p4=p4, p5=p5, p6=p6, p7=p7, p8=p8, p9=p9, p10=p10, p11=p11, p12=p12, p13=p13, p14=p14)
 names = sys.argv[1:]
 if "--reset" in names: allow_reset = True; names.remove("--reset")
 if not names or names == ["all"]: names = [n for n in TESTS if n[0] == "p"]   # e1, e2 and mot only by name
@@ -650,7 +755,10 @@ print(f"pr13_hw {time.strftime('%FT%TZ', time.gmtime())} tests: {' '.join(names)
 time.sleep(1); desyncs(100)   # warm-up: the first frames after an STM32 reset can slip
 r = read(); VER = r[1:3]
 probe = diag()
-NITEMS = 21 if any(k in probe for k in ITEMS2) else 15 if len(probe) == 15 else 99
-print(f"start={r[0]} version=0x{r[1]:02x}{r[2]:02x} diag={ {21: 'v2', 15: 'yes', 99: 'no'}[NITEMS]}")
-results = [TESTS[n]() for n in names]
+NITEMS = 37 if any(k in probe for k in ITEMS3) else 21 if any(k in probe for k in ITEMS2) else 15 if len(probe) == 15 else 99
+print(f"start={r[0]} version=0x{r[1]:02x}{r[2]:02x} diag={ {37: 'injection', 21: 'v2', 15: 'yes', 99: 'no'}[NITEMS]}")
+def run(n):
+    if n.startswith("inj:"): return inj(*(int(float(x)) for x in n.split(":")[1:]))
+    return TESTS[n]()
+results = [run(n) for n in names]
 sys.exit(0 if all(results) else 1)

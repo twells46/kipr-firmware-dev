@@ -1,0 +1,9 @@
+label: a10-inj
+ref: a8cd96c = a8cd96c05568dad33688980c39c87ae98791c1bd
+patch: pr13-diag.patch md5 7b6786d856a1a990054e91466638f501
+patch: a9-diag2.patch md5 b27618f3242fe6e01c48788bdedf5ac9
+patch: a10-inj.patch md5 9b9471205c38c63db14df3534efb06a5
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-10-13T13:49:50Z
+wombat.bin: 32484 bytes, md5 68f8584189461d6b081f40871bddfc57
+warnings: 13

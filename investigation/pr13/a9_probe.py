@@ -4,7 +4,7 @@ import time, spidev
 s = spidev.SpiDev(); s.open(0, 0); s.max_speed_hz = 16000000
 def fr():
     b = [0] * 89; b[0], b[1], b[88] = ord('J'), 4, ord('S')
-    r = s.xfer2(b); time.sleep(50e-6); return r
+    r = s.xfer2(b); time.sleep(50e-6); return r   # b is rebuilt each call: xfer2 overwrites its argument with the reply
 def pos(f, p): return int.from_bytes(bytes(f[42 + 4 * p:46 + 4 * p]), "big", signed=True)
 rs = [fr() for _ in range(40)]
 print("replies with 'J':", sum(r[0] == 74 for r in rs), "of 40; distinct:", len({tuple(r) for r in rs}))
