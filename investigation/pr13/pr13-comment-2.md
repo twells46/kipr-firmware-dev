@@ -26,9 +26,3 @@ Tested as before: this branch merged onto master `2776fb2`, raw `spidev` frames,
 | Healthy soak, slow clocks, #12's frame tests | pass | pass |
 
 The 78,000 includes back-to-back frames and gaps of 50 µs, 200 µs and random 0–1 ms, at 16 and 4 MHz.
-
-## Still open
-
-- **Worst-case recovery is 22 transfers**, seen with back-to-back frames; the description says 20. With a 200 µs gap the worst was 6.
-- **One state the count check can't see.** A racing reset can leave RX aligned and TX off by a byte. In every case I produced (69) the reset's own `spi_resync = !spi2_cs_high()` line caught it, because chip select was still low. It would persist only if the host raised chip select within about 0.1 µs of the last clock, which I haven't seen and haven't ruled out at 16 MHz. Also checking the TX count at idle would close it.
-- The libwallaby and split-frame notes from my earlier comment are unchanged.
