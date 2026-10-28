@@ -1,0 +1,25 @@
+H9 m1 reps=12 powers=[300, 325, 350, 375, 400] stress=True diag=False start 2026-10-28T14:26:37Z pi={'undervolt': 1, 'throttled': 'throttled=0xd0000', 'uptime': 375.6}
+  300 #3 A20: UNDERVOLTAGE at +[87] ms ['0xd0005']
+  300 #5 A20: UNDERVOLTAGE at +[48] ms ['0xd0005']
+  300 #6 A0: UNDERVOLTAGE at +[100] ms ['0xd0005']
+  300 #9 A20: UNDERVOLTAGE at +[113] ms ['0xd0005']
+  300 #11 A0: UNDERVOLTAGE at +[45] ms ['0xd0005']
+  300 #12 A0: UNDERVOLTAGE at +[103] ms ['0xd0005']
+  300 #13 A20: UNDERVOLTAGE at +[100] ms ['0xd0005']
+  300 #17 A20: UNDERVOLTAGE at +[64] ms ['0xd0005']
+  300 #19 A0: UNDERVOLTAGE at +[53] ms ['0xd0005']
+  300 #20 A20: UNDERVOLTAGE at +[96] ms ['0xd0005']
+  300 #23 A0: UNDERVOLTAGE at +[101] ms ['0xd0005']
+  300 #24 A0: UNDERVOLTAGE at +[95] ms ['0xd0005']
+  300 #26 C: UNDERVOLTAGE at +[52] ms ['0xd0005']
+  300 #27 A20: UNDERVOLTAGE at +[96] ms ['0xd0005']
+  300 #29 A0: UNDERVOLTAGE at +[55] ms ['0xd0005']
+  300 #30 C: UNDERVOLTAGE at +[95] ms ['0xd0005']
+  300 #31 A20: UNDERVOLTAGE at +[98] ms ['0xd0005']
+  300 #32 A20: UNDERVOLTAGE at +[102] ms ['0xd0005']
+  300 #33 C: UNDERVOLTAGE at +[97] ms ['0xd0005']
+P=300: A0 7/8  A20 9/9  B 0/8  C 3/9  resets 0  lost-frame cycles 0  new dmesg undervoltage 4  polls 15464
+SATURATED at P=300: stopping the ladder
+bit 0 spans (s): 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23
+H9 m1 done 2026-10-28T14:28:04Z pi={'undervolt': 5, 'throttled': 'throttled=0xd0005', 'uptime': 462.34} new dmesg undervoltage 4 rebooted=False
+exit 0

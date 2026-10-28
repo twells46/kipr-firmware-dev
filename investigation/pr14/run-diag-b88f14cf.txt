@@ -1,0 +1,21 @@
+pr14_hw 2026-10-27T14:50:24Z tests: s1 s2 s3 s4 s5 s6 s7 s9 s11 l2 l4 l1 reset=True enable=True
+start=74 version=0x0008 ALLSTOP=0xf0 diag=yes {'idr': 0, 'odr': 0, 'moder': 1, 'od': 1, 'alldis': 1, 'offs': 0, 'ons': 0, 'delay': 0, 'allstop': 240}
+S1 boot state: PASS  5 resets; bad: []
+S2 enable latency: FAIL  latency ms min/mean/max 0.22/0.58/1.07; bad: ['#0 released but IDR=0', '#2 released but IDR=0', '#3 released but IDR=0', '#5 released but IDR=0', '#6 released but IDR=0']
+S3 cut delay: PASS  fw us min/max 40000/41275; host ms min/max 40.2/42.5; bad: []
+S4 partial disable: PASS  bad: []
+S5 re-enable inside 40 ms: PASS  bad: []
+S6 idle soak: FAIL  0/20000 without 'J', 2 frames with power on, ons +0, offs +0
+S7 slips while disabled: PASS  6972 slips, 0 frames with power on, ons +0, final {'idr': 0, 'odr': 0, 'moder': 1, 'od': 1, 'alldis': 1, 'offs': 72, 'ons': 72, 'delay': 40329, 'allstop': 240}
+S9 reset while powered: PASS  bad: []
+S11 pin reconfig leaves PE10 alone: PASS  2000 pull-up rewrites, 0 frames with PE10 changed, final {'idr': 0, 'odr': 0, 'moder': 1, 'od': 1, 'alldis': 1, 'offs': 0, 'ons': 0, 'delay': 0, 'allstop': 240}
+L2 program start leaves 61 alone: PASS  61 0xe0 -> 0xe0, (ons, offs) +(0, 0), rc=0
+L4 stale position across programs: PASS  get_servo_position(0) = 1706 (1706 = stale value, 1024 = reset)
+    return: rc=0 61=0x00 power=on
+    exit(1): rc=1 61=0x00 power=on
+    SIGINT: rc=-6 61=0x00 power=on
+    SIGTERM: rc=-6 61=0x00 power=on
+    shut_down_in: rc=-6 61=0x00 power=on
+    SIGKILL: rc=-9 61=0x00 power=on
+    os._exit: rc=0 61=0x00 power=on
+L1 exit paths: FAIL  unexpected: ['return', 'exit(1)', 'SIGINT', 'SIGTERM', 'shut_down_in']

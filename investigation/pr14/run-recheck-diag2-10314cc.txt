@@ -1,0 +1,24 @@
+pr14_hw 2026-10-28T19:24:06Z tests: s1 s2 s3 s4 s5 s6 s7 s8 s9 s10 s11 s12 l1 l2 l4 reset=True enable=True
+start=74 version=0x0008 ALLSTOP=0xf0 diag=yes {'idr': 0, 'odr': 0, 'moder': 1, 'od': 1, 'alldis': 1, 'offs': 0, 'ons': 0, 'delay': 0, 'allstop': 240}
+S1 boot state: PASS  5 resets; bad: []
+S2 enable latency: PASS  latency ms min/mean/max 0.43/0.52/0.66; bad: []
+S3 cut delay: PASS  fw us min/max 40299/41245; host ms min/max 40.5/42.8; bad: []
+S4 partial disable: PASS  bad: []
+S5 re-enable inside 40 ms: PASS  bad: []
+S6 idle soak: PASS  0/20000 without 'J', 0 frames with power on, ons +0, offs +0
+S7 slips while disabled: PASS  6822 slips, 0 frames with power on, ons +0, final {'idr': 0, 'odr': 0, 'moder': 1, 'od': 1, 'alldis': 1, 'offs': 72, 'ons': 72, 'delay': 41250, 'allstop': 240}
+S8 RMW of ALLSTOP across slips: FAIL  654 slips, 461 bad reads written back, 25002 frames with power on, ons +8
+S9 reset while powered: PASS  bad: []
+S10 RMW toggles never cut power: PASS  640 slips, 471 bad reads, 623 write-backs with all four bits set, 0 frames with power off, offs +0
+S11 pin reconfig leaves PE10 alone: PASS  2000 pull-up rewrites, 0 frames with PE10 changed, final {'idr': 0, 'odr': 0, 'moder': 1, 'od': 1, 'alldis': 1, 'offs': 1, 'ons': 1, 'delay': 40305, 'allstop': 240}
+S12 persistent disable_servo(0) across slips: FAIL  641 slips, 436 bad reads, 276 write-backs with all four bits set, 4 cuts seen, offs +4
+    return: rc=0 61=0x00 power=on
+    exit(1): rc=1 61=0x00 power=on
+    SIGINT: rc=-6 61=0x00 power=on
+    SIGTERM: rc=-6 61=0x00 power=on
+    shut_down_in: rc=-6 61=0x00 power=on
+    SIGKILL: rc=-9 61=0x00 power=on
+    os._exit: rc=0 61=0x00 power=on
+L1 exit paths: FAIL  unexpected: ['return', 'exit(1)', 'SIGINT', 'SIGTERM', 'shut_down_in']
+L2 program start leaves 61 alone: PASS  61 0xe0 -> 0xe0, (ons, offs) +(0, 0), rc=0
+L4 stale position across programs: PASS  get_servo_position(0) = 1706 (1706 = stale value, 1024 = reset)

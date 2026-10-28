@@ -1,0 +1,24 @@
+15:32:29Z reset: start=74 ALLSTOP=0xf0 pos(us)=1500/1500/1500/1500
+15:32:32Z state: start=74 ALLSTOP=0xf0 pos(us)=1500/1500/1500/1500
+15:33Z H3 PR14 (2d2720a4): horns off-centre, limp (rail off), STM32 reset 15:32:29Z -> user: neither moved, horns unchanged. PASS
+15:34:37Z state: start=74 ALLSTOP=0xf0 pos(us)=1500/1500/1500/1500
+15:36Z H3 master (5f51d1c0) flash 15:34:15-37Z: user: neither moved during flash/boot, still off-centre, free. Prediction (centre at boot) REFUTED.
+15:36:02Z allstop 60: start=74 ALLSTOP=0x60 pos(us)=1500/1500/1500/1500
+15:37Z H2 master: enabled 0x60 at 1500 -> user: both centred, holding.
+15:37:29Z allstop f0: start=74 ALLSTOP=0xf0 pos(us)=1500/1500/1500/1500
+15:38Z H2 master: disabled 0xf0 -> user: both still resist (holding). PR premise confirmed.
+15:39:49Z state: start=74 ALLSTOP=0xf0 pos(us)=1500/1500/1500/1500 power=off idr=0 ons=0 offs=0
+15:40Z PR14 diag2 (2a86d1c9) flash 15:39:27-48Z: user: no movement, both free after boot (rail off).
+15:41:17Z allstop 60: start=74 ALLSTOP=0x60 pos(us)=1500/1500/1500/1500 power=on idr=1 ons=1 offs=0
+15:42Z H2 PR14: enabled 0x60 -> user: centred, holding.
+15:43:25Z allstop f0: start=74 ALLSTOP=0xf0 pos(us)=1500/1500/1500/1500 power=off idr=0 ons=1 offs=1
+15:44Z H2 PR14: disabled 0xf0 -> user: both free (no load, no visible motion). PASS
+15:44:57Z allstop 60: start=74 ALLSTOP=0x60 pos(us)=2300/1500/1500/2300 power=on idr=1 ons=2 offs=1
+15:45Z H5 PR14: pos 2300 enabled -> user: moved and holding.
+15:45:28Z allstop f0: start=74 ALLSTOP=0xf0 pos(us)=2300/1500/1500/2300 power=off idr=0 ons=2 offs=2
+15:46Z H5 PR14: disabled, user moved both horns to opposite side.
+15:47:29Z allstop e0: start=74 ALLSTOP=0xe0 pos(us)=2300/1500/1500/2300 power=on idr=1 ons=3 offs=2
+15:48Z H5 PR14: enabled 0xe0 -> user: port 0 moved back to stale 2300 at normal speed; port 3 (powered, no pulses) did not move, still free. CONFIRMED (snap) / no power-up twitch.
+15:48:56Z allstop f0: start=74 ALLSTOP=0xf0 pos(us)=2300/1500/1500/2300 power=off idr=0 ons=3 offs=3
+0
+throttled=0x0

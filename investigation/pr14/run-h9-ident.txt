@@ -1,0 +1,4 @@
+channel 0: counters moved [37409, 0, 0, 0]
+channel 1: counters moved [0, 36698, 0, 0]
+channel 2: counters moved [0, 0, 37728, 0]
+channel 3: counters moved [0, 0, 0, 0]

@@ -1,0 +1,36 @@
+H9 p12 cells=['A0', 'D50', 'D100', 'D150', 'D200', 'D300', 'AM'] reps=4 powers=[200, 300, 400] stress=True diag=True start 2026-10-28T16:56:35Z pi={'undervolt': 0, 'throttled': 'throttled=0x0', 'uptime': 1947.45}
+P=200: A0 0/4  D50 0/4  D100 0/4  D150 0/4  D200 0/4  D300 0/4  AM 0/4  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 10912
+  300 #2 AM: UNDERVOLTAGE at +[57] ms ['0xd0005']
+  300 #3 D200: UNDERVOLTAGE at +[295] ms ['0xd0005']
+  300 #13 AM: UNDERVOLTAGE at +[45] ms ['0xd0005']
+  300 #14 AM: UNDERVOLTAGE at +[89] ms ['0xd0005']
+  300 #25 AM: UNDERVOLTAGE at +[95] ms ['0xd0005']
+P=300: A0 0/4  D50 0/4  D100 0/4  D150 0/4  D200 1/4  D300 0/4  AM 4/4  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 3  polls 21589
+  400 #0 AM: UNDERVOLTAGE at +[93] ms ['0xd0005']
+  400 #1 D100: UNDERVOLTAGE at +[195] ms ['0xd0005']
+  400 #2 D200: UNDERVOLTAGE at +[299] ms ['0xd0005']
+  400 #3 D300: UNDERVOLTAGE at +[400] ms ['0xd0005']
+  400 #5 D150: UNDERVOLTAGE at +[307] ms ['0xd0005']
+  400 #6 D50: UNDERVOLTAGE at +[97] ms ['0xd0005']
+  400 #7 D100: UNDERVOLTAGE at +[203] ms ['0xd0005']
+  400 #8 AM: UNDERVOLTAGE at +[95] ms ['0xd0005']
+  400 #10 D200: UNDERVOLTAGE at +[295] ms ['0xd0005']
+  400 #11 D150: UNDERVOLTAGE at +[197] ms ['0xd0005']
+  400 #12 D50: UNDERVOLTAGE at +[104] ms ['0xd0005']
+  400 #13 D300: UNDERVOLTAGE at +[400] ms ['0xd0005']
+  400 #14 D300: UNDERVOLTAGE at +[396] ms ['0xd0005']
+  400 #15 D200: UNDERVOLTAGE at +[292] ms ['0xd0005']
+  400 #16 AM: UNDERVOLTAGE at +[94] ms ['0xd0005']
+  400 #18 D50: UNDERVOLTAGE at +[90] ms ['0xd0005']
+  400 #19 D100: UNDERVOLTAGE at +[198] ms ['0xd0005']
+  400 #20 D150: UNDERVOLTAGE at +[200] ms ['0xd0005']
+  400 #21 D200: UNDERVOLTAGE at +[292] ms ['0xd0005']
+  400 #22 D150: UNDERVOLTAGE at +[198] ms ['0xd0005']
+  400 #24 D100: UNDERVOLTAGE at +[205] ms ['0xd0005']
+  400 #25 D50: UNDERVOLTAGE at +[95] ms ['0xd0005']
+  400 #26 AM: UNDERVOLTAGE at +[97] ms ['0xd0005']
+P=400: A0 0/4  D50 4/4  D100 4/4  D150 4/4  D200 4/4  D300 3/4  AM 4/4  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 1  polls 34510
+onsets 28, attributed to an event window 28, outside any window 0
+bit 0 spans (s): 3.23 3.23 3.33 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.33 3.23 3.23 3.23 3.23 3.23 3.23 3.23 3.33 3.23 3.33 3.23 3.33 3.23
+H9 p12 done 2026-10-28T16:59:46Z pi={'undervolt': 4, 'throttled': 'throttled=0xd0008', 'uptime': 2138.75} new dmesg undervoltage 4 rebooted=False
+exit 0

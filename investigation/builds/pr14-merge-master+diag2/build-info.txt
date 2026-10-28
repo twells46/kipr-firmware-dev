@@ -1,0 +1,8 @@
+label: pr14-merge-master+diag2
+ref: origin/master = b2ff45e0dc8c1f9fe1b306984ce511bf83e29205
+patch: pr14-on-master.patch md5 f1be8817ae39facc4eebca3620ac6d2e
+patch: pr14-diag.patch md5 0bca6c3660de6d0a6a757d52c7583644
+toolchain: arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+built: 2026-10-27T14:52:11Z
+wombat.bin: 31456 bytes, md5 2a86d1c9f115c02742687cbb6b5ca382
+warnings: 13

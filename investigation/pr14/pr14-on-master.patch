@@ -1,0 +1,110 @@
+diff -ruN a/AGENTS.md b/AGENTS.md
+--- a/AGENTS.md	2026-10-19 09:34:55.000000000 -0500
++++ b/AGENTS.md	2026-10-27 09:31:16.992721822 -0500
+@@ -80,7 +80,7 @@
+ 
+ A single `while (1)` superloop with a fixed time budget for consistent PID
+ timing. Each pass spends a 700 µs window on sensor updates (digital pins,
+-battery, IMU) and sleeps for whatever's left. Every 4th pass, the motors idle
++battery, IMU) and the servo power check, and sleeps for whatever's left. Every 4th pass, the motors idle
+ in that window so back-EMF can be sampled, then PID and motor updates run; the
+ other passes sleep 222 µs instead, keeping passes at about 922 µs. Anything
+ added to the loop has to fit this budget.
+@@ -146,6 +146,7 @@
+ | SPI3 | MPU-9250 IMU (master) |
+ | TIM1, TIM8 | Motor PWM |
+ | TIM3, TIM9 | Servo pulses |
++| PE10 (`SRV_DISABLE`) | Servo power: open-drain to the 6 V regulator's enable, cut 40 ms after all four servos are disabled |
+ | ADC1–3 | Analog ports, motor back-EMF, battery (pin mapping in `wallaby_r2.h`) |
+ | SysTick | 1 µs tick behind `usCount` and `delay_us()` |
+ 
+diff -ruN a/Firmware/include/wallaby_servo.h b/Firmware/include/wallaby_servo.h
+--- a/Firmware/include/wallaby_servo.h	2026-10-19 09:34:55.000000000 -0500
++++ b/Firmware/include/wallaby_servo.h	2026-10-27 09:31:16.992806215 -0500
+@@ -13,4 +13,6 @@
+ 
+ void TIM1_BRK_TIM9_IRQHandler(void);
+ 
++void update_servo_power(void);
++
+ #endif
+\ No newline at end of file
+diff -ruN a/Firmware/src/main.c b/Firmware/src/main.c
+--- a/Firmware/src/main.c	2026-10-19 09:34:55.000000000 -0500
++++ b/Firmware/src/main.c	2026-10-27 09:31:17.000156114 -0500
+@@ -108,6 +108,8 @@
+ 
+             spi2_dma_check_sync();
+ 
++            update_servo_power();
++
+             uint32_t sensor_update_time = usCount - before;
+             const uint16_t us_delay_needed = 700;
+             const uint8_t got_time_to_burn = sensor_update_time < us_delay_needed;
+diff -ruN a/Firmware/src/wallaby_init.c b/Firmware/src/wallaby_init.c
+--- a/Firmware/src/wallaby_init.c	2026-10-19 09:34:55.000000000 -0500
++++ b/Firmware/src/wallaby_init.c	2026-10-27 09:31:16.992877803 -0500
+@@ -37,6 +37,24 @@
+ 
+ void init()
+ {
++    // PE10 drives the enable of the 6 V servo regulator (U72), which R52 pulls up
++    // to the battery, so it is open-drain: low turns servo power off, released
++    // turns it on. Servos start disabled, so power starts off. The rail is on
++    // from reset until this runs, so it comes before init180MHz() waits on the
++    // crystal.
++    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
++    {
++        SRV_DISABLE_PORT->BSRRH |= SRV_DISABLE;
++
++        GPIO_InitTypeDef GPIO_InitStructure;
++        GPIO_InitStructure.GPIO_Pin = SRV_DISABLE;
++        GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
++        GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
++        GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
++        GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
++        GPIO_Init(SRV_DISABLE_PORT, &GPIO_InitStructure);
++    }
++
+     init180MHz(); // switch over to 180 MHz via the external 24 MHz crystal and a PLL
+ 
+     initSystick(); // get a wallclock started, ticking at 1ms
+diff -ruN a/Firmware/src/wallaby_servo.c b/Firmware/src/wallaby_servo.c
+--- a/Firmware/src/wallaby_servo.c	2026-10-19 09:34:55.000000000 -0500
++++ b/Firmware/src/wallaby_servo.c	2026-10-27 09:31:16.992945058 -0500
+@@ -125,3 +125,35 @@
+         TIM_SetCompare2(TIM9, servo2_cmd);
+     }
+ }
++
++void update_servo_power(void)
++{
++    // Digital servos hold position with no pulses and only go limp without power.
++    // One regulator (U72) feeds all four ports, so power can only be cut once
++    // every servo is disabled.
++    static uint8_t all_disabled = 0;
++    static uint32_t all_disabled_since;
++
++    if ((aTxBuffer[REG_RW_MOT_SRV_ALLSTOP] & 0b11110000) == 0b11110000)
++    {
++        if (!all_disabled)
++        {
++            all_disabled = 1;
++            all_disabled_since = usCount;
++        }
++
++        // The timer ISRs zero a port's pulse at its next 20 ms update, and compare
++        // preload applies that one period later, so pulses can continue for up to
++        // 40 ms. Cutting power before then would drive the last pulses into an
++        // unpowered servo.
++        if (usCount - all_disabled_since >= 40000)
++        {
++            SRV_DISABLE_PORT->BSRRH |= SRV_DISABLE; // power off
++        }
++    }
++    else
++    {
++        all_disabled = 0;
++        SRV_DISABLE_PORT->BSRRL |= SRV_DISABLE; // released, power on
++    }
++}

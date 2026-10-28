@@ -1,0 +1,47 @@
+diff -ruN a/Firmware/src/wallaby_servo.c b/Firmware/src/wallaby_servo.c
+--- a/Firmware/src/wallaby_servo.c	2026-10-27 09:33:10.289287371 -0500
++++ b/Firmware/src/wallaby_servo.c	2026-10-27 09:33:10.398993891 -0500
+@@ -133,6 +133,10 @@
+     // every servo is disabled.
+     static uint8_t all_disabled = 0;
+     static uint32_t all_disabled_since;
++    /* PR 14 diagnostics (investigation only), see investigation/pr14/pr14.md */
++    static uint8_t d14_offs, d14_ons, d14_pass;
++    static uint16_t d14_delay;
++    uint8_t d14_odr_before = (SRV_DISABLE_PORT->ODR & SRV_DISABLE) ? 1 : 0;
+ 
+     if ((aTxBuffer[REG_RW_MOT_SRV_ALLSTOP] & 0b11110000) == 0b11110000)
+     {
+@@ -149,11 +153,32 @@
+         if (usCount - all_disabled_since >= 40000)
+         {
+             SRV_DISABLE_PORT->BSRRH |= SRV_DISABLE; // power off
++            if (d14_odr_before)
++            {
++                uint32_t d = usCount - all_disabled_since;
++                d14_delay = d > 0xFFFF ? 0xFFFF : d;
++                d14_offs++;
++            }
+         }
+     }
+     else
+     {
+         all_disabled = 0;
+         SRV_DISABLE_PORT->BSRRL |= SRV_DISABLE; // released, power on
++        if (!d14_odr_before) d14_ons++;
+     }
++
++    d14_pass ^= 0x80;
++    uint8_t st = ((SRV_DISABLE_PORT->IDR & SRV_DISABLE) ? 0x01 : 0)
++               | ((SRV_DISABLE_PORT->ODR & SRV_DISABLE) ? 0x02 : 0)
++               | (((SRV_DISABLE_PORT->MODER >> 20) & 0x3) << 2)
++               | ((SRV_DISABLE_PORT->OTYPER & SRV_DISABLE) ? 0x10 : 0)
++               | (all_disabled ? 0x20 : 0)
++               | d14_pass;
++    aTxBuffer[REG_RW_MAG_X_H] = 0xE4;
++    aTxBuffer[REG_RW_MAG_X_L] = st;
++    aTxBuffer[REG_RW_MAG_Y_H] = d14_offs;
++    aTxBuffer[REG_RW_MAG_Y_L] = d14_ons;
++    aTxBuffer[REG_RW_MAG_Z_H] = d14_delay >> 8;
++    aTxBuffer[REG_RW_MAG_Z_L] = d14_delay & 0xFF;
+ }

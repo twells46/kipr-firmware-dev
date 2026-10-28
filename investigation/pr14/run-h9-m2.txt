@@ -1,0 +1,14 @@
+H9 m2 reps=10 powers=[200, 250, 300] stress=True diag=False start 2026-10-28T14:29:34Z pi={'undervolt': 5, 'throttled': 'throttled=0xd0000', 'uptime': 552.22}
+  200 #0 A0: UNDERVOLTAGE at +[44] ms ['0xd0005']
+  200 #1 AM: UNDERVOLTAGE at +[96] ms ['0xd0005']
+  200 #2 C: UNDERVOLTAGE at +[100] ms ['0xd0005']
+  200 #4 M: UNDERVOLTAGE at +[106] ms ['0xd0005']
+  200 #5 A0: UNDERVOLTAGE at +[98] ms ['0xd0005']
+  200 #6 C: UNDERVOLTAGE at +[95] ms ['0xd0005']
+  200 #7: bit 0 set for 15 s
+P=200: A0 2/2  AM 1/1  B 0/1  C 2/2  M 1/1  resets 0  lost-frame cycles 0  new dmesg undervoltage 1  polls 5898
+SATURATED at P=200: stopping the ladder
+onsets 6, attributed to an event window 6, outside any window 0
+bit 0 spans (s): 3.23 3.23 3.23 3.74 3.83
+H9 m2 done 2026-10-28T14:30:12Z pi={'undervolt': 6, 'throttled': 'throttled=0xd0005', 'uptime': 590.2} new dmesg undervoltage 1 rebooted=False
+exit 0

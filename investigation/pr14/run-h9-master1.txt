@@ -1,0 +1,9 @@
+H9 master1 reps=12 powers=[0, 200, 300, 400] stress=True diag=False start 2026-10-28T14:21:43Z pi={'undervolt': 0, 'throttled': 'throttled=0x0', 'uptime': 81.22}
+P=0: A0 0/12  A20 0/12  B 0/12  C 0/12  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 20048
+P=200: A0 0/12  A20 0/12  B 0/12  C 0/12  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 37688
+P=300: A0 0/12  A20 0/12  B 0/12  C 0/12  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 55603
+  400 #1 A0: UNDERVOLTAGE at +[63, 70, 79] ms ['0xd0005']
+  400 #2 C: UNDERVOLTAGE at +[2, 8, 14] ms ['0xd0005']
+P=400: A0 1/1  A20 0/0  B 0/1  C 1/1  resets 0  lost-frame cycles 0  new dmesg undervoltage 1  polls 56792
+SATURATED at P=400: stopping the ladder
+H9 master1 done 2026-10-28T14:25:39Z pi={'undervolt': 1, 'throttled': 'throttled=0xd0000', 'uptime': 317.55} new dmesg undervoltage 1 rebooted=False

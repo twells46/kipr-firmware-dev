@@ -1,0 +1,7 @@
+H9 p11 cells=['A0', 'D50', 'D100', 'D150', 'D200', 'D300', 'AM'] reps=6 powers=[400, 400] stress=True diag=True start 2026-10-28T15:56:36Z pi={'undervolt': 0, 'throttled': 'throttled=0x80008', 'uptime': 1642.13}
+P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 14390
+P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 28957
+onsets 0, attributed to an event window 0, outside any window 0
+bit 0 spans (s): 
+H9 p11 done 2026-10-28T15:58:55Z pi={'undervolt': 0, 'throttled': 'throttled=0x80008', 'uptime': 1781.11} new dmesg undervoltage 0 rebooted=False
+exit 0

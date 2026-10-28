@@ -1,0 +1,32 @@
+H4 mv x30 700/2300 us start 2026-10-28T19:28:16Z pi={'undervolt': 0, 'throttled': 'throttled=0x0', 'uptime': 466.11} diag=False
+  cycle 0 -> 2300 us ok
+  cycle 1 -> 700 us ok
+  cycle 2 -> 2300 us ok
+  cycle 3 -> 700 us ok
+  cycle 4 -> 2300 us ok
+  cycle 5 -> 700 us ok
+  cycle 6 -> 2300 us ok
+  cycle 7 -> 700 us ok
+  cycle 8 -> 2300 us ok
+  cycle 9 -> 700 us ok
+  cycle 10 -> 2300 us ok
+  cycle 11 -> 700 us ok
+  cycle 12 -> 2300 us ok
+  cycle 13 -> 700 us ok
+  cycle 14 -> 2300 us ok
+  cycle 15 -> 700 us ok
+  cycle 16 -> 2300 us ok
+  cycle 17 -> 700 us ok
+  cycle 18 -> 2300 us ok
+  cycle 19 -> 700 us ok
+  cycle 20 -> 2300 us ok
+  cycle 21 -> 700 us ok
+  cycle 22 -> 2300 us ok
+  cycle 23 -> 700 us ok
+  cycle 24 -> 2300 us ok
+  cycle 25 -> 700 us ok
+  cycle 26 -> 2300 us ok
+  cycle 27 -> 700 us ok
+  cycle 28 -> 2300 us ok
+  cycle 29 -> 700 us ok
+H4 mv: PASS  STM32 resets/mismatches: [], frames lost 0, new undervoltage lines 0, throttled throttled=0x0 -> throttled=0x0, pi={'undervolt': 0, 'throttled': 'throttled=0x0', 'uptime': 511.32}

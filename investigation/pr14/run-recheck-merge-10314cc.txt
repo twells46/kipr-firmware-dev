@@ -1,0 +1,12 @@
+pr13_hw 2026-10-28T19:26:33Z tests: p1 p2 p8
+start=74 version=0x0008 diag=no
+P1 healthy soak: PASS  0/20000 desync, 4537 frames/s, resync deltas: no diag
+P2 light and slow traffic: PASS  0/2883 desync at 100 Hz, 0/600 at 0.5/1/4 MHz, resync deltas: no diag
+P8: SKIP  needs --reset
+pr14_hw 2026-10-28T19:27:11Z tests: s1 l4 reset=True enable=False
+start=74 version=0x0008 ALLSTOP=0xf0 diag=no
+S1 boot state: PASS  5 resets; bad: [] (no diag: ALLSTOP only)
+L4 stale position across programs: PASS  get_servo_position(0) = 1706 (1706 = stale value, 1024 = reset)
+pr13_hw 2026-10-28T19:27:20Z tests: p8
+start=74 version=0x0008 diag=no
+P8 STM32 reset under polling: PASS  time to 200 good frames / desync in next 500: 0.40s/0 0.40s/0 0.40s/0 0.40s/0 0.40s/0

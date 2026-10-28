@@ -1,0 +1,42 @@
+H9 m13 cells=['A0', 'D50', 'D100', 'D150', 'D200', 'D300', 'AM'] reps=6 powers=[300, 350] stress=True diag=False start 2026-10-28T17:00:45Z pi={'undervolt': 4, 'throttled': 'throttled=0xd0000', 'uptime': 2197.52}
+  300 #3 D50: UNDERVOLTAGE at +[146] ms ['0xd0005']
+  300 #6 AM: UNDERVOLTAGE at +[62] ms ['0xd0005']
+  300 #8 A0: UNDERVOLTAGE at +[105] ms ['0xd0005']
+  300 #11 D50: UNDERVOLTAGE at +[160] ms ['0xd0005']
+  300 #13 AM: UNDERVOLTAGE at +[104] ms ['0xd0005']
+  300 #14 AM: UNDERVOLTAGE at +[93] ms ['0xd0005']
+  300 #15 A0: UNDERVOLTAGE at +[95] ms ['0xd0005']
+  300 #17 D50: UNDERVOLTAGE at +[106] ms ['0xd0005']
+  300 #24 D50: UNDERVOLTAGE at +[88] ms ['0xd0005']
+  300 #25 A0: UNDERVOLTAGE at +[92] ms ['0xd0005']
+  300 #27 AM: UNDERVOLTAGE at +[51] ms ['0xd0005']
+  300 #28 A0: UNDERVOLTAGE at +[97] ms ['0xd0005']
+  300 #30 AM: UNDERVOLTAGE at +[102] ms ['0xd0005']
+  300 #35 A0: UNDERVOLTAGE at +[118] ms ['0xd0005']
+  300 #37 D50: UNDERVOLTAGE at +[108] ms ['0xd0005']
+  300 #41 AM: UNDERVOLTAGE at +[61] ms ['0xd0005']
+P=300: A0 5/6  D50 5/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 6/6  resets 0  lost-frame cycles 0  new dmesg undervoltage 5  polls 16855
+  350 #0 AM: UNDERVOLTAGE at +[98] ms ['0xd0005']
+  350 #2 A0: UNDERVOLTAGE at +[110] ms ['0xd0005']
+  350 #6 D50: UNDERVOLTAGE at +[62] ms ['0xd0005']
+  350 #9 D50: UNDERVOLTAGE at +[102] ms ['0xd0005']
+  350 #10 D100: UNDERVOLTAGE at +[200] ms ['0xd0005']
+  350 #11 AM: UNDERVOLTAGE at +[104] ms ['0xd0005']
+  350 #12 A0: UNDERVOLTAGE at +[104] ms ['0xd0005']
+  350 #14 AM: UNDERVOLTAGE at +[52] ms ['0xd0005']
+  350 #18 A0: UNDERVOLTAGE at +[116] ms ['0xd0005']
+  350 #20 D50: UNDERVOLTAGE at +[154] ms ['0xd0005']
+  350 #22 AM: UNDERVOLTAGE at +[116] ms ['0xd0005']
+  350 #23 A0: UNDERVOLTAGE at +[100] ms ['0xd0005']
+  350 #26 D50: UNDERVOLTAGE at +[59] ms ['0xd0005']
+  350 #30 AM: UNDERVOLTAGE at +[126] ms ['0xd0005']
+  350 #31 A0: UNDERVOLTAGE at +[102] ms ['0xd0005']
+  350 #32 D50: UNDERVOLTAGE at +[89] ms ['0xd0005']
+  350 #39 D50: UNDERVOLTAGE at +[138] ms ['0xd0005']
+  350 #40 AM: UNDERVOLTAGE at +[96] ms ['0xd0005']
+  350 #41 A0: UNDERVOLTAGE at +[95] ms ['0xd0005']
+P=350: A0 6/6  D50 6/6  D100 1/6  D150 0/6  D200 0/6  D300 0/6  AM 6/6  resets 0  lost-frame cycles 0  new dmesg undervoltage 6  polls 33786
+onsets 35, attributed to an event window 35, outside any window 0
+bit 0 spans (s): 3.23 3.23 3.23 3.22 3.23 3.23 3.23 3.23 3.23 3.23 3.33 3.23 3.23 3.23 3.22 3.23 3.23 3.23 3.33 3.23 3.22 3.23 3.23 3.33 3.23 3.23 3.22 3.23 3.33 3.23 3.23 3.23 3.23 3.23
+H9 m13 done 2026-10-28T17:04:05Z pi={'undervolt': 15, 'throttled': 'throttled=0xd0005', 'uptime': 2397.22} new dmesg undervoltage 11 rebooted=False
+exit 0

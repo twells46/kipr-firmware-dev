@@ -1,0 +1,34 @@
+RUN m4 2026-10-28T15:37:05Z idle throttled 0x80000
+m4 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 15152
+m4 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 29967
+m4 onsets 0, attributed to an event window 0, outside any window 0
+RUN p5 2026-10-28T15:39:52Z idle throttled 0x80000
+p5 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 14893
+p5 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 29517
+p5 onsets 0, attributed to an event window 0, outside any window 0
+RUN m6 2026-10-28T15:42:39Z idle throttled 0x80000
+m6 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 14680
+m6 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 29361
+m6 onsets 0, attributed to an event window 0, outside any window 0
+RUN p7 2026-10-28T15:45:27Z idle throttled 0x80008
+p7 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 14640
+p7 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 29378
+p7 onsets 0, attributed to an event window 0, outside any window 0
+RUN m8 2026-10-28T15:48:14Z idle throttled 0x80008
+m8 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 14531
+m8 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 29100
+m8 onsets 0, attributed to an event window 0, outside any window 0
+RUN p9 2026-10-28T15:51:01Z idle throttled 0x80008
+p9 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 14591
+p9 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 29186
+p9 onsets 0, attributed to an event window 0, outside any window 0
+RUN m10 2026-10-28T15:53:48Z idle throttled 0x80008
+m10 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 14618
+m10 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  new dmesg undervoltage 0  polls 29230
+m10 onsets 0, attributed to an event window 0, outside any window 0
+RUN p11 2026-10-28T15:56:35Z idle throttled 0x80008
+p11 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 14390
+p11 P=400: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 0/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 0  polls 28957
+p11 onsets 0, attributed to an event window 0, outside any window 0
+LOOP DONE
+loop exit 0

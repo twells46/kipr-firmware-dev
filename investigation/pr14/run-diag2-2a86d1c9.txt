@@ -1,0 +1,11 @@
+pr14_hw 2026-10-27T14:52:44Z tests: s1 s2 s6 s8 s10 reset=True enable=True
+start=74 version=0x0008 ALLSTOP=0xf0 diag=yes {'idr': 0, 'odr': 0, 'moder': 1, 'od': 1, 'alldis': 1, 'offs': 0, 'ons': 0, 'delay': 0, 'allstop': 240}
+S1 boot state: PASS  5 resets; bad: []
+S2 enable latency: FAIL  latency ms min/mean/max 0.43/0.59/1.08; bad: ['#0 released but IDR=0', '#2 released but IDR=0', '#3 released but IDR=0', '#4 released but IDR=0', '#5 released but IDR=0']
+S6 idle soak: PASS  0/20000 without 'J', 0 frames with power on, ons +0, offs +0
+S8 RMW of ALLSTOP across slips: FAIL  649 slips, 489 bad reads written back, 24922 frames with power on, ons +6
+S10 RMW toggles never cut power: PASS  638 slips, 473 bad reads, 539 write-backs with all four bits set, 0 frames with power off, offs +0
+pr14_hw 2026-10-27T14:54:02Z tests: s2 s12 reset=False enable=True
+start=74 version=0x0008 ALLSTOP=0xf0 diag=yes {'idr': 0, 'odr': 0, 'moder': 1, 'od': 1, 'alldis': 1, 'offs': 26, 'ons': 26, 'delay': 41247, 'allstop': 240}
+S2 enable latency: PASS  latency ms min/mean/max 0.22/0.53/0.65; bad: []
+S12 persistent disable_servo(0) across slips: FAIL  667 slips, 480 bad reads, 280 write-backs with all four bits set, 5 cuts seen, offs +5

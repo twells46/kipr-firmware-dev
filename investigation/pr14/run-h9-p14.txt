@@ -1,0 +1,29 @@
+H9 p14 cells=['A0', 'D50', 'D100', 'D150', 'D200', 'D300', 'AM'] reps=6 powers=[300, 350] stress=True diag=True start 2026-10-28T17:04:33Z pi={'undervolt': 15, 'throttled': 'throttled=0xd0000', 'uptime': 2425.4}
+  300 #6 AM: UNDERVOLTAGE at +[82] ms ['0xd0005']
+  300 #13 AM: UNDERVOLTAGE at +[114] ms ['0xd0005']
+  300 #14 AM: UNDERVOLTAGE at +[102] ms ['0xd0005']
+  300 #27 AM: UNDERVOLTAGE at +[43] ms ['0xd0005']
+  300 #30 AM: UNDERVOLTAGE at +[98] ms ['0xd0005']
+  300 #41 AM: UNDERVOLTAGE at +[133] ms ['0xd0005']
+P=300: A0 0/6  D50 0/6  D100 0/6  D150 0/6  D200 0/6  D300 0/6  AM 6/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 5  polls 15410
+  350 #0 AM: UNDERVOLTAGE at +[100] ms ['0xd0005']
+  350 #3 D100: UNDERVOLTAGE at +[198] ms ['0xd0005']
+  350 #4 D200: UNDERVOLTAGE at +[299] ms ['0xd0005']
+  350 #7 D200: UNDERVOLTAGE at +[304] ms ['0xd0005']
+  350 #10 D100: UNDERVOLTAGE at +[160] ms ['0xd0005']
+  350 #11 AM: UNDERVOLTAGE at +[97] ms ['0xd0005']
+  350 #13 D150: UNDERVOLTAGE at +[300] ms ['0xd0005']
+  350 #14 AM: UNDERVOLTAGE at +[94] ms ['0xd0005']
+  350 #16 D200: UNDERVOLTAGE at +[296] ms ['0xd0005']
+  350 #22 AM: UNDERVOLTAGE at +[117] ms ['0xd0005']
+  350 #24 D200: UNDERVOLTAGE at +[296] ms ['0xd0005']
+  350 #29 D200: UNDERVOLTAGE at +[209] ms ['0xd0005']
+  350 #30 AM: UNDERVOLTAGE at +[88] ms ['0xd0005']
+  350 #35 D200: UNDERVOLTAGE at +[213] ms ['0xd0005']
+  350 #38 D100: UNDERVOLTAGE at +[164] ms ['0xd0005']
+  350 #40 AM: UNDERVOLTAGE at +[50] ms ['0xd0005']
+P=350: A0 0/6  D50 0/6  D100 3/6  D150 1/6  D200 6/6  D300 0/6  AM 6/6  resets 0  lost-frame cycles 0  rail-not-cycled 0  new dmesg undervoltage 6  polls 32146
+onsets 22, attributed to an event window 22, outside any window 0
+bit 0 spans (s): 3.22 3.23 3.23 3.33 3.23 3.23 3.22 3.23 3.23 3.23 3.23 3.23 3.22 3.23 3.23 3.23 3.23 3.23 3.23 3.33 3.23 3.33
+H9 p14 done 2026-10-28T17:07:31Z pi={'undervolt': 26, 'throttled': 'throttled=0xd0008', 'uptime': 2603.18} new dmesg undervoltage 11 rebooted=False
+exit 0
